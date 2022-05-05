@@ -6,6 +6,8 @@ export default function Home() {
   // Declare a new state variable to store chore details
 
   // **** Need to add due date to database ****
+  const [loading, setLoading] = useState(true)
+  const [chores, setChores] = useState([])
   const [chore, setChore] = useState({
     name: '',
     notes: '',
@@ -14,7 +16,13 @@ export default function Home() {
   })
 
   const { name, notes } = chore
-
+  // Fetch all Chores
+  async function getChores() {
+    const { data } = await supabase.from('Chores').select() // Select all the tasks from the Task Table
+    console.log('this is data', data)
+    setChores(data)
+    setLoading(false)
+  }
   // Create a function that handles the new chore creation
   async function addChore() {
     const { error, data: chores } = await supabase
@@ -40,7 +48,33 @@ export default function Home() {
       console.log('chores:')
       console.log(chores)
     }
+    getChores()
   }
+  // Run the getTasks function when the component is mounted
+  useEffect(() => {
+    getChores()
+  }, [])
+  // Delete Chore
+  async function deleteChore(id) {
+    await supabase.from('Chores').delete().eq('id', id) // the id of row to delete
+    getChores()
+  }
+
+  // Check if loading
+  if (loading)
+    return (
+      <div className="flex items-center justify-center">
+        <div
+          className="
+    mt-36
+    h-32
+    w-32
+    animate-spin
+    rounded-full border-t-2 border-b-2 border-blue-500
+  "
+        ></div>
+      </div>
+    )
 
   return (
     <div className="flex flex-col items-center justify-center py-2">
@@ -133,38 +167,42 @@ export default function Home() {
                       S/N
                     </th>
                     <th className="border bg-blue-400 px-8 py-4 text-left">
-                      Name
+                      Chore
                     </th>
                     <th className="border bg-blue-400 px-8 py-4 text-left">
                       Notes
                     </th>
                     <th className="border bg-blue-400 px-14 py-4 text-left">
-                      Start Date
+                      Due Date
                     </th>
                     <th className="border bg-blue-400 px-16 py-4 text-left">
-                      End Date
+                      XP
                     </th>
 
                     <th className="border bg-blue-400 px-4 py-4 text-left">
                       Action
                     </th>
                   </tr>
-                  <tr>
-                    <td className="border px-4 py-4"></td>
-                    <td className="border px-4 py-4"></td>
-                    <td className="border px-8 py-4"></td>
-                    <td className="border px-8 py-4"></td>
-                    <td className="border px-8 py-4"></td>
-                    <td className="border px-8 py-4">
-                      {' '}
-                      <button
-                        className="focus:shadow-outline rounded bg-red-500 py-2 px-4 font-bold text-white hover:bg-red-700 focus:outline-none"
-                        type="button"
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
+                  {chore &&
+                    chores.map((chore, index) => (
+                      <tr key={chore.id}>
+                        <td className="border px-4 py-4">{index + 1}</td>
+                        <td className="border px-4 py-4">{chore.name}</td>
+                        <td className="border px-8 py-4">{chore.notes}</td>
+                        <td className="border px-8 py-4">{chore.dueDate}</td>
+                        <td className="border px-8 py-4">{chore.xp}</td>
+                        <td className="border px-8 py-4">
+                          {' '}
+                          <button
+                            className="focus:shadow-outline rounded bg-red-500 py-2 px-4 font-bold text-white hover:bg-red-700 focus:outline-none"
+                            type="button"
+                            onClick={() => deleteChore(chore.id)} // Delete the task
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>
