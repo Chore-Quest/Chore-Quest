@@ -18,15 +18,16 @@ export default function Home() {
   const { name, notes } = chore
   // Fetch all Chores
   async function getChores() {
-    const { data } = await supabase.from('Chores').select() // Select all the tasks from the Task Table
+    const { data } = await supabase.from('chores').select() // Select all the tasks from the Task Table
     console.log('this is data', data)
     setChores(data)
     setLoading(false)
   }
+
   // Create a function that handles the new chore creation
   async function addChore() {
     const { error, data: chores } = await supabase
-      .from('Chores') // Select the Table
+      .from('chores') // Select the Table
       .insert([
         {
           name,
@@ -56,7 +57,7 @@ export default function Home() {
   }, [])
   // Delete Chore
   async function deleteChore(id) {
-    await supabase.from('Chores').delete().eq('id', id) // the id of row to delete
+    await supabase.from('chores').delete().eq('id', id) // the id of row to delete
     getChores()
   }
 
@@ -184,7 +185,7 @@ export default function Home() {
                     </th>
                   </tr>
                   {chore &&
-                    chores.map((chore, index) => (
+                    chores?.map((chore, index) => (
                       <tr key={chore.id}>
                         <td className="border px-4 py-4">{index + 1}</td>
                         <td className="border px-4 py-4">{chore.name}</td>
