@@ -184,7 +184,7 @@ export default function Home() {
                     </th>
                   </tr>
                   {chore &&
-                    chores.map((chore, index) => (
+                    chores?.map((chore, index) => (
                       <tr key={chore.id}>
                         <td className="border px-4 py-4">{index + 1}</td>
                         <td className="border px-4 py-4">{chore.name}</td>
