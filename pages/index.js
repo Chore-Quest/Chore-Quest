@@ -1,13 +1,13 @@
 import Head from 'next/head'
 import { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { supabase } from '../client'
+import { fetchAllChores } from '../store/features/allchores'
 
 export default function Home() {
-  // Declare a new state variable to store chore details
-
   // **** Need to add due date to database ****
   const [loading, setLoading] = useState(true)
-  const [chores, setChores] = useState([])
+  // const [chores, setChores] = useState([])
   const [chore, setChore] = useState({
     name: '',
     notes: '',
@@ -15,14 +15,22 @@ export default function Home() {
     // isComplete: '',
   })
 
+  let { allChores } = useSelector((store) => store)
+  const dispatch = useDispatch()
+
+  //useEffect React hook
+  useEffect(() => {
+    dispatch(fetchAllChores())
+  }, [allChores])
+
   const { name, notes } = chore
   // Fetch all Chores
-  async function getChores() {
-    const { data } = await supabase.from('Chores').select() // Select all the tasks from the Task Table
-    console.log('this is data', data)
-    setChores(data)
-    setLoading(false)
-  }
+  // async function getChores() {
+  //   const { data } = await supabase.from('Chores').select() // Select all the tasks from the Task Table
+  //   console.log('this is data', data)
+  //   setChores(data)
+  //   setLoading(false)
+  // }
   // Create a function that handles the new chore creation
   async function addChore() {
     const { error, data: chores } = await supabase
@@ -48,16 +56,13 @@ export default function Home() {
       console.log('chores:')
       console.log(chores)
     }
-    getChores()
+    // getChores()
   }
-  // Run the getTasks function when the component is mounted
-  useEffect(() => {
-    getChores()
-  }, [])
+
   // Delete Chore
   async function deleteChore(id) {
     await supabase.from('Chores').delete().eq('id', id) // the id of row to delete
-    getChores()
+    // getChores()
   }
 
   // Check if loading
@@ -183,8 +188,8 @@ export default function Home() {
                       Action
                     </th>
                   </tr>
-                  {chore &&
-                    chores.map((chore, index) => (
+                  {allChores &&
+                    allChores.map((chore, index) => (
                       <tr key={chore.id}>
                         <td className="border px-4 py-4">{index + 1}</td>
                         <td className="border px-4 py-4">{chore.name}</td>

@@ -1,7 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
+import choresSlice from './features/allchores'
 
 const store = configureStore({
-  reducer: {},
+  reducer: {
+    allChores: choresSlice,
+  },
 })
 
 export default store
