@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { supabase } from '../client'
-import { fetchAllChores } from '../store/features/allchores'
+import { fetchAllChores } from '../store/features/allChores'
 
 export default function Home() {
   // **** Need to add due date to database ****

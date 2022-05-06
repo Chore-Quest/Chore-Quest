@@ -1,21 +1,13 @@
 import { createAction, createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { supabase } from '../../client'
 
-// const initialState = []
-
-// const fetchAllChores = createAction('FETCH_ALL_CHORES')
-
-// const allChoresReducer = createReducer([], (builder) => {
-//   builder.addCase(fetchAllChores, (state, action) => {
-//     return [action.payload]
-//   })
-// })
-
 // First, create the thunk
 export const fetchAllChores = createAsyncThunk(
-  'chores/fetchAllChores',
+  'fetchAllChores',
   async (id = 0, thunkAPI) => {
     const { data } = await supabase.from('chores').select()
+    console.log()
+    console.log(data)
     return data
   }
 )
@@ -28,10 +20,12 @@ const choresSlice = createSlice({
   },
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchAllChores.fulfilled, (state, action) => {
-      state.chores(action.payload)
-    })
+    builder
+      .addCase(fetchAllChores, (state, action) => {
+        state.chores(action.payload)
+      })
+      .addDefaultCase((state, action) => {})
   },
 })
 
-export default choresSlice
+export default choresSlice.reducer

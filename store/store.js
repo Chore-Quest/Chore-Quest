@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import choresSlice from './features/allchores'
+import choresReducer from './features/allChores'
 
 const store = configureStore({
   reducer: {
-    allChores: choresSlice,
+    allChores: choresReducer,
   },
 })
 
