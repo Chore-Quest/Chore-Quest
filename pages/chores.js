@@ -7,7 +7,9 @@ export default function Chores() {
   const [user, setUser] = useState(null)
 
   async function displayChores() {
-    const { data: chore } = await supabase.from('household_table').select('*')
+    const { data: chore } = await supabase
+      .from('household_table')
+      .select('users')
 
     const user = supabase.auth.user()
 
