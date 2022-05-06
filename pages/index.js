@@ -6,8 +6,7 @@ import { fetchAllChores } from '../store/features/allChores'
 
 export default function Home() {
   // **** Need to add due date to database ****
-  const [loading, setLoading] = useState(true)
-  // const [chores, setChores] = useState([])
+
   const [chore, setChore] = useState({
     name: '',
     notes: '',
@@ -16,12 +15,15 @@ export default function Home() {
   })
 
   let { allChores } = useSelector((store) => store)
+  let chores = allChores.entities
+  let loading = allChores.loading
+
   const dispatch = useDispatch()
 
   //useEffect React hook
   useEffect(() => {
     dispatch(fetchAllChores())
-  }, [allChores])
+  }, [])
 
   const { name, notes } = chore
   // Fetch all Chores
@@ -188,8 +190,8 @@ export default function Home() {
                       Action
                     </th>
                   </tr>
-                  {allChores &&
-                    allChores.map((chore, index) => (
+                  {chores &&
+                    chores.map((chore, index) => (
                       <tr key={chore.id}>
                         <td className="border px-4 py-4">{index + 1}</td>
                         <td className="border px-4 py-4">{chore.name}</td>
