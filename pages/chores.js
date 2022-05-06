@@ -7,9 +7,12 @@ export default function Chores() {
   const [user, setUser] = useState(null)
 
   async function displayChores() {
-    const { data: chore } = await supabase
-      .from('household_table')
-      .select('users')
+    const { data: chore } = await supabase.from('household_table').select(`
+      authUsers_id,
+      chores (
+        name
+      )
+      `)
 
     const user = supabase.auth.user()
 
@@ -27,8 +30,22 @@ export default function Chores() {
     <>
       <h1>Chores</h1>
       <ul>
-        {chores?.map((chore) => (
-          <li key={chore.id}>{chore.name}</li>
+        {chores.map((chore) => (
+          <>
+            {chore.authUsers_id === user?.id && (
+              <li key={chore.id}>
+                {chore.chores.name}
+                {/* <button
+                  onClick={() => {
+                    supabase.from('chores').delete().eq('id', chore.id)
+                    displayChores()
+                  }}
+                >
+                  Delete
+                </button> */}
+              </li>
+            )}
+          </>
         ))}
       </ul>
     </>
