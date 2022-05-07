@@ -1,3 +1,4 @@
+import { Nav } from './nav'
 import '../styles/globals.css'
 import { AppProps } from 'next/app'
 import Link from 'next/link'
@@ -22,20 +23,8 @@ function MyApp({ Component, pageProps } = AppProps) {
   }
 
   return (
-    <div>
-      <nav className="border-b border-gray-300 p-6">
-        <Link href="/">
-          <span className="mr-6 cursor-pointer">Home</span>
-        </Link>
-        {user && (
-          <Link href="/create-post">
-            <span className="mr-6 cursor-pointer">Create Post</span>
-          </Link>
-        )}
-        <Link href="/profile">
-          <span className="mr-6 cursor-pointer">Profile</span>
-        </Link>
-      </nav>
+    <div className="flex">
+      <Nav user={user} />
       <div className="py-8 px-16">
         <Component {...pageProps} />
       </div>
