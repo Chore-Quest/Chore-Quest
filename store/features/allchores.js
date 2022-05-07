@@ -1,28 +1,77 @@
 import { createAction, createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { supabase } from '../../client'
 
-// First, create the thunk
+const initialState = {
+  entities: [],
+  loading: false,
+}
+
+// *** THUNKS *** //
 export const fetchAllChores = createAsyncThunk(
-  'fetchAllChores',
-  async (id = 0, thunkAPI) => {
-    const { data } = await supabase.from('chores').select()
-    console.log()
-    console.log(data)
-    return data
+  //action type string
+  'chores/fetchAllChores',
+  //callback function
+  async (thunkAPI) => {
+    try {
+      const { data } = await supabase.from('chores').select()
+      return data
+    } catch (error) {
+      console.log(error)
+      return error
+    }
   }
 )
 
+export const addChore = createAsyncThunk(
+  'chores/addChore',
+  async (chore, thunkAPI) => {
+    try {
+      let { name, notes } = chore
+      //add the chore to the database
+      await supabase
+        .from('chores') // Select the Table
+        .insert([
+          {
+            name,
+            notes,
+            // xp,
+            // isComplete,
+          },
+        ])
+      //dispatch fetchALlChores to update the state from db
+      thunkAPI.dispatch(fetchAllChores())
+    } catch (error) {
+      console.log(error)
+      return error
+    }
+  }
+)
+
+export const deleteChore = createAsyncThunk(
+  'chores/deleteChore',
+  async (choreId, thunkAPI) => {
+    try {
+      //delete the chore
+      await supabase.from('chores').delete().eq('id', choreId)
+      //dispatch fetchALlChores to update the state from db
+      thunkAPI.dispatch(fetchAllChores())
+    } catch (error) {
+      console.log(error)
+      return error
+    }
+  }
+)
+
+// ***Slice Creator*** //
 const choresSlice = createSlice({
   name: 'allChores',
-  initialState: {
-    loading: 'idle',
-    chores: [],
-  },
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAllChores, (state, action) => {
-        state.chores(action.payload)
+      .addCase(fetchAllChores.fulfilled, (state, action) => {
+        state.loading = false
+        state.entities = action.payload
       })
       .addDefaultCase((state, action) => {})
   },
