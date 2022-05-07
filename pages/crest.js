@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 const SvgComponent = (props) => (
-  <span className="cursor-pointer hover:drop-shadow-sm">
+  <span className="my-auto cursor-pointer  ">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       // width={1706.667}

@@ -4,7 +4,7 @@ import CrestSvg from './crest'
 
 export function Nav({ user }) {
   return (
-    <nav className="w-15 justify-content-center flex h-screen flex-col items-center rounded-br-3xl border border-gray-700 p-4">
+    <nav className="md:justify-content-center fixed left-0 right-0 bottom-0 flex flex-row bg-black md:right-auto md:flex md:h-screen md:flex-col md:items-center md:border md:border-gray-700 md:p-4">
       {/* <svg
         xmlns="http://www.w3.org/2000/svg"
         className="h-6 w-6 hover:border-gray-500 hover:text-gray-500"
@@ -20,11 +20,10 @@ export function Nav({ user }) {
         />
       </svg> */}
       <CrestSvg />
-      <div className="text-3xl font-black transition duration-200 hover:text-red-900 hover:ease-in">
+      <div className="hidden text-3xl font-black transition duration-200 hover:text-red-900 hover:ease-in md:block">
         <h1>Chore</h1>
         <h1>Quest</h1>
       </div>
-
       <Link href="/">
         <span className=" mx-auto my-5 cursor-pointer rounded-md border p-5 hover:border-gray-500 hover:text-gray-500">
           <svg

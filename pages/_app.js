@@ -24,7 +24,7 @@ function MyApp({ Component, pageProps } = AppProps) {
   }
 
   return (
-    <div className="flex bg-black text-white ">
+    <div className="flex overflow-auto bg-black text-white ">
       <Nav user={user} />
       <div className="py-8 px-16">
         <Component {...pageProps} />
