@@ -3,10 +3,26 @@ import Link from 'next/link'
 
 export function Nav({ user }) {
   return (
-    <nav className="w-15 flex h-screen flex-col items-center border border-gray-300 p-5">
-      <h1>ChoreQuest</h1>
+    <nav className="w-15 justify-content-center flex h-screen flex-col items-center border border-gray-300 p-5">
+      <div className=""></div>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth={2}
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M13 5l7 7-7 7M5 5l7 7-7 7"
+        />
+      </svg>
+      <h1 className=" text-3xl font-black">Chore</h1>
+      <h1 className=" text-3xl font-black">Quest</h1>
       <Link href="/">
-        <span className="my-4 mr-6 cursor-pointer border">
+        <span className=" mx-auto my-5 cursor-pointer rounded-md border p-5">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-12 w-12"
@@ -25,7 +41,7 @@ export function Nav({ user }) {
       </Link>
       {user && (
         <Link href="/create-post">
-          <span className="my-4 mr-6 cursor-pointer border">
+          <span className="mx-auto my-5 cursor-pointer rounded-md border p-5">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-12 w-12"
@@ -44,7 +60,7 @@ export function Nav({ user }) {
         </Link>
       )}
       <Link href="/profile">
-        <span className="my-4 mr-6 cursor-pointer border">
+        <span className="mx-auto my-5 cursor-pointer rounded-md border p-5">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-12 w-12"
