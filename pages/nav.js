@@ -3,11 +3,10 @@ import Link from 'next/link'
 
 export function Nav({ user }) {
   return (
-    <nav className="w-15 justify-content-center flex h-screen flex-col items-center border border-gray-300 p-5">
-      <div className=""></div>
+    <nav className="w-15 justify-content-center flex h-screen flex-col items-center rounded-br-3xl border border-gray-700 p-5">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-6 w-6"
+        className="h-6 w-6 hover:border-gray-500 hover:text-gray-500"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -19,10 +18,13 @@ export function Nav({ user }) {
           d="M13 5l7 7-7 7M5 5l7 7-7 7"
         />
       </svg>
-      <h1 className=" text-3xl font-black">Chore</h1>
-      <h1 className=" text-3xl font-black">Quest</h1>
+      <div className="text-3xl font-black transition duration-200 hover:text-red-900 hover:ease-in">
+        <h1>Chore</h1>
+        <h1>Quest</h1>
+      </div>
+
       <Link href="/">
-        <span className=" mx-auto my-5 cursor-pointer rounded-md border p-5">
+        <span className=" mx-auto my-5 cursor-pointer rounded-md border p-5 hover:border-gray-500 hover:text-gray-500 ">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-12 w-12"
@@ -40,27 +42,47 @@ export function Nav({ user }) {
         </span>
       </Link>
       {user && (
-        <Link href="/create-post">
-          <span className="mx-auto my-5 cursor-pointer rounded-md border p-5">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-12 w-12"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 4v16m8-8H4"
-              />
-            </svg>
-          </span>
-        </Link>
+        <>
+          <Link href="/create-post">
+            <span className="mx-auto my-5 cursor-pointer rounded-md border p-5 hover:border-gray-500 hover:text-gray-500">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-12 w-12"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 4v16m8-8H4"
+                />
+              </svg>
+            </span>
+          </Link>
+          <Link href="/clan">
+            <span className="mx-auto my-5 cursor-pointer rounded-md border p-5 hover:border-gray-500 hover:text-gray-500">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-12 w-12"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                />
+              </svg>
+            </span>
+          </Link>
+        </>
       )}
       <Link href="/profile">
-        <span className="mx-auto my-5 cursor-pointer rounded-md border p-5">
+        <span className="mx-auto my-5 cursor-pointer rounded-md border p-5 hover:border-gray-500 hover:text-gray-500">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-12 w-12"

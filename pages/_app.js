@@ -4,6 +4,7 @@ import { AppProps } from 'next/app'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { supabase } from '../client'
+import SvgComponent from './randomSvg'
 
 function MyApp({ Component, pageProps } = AppProps) {
   const [user, setUser] = useState(null)
@@ -23,7 +24,7 @@ function MyApp({ Component, pageProps } = AppProps) {
   }
 
   return (
-    <div className="flex">
+    <div className="flex bg-black text-white ">
       <Nav user={user} />
       <div className="py-8 px-16">
         <Component {...pageProps} />
