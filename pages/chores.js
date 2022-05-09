@@ -1,5 +1,4 @@
 import { supabase } from '../client'
-
 import { useState, useEffect } from 'react'
 
 export default function Chores() {
@@ -15,6 +14,7 @@ export default function Chores() {
       `)
 
     const user = supabase.auth.user()
+    console.log(user)
 
     setChores(chore)
     setUser(user)
@@ -24,18 +24,17 @@ export default function Chores() {
     displayChores()
   }, [])
 
-  console.log('chores:', chores)
-  console.log('user:', user)
   return (
     <>
       <h1>Chores</h1>
       <ul>
-        {chores.map((chore) => (
-          <>
-            {chore.authUsers_id === user?.id && (
-              <li key={chore.id}>
-                {chore.chores.name}
-                {/* <button
+        {chores &&
+          chores.map((chore) => (
+            <>
+              {chore.authUsers_id === user?.id && (
+                <li key={chore.id}>
+                  {chore.chores.name}
+                  {/* <button
                   onClick={() => {
                     supabase.from('chores').delete().eq('id', chore.id)
                     displayChores()
@@ -43,10 +42,10 @@ export default function Chores() {
                 >
                   Delete
                 </button> */}
-              </li>
-            )}
-          </>
-        ))}
+                </li>
+              )}
+            </>
+          ))}
       </ul>
     </>
   )
