@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { supabase } from '../client'
 import SvgComponent from './randomSvg'
+import store from '../store/store'
+import { Provider } from 'react-redux'
 
 function MyApp({ Component, pageProps } = AppProps) {
   const [user, setUser] = useState(null)
@@ -24,13 +26,14 @@ function MyApp({ Component, pageProps } = AppProps) {
   }
 
   return (
-    <div className="flex overflow-auto bg-black text-white ">
-      <Nav user={user} />
-      <div className="py-8 px-16">
-        <Component {...pageProps} />
+    <Provider store={store}>
+      <div className="flex overflow-auto bg-black text-white ">
+        <Nav user={user} />
+        <div className="py-8 px-16">
+          <Component {...pageProps} />
+        </div>
       </div>
-    </div>
+    </Provider>
   )
 }
-
 export default MyApp

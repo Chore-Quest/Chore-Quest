@@ -1,67 +1,47 @@
 import Head from 'next/head'
 import { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { supabase } from '../client'
+import {
+  fetchAllChores,
+  addChore,
+  deleteChore,
+} from '../store/features/allChores'
 
 export default function Home() {
-  // Declare a new state variable to store chore details
-
   // **** Need to add due date to database ****
-  const [loading, setLoading] = useState(true)
-  const [chores, setChores] = useState([])
+
+  //local state for controlled chore input form
   const [chore, setChore] = useState({
     name: '',
     notes: '',
     // xp: '',
     // isComplete: '',
   })
-
   const { name, notes } = chore
-  // Fetch all Chores
-  async function getChores() {
-    const { data } = await supabase.from('chores').select() // Select all the tasks from the Task Table
-    console.log('this is data', data)
-    setChores(data)
-    setLoading(false)
-  }
 
-  // Create a function that handles the new chore creation
-  async function addChore() {
-    const { error, data: chores } = await supabase
-      .from('chores') // Select the Table
-      .insert([
-        {
-          name,
-          notes,
-          // xp,
-          // isComplete,
-        },
-      ]) // Insert the new chore
-      .single()
+  //gets the list of chores and loading state from the redux store
+  let { allChores } = useSelector((store) => store)
+  let [chores, loading] = [allChores.entities, allChores.loading]
+  const dispatch = useDispatch()
+  //fetchAllChores gets chores in the database
+  useEffect(() => {
+    dispatch(fetchAllChores())
+  }, [])
+
+  // Dispatches new chores to the store
+  function dispatchChore() {
+    dispatch(addChore(chore))
+    // Reset the chore details & clears the form data
     setChore({
       name: '',
       notes: '',
       // xp: '',
       // isComplete: '',
-    }) // Reset the chore details
-    if (error) {
-      console.log('error.message:')
-      console.log(error.message)
-      console.log('chores:')
-      console.log(chores)
-    }
-    getChores()
-  }
-  // Run the getTasks function when the component is mounted
-  useEffect(() => {
-    getChores()
-  }, [])
-  // Delete Chore
-  async function deleteChore(id) {
-    await supabase.from('chores').delete().eq('id', id) // the id of row to delete
-    getChores()
+    })
   }
 
-  // Check if loading
+  // Display the spinner if loading
   if (loading)
     return (
       <div className="flex items-center justify-center">
@@ -152,7 +132,7 @@ export default function Home() {
                     <button
                       className="focus:shadow-outline rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 focus:outline-none"
                       type="button"
-                      onClick={addChore} // Call the addChore Function
+                      onClick={dispatchChore} // Call the addChore Function
                     >
                       Add Chore
                     </button>
@@ -184,26 +164,30 @@ export default function Home() {
                       Action
                     </th>
                   </tr>
-                  {chore &&
-                    chores?.map((chore, index) => (
-                      <tr key={chore.id}>
-                        <td className="border px-4 py-4">{index + 1}</td>
-                        <td className="border px-4 py-4">{chore.name}</td>
-                        <td className="border px-8 py-4">{chore.notes}</td>
-                        <td className="border px-8 py-4">{chore.dueDate}</td>
-                        <td className="border px-8 py-4">{chore.xp}</td>
-                        <td className="border px-8 py-4">
-                          {' '}
-                          <button
-                            className="focus:shadow-outline rounded bg-red-500 py-2 px-4 font-bold text-white hover:bg-red-700 focus:outline-none"
-                            type="button"
-                            onClick={() => deleteChore(chore.id)} // Delete the task
-                          >
-                            Delete
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
+                  {
+                    //if there are chores, map through and display them
+                    chores &&
+                      chores.map((chore, index) => (
+                        <tr key={chore.id}>
+                          <td className="border px-4 py-4">{index + 1}</td>
+                          <td className="border px-4 py-4">{chore.name}</td>
+                          <td className="border px-8 py-4">{chore.notes}</td>
+                          <td className="border px-8 py-4">{chore.dueDate}</td>
+                          <td className="border px-8 py-4">{chore.xp}</td>
+                          <td className="border px-8 py-4">
+                            {' '}
+                            <button
+                              className="focus:shadow-outline rounded bg-red-500 py-2 px-4 font-bold text-white hover:bg-red-700 focus:outline-none"
+                              type="button"
+                              // Deletes the chore
+                              onClick={() => dispatch(deleteChore(chore.id))}
+                            >
+                              Delete
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                  }
                 </tbody>
               </table>
             </div>
