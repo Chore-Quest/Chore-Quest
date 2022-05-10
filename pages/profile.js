@@ -1,6 +1,8 @@
 import { supabase } from '../client'
+import { useState } from 'react'
 
 export default function Profile({ session }) {
+  const [username, setUsername] = useState('')
   async function getProfile() {
     try {
       const user = supabase.auth.user()
@@ -21,10 +23,43 @@ export default function Profile({ session }) {
       alert(error.message)
     }
   }
+  async function updateProfile() {
+    try {
+      const user = supabase.auth.user()
+      const updates = {
+        id: user.id,
+        username,
+        updated_at: new Date(),
+      }
+
+      let { error } = await supabase.from('profiles').upsert(updates)
+      if (error) {
+        throw error
+      }
+    } catch (error) {
+      alert(error.message)
+    }
+  }
 
   return (
     <div className="container mx-auto grid min-h-screen place-content-center">
       <p>Oh hi there {session.user.email}</p>
+      <input
+        className="my-4 w-full rounded-xl border-2 border-gray-500 p-4"
+        type="username"
+        placeholder="Enter a username"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
+      <button
+        onClick={(e) => {
+          e.preventDefault()
+          updateProfile()
+        }}
+        className="mt-4 w-full rounded-lg border-blue-300 bg-blue-500 p-2 pl-5 pr-5 text-lg text-gray-100 focus:border-4"
+      >
+        <span>Update profile</span>
+      </button>
       {console.log(session, 'this is session')}
       <button
         className="mt-4 rounded-lg border-blue-300 bg-blue-500 p-2 pl-5 pr-5 text-lg text-gray-100 focus:border-4"
