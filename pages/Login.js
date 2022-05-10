@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { supabase } from '../client'
-
+import SignIn from './signInPage'
+import SignUp from './signUpPage'
 export default function Login() {
   const [email, setEmail] = useState('')
 
@@ -16,6 +17,8 @@ export default function Login() {
 
   return (
     <div className="container mx-auto grid min-h-screen place-content-center">
+      <SignIn />
+      <SignUp />
       <p className="mb-4">Sign in via magic link with your email below</p>
       <input
         className="mb-4 w-full rounded-xl border-2 border-gray-500 p-4"
