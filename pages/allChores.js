@@ -5,8 +5,8 @@ import { supabase } from '../client'
 import Login from './Login'
 import Profile from './Profile'
 
-export default function Home() {
-  const [session, setSession] = useState(null)
+export default function AllChores() {
+  // **** Need to add due date to database ****
 
   useEffect(() => {
     setSession(supabase.auth.session())
