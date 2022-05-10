@@ -28,13 +28,12 @@ export default function Chores() {
     <>
       <h1>Chores</h1>
       <ul>
-        {chores &&
-          chores.map((chore) => (
-            <>
-              {chore.authUsers_id === user?.id && (
-                <li key={chore.id}>
-                  {chore.chores.name}
-                  {/* <button
+        {chores?.map((chore) => (
+          <>
+            {chore.authUsers_id === user?.id && (
+              <li key={chore.id}>
+                {chore.chores.name}
+                {/* <button
                   onClick={() => {
                     supabase.from('chores').delete().eq('id', chore.id)
                     displayChores()
