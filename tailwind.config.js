@@ -5,6 +5,20 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    container: {
+      center: true,
+    },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/typography'), require('daisyui')],
+  // daisyUI config
+  daisyui: {
+    styled: true,
+    themes: ['luxury', 'light', 'dark', 'bumblebee'],
+    base: true,
+    utils: true,
+    logs: true,
+    rtl: false,
+    prefix: '',
+    darkTheme: 'dark',
+  },
 }
