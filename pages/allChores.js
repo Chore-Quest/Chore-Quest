@@ -8,7 +8,7 @@ import {
   deleteChore,
 } from '../store/features/allChores'
 
-export default function Home() {
+export default function AllChores() {
   // **** Need to add due date to database ****
 
   //local state for controlled chore input form
