@@ -1,12 +1,13 @@
-import { Nav } from './nav'
 import '../styles/globals.css'
 import { AppProps } from 'next/app'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { supabase } from '../client'
-import SvgComponent from './randomSvg'
-import store from '../store/store'
+// import SvgComponent from './randomSvg'
 import { Provider } from 'react-redux'
+import store from '../store/store'
+import Nav from './nav'
+import BottomMenu from './bottomMenu'
 
 function MyApp({ Component, pageProps } = AppProps) {
   const [user, setUser] = useState(null)
@@ -27,11 +28,12 @@ function MyApp({ Component, pageProps } = AppProps) {
 
   return (
     <Provider store={store}>
-      <div className="flex overflow-auto bg-black text-white ">
+      <div className="container w-full">
         <Nav user={user} />
         <div className="py-8 px-16">
           <Component {...pageProps} />
         </div>
+        <BottomMenu />
       </div>
     </Provider>
   )
