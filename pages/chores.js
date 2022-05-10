@@ -30,7 +30,7 @@ export default function Chores() {
     <>
       <h1>Chores</h1>
       <ul>
-        {chores.map((chore) => (
+        {chores?.map((chore) => (
           <>
             {chore.authUsers_id === user?.id && (
               <li key={chore.id}>
