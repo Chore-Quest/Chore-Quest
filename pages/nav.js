@@ -31,14 +31,14 @@ export default function Nav({ user }) {
           )}
         </div>
       </div>
-      <div class="navbar-center">
+      <div className="navbar-center">
         <div className="flex-1">
           <Link href="/" className="btn btn-ghost text-xl normal-case">
             Chore Quest
           </Link>
         </div>
       </div>
-      <div class="navbar-end">
+      <div className="navbar-end">
         <div className="flex-none gap-2">
           <div className="dropdown-end dropdown">
             <label tabIndex="0" className="avatar btn btn-ghost btn-circle">

@@ -3,12 +3,12 @@ import Link from 'next/link'
 
 export default function BottomMenu() {
   return (
-    <ul class="menu menu-horizontal fixed bottom-0 w-full justify-between rounded-t-lg bg-base-300 px-6">
+    <ul className="menu menu-horizontal fixed bottom-0 w-full justify-between rounded-t-lg bg-base-300 px-6">
       <li>
         <a>
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5"
+            className="h-5 w-5"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -26,7 +26,7 @@ export default function BottomMenu() {
         <a>
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5"
+            className="h-5 w-5"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -44,7 +44,7 @@ export default function BottomMenu() {
         <a>
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5"
+            className="h-5 w-5"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
