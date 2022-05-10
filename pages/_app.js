@@ -28,7 +28,7 @@ function MyApp({ Component, pageProps } = AppProps) {
 
   return (
     <Provider store={store}>
-      <div className="container w-full">
+      <div className="bg-base container w-full">
         <Nav user={user} />
         <div className="py-8 px-16">
           <Component {...pageProps} />

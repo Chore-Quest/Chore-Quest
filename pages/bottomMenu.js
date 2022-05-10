@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export default function BottomMenu() {
   return (
-    <ul class="menu menu-horizontal sticky bottom-0 w-full rounded-t-lg bg-base-100">
+    <ul class="menu menu-horizontal fixed bottom-0 w-full justify-between rounded-t-lg bg-base-300 px-6">
       <li>
         <a>
           <svg
