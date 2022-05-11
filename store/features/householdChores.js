@@ -3,6 +3,7 @@ import { supabase } from '../../client'
 
 const initialState = {
   entities: [],
+  filtered: [],
   loading: false,
 }
 
@@ -16,20 +17,23 @@ export const fetchAllChores = createAsyncThunk(
   async () => {
     const user = supabase.auth.user()
     try {
-      let { data: houseHoldId } = await supabase
+      //get the householdID
+      let { data } = await supabase
         .from('profiles')
         .select(`household_id`)
         .eq('id', user.id)
-        .single()
-
-      let { data: chores } = await supabase
-        .from('responsibility')
-        .select(
-          `chore_id, chores (
-          *
-        ) `
-        )
-        .eq('household_id', houseHoldId.household_id)
+      const householdId = data.household_id
+      let { data: chores, error } = await supabase
+        .from('chores')
+        .select('*')
+        .eq('household_id', householdId)
+      console.log('***************')
+      console.log('Chores from fetchAllChores Thunk:')
+      console.log(chores)
+      console.log(
+        'createChore Thunk Says: "Returning Chores to Slice Creator..."'
+      )
+      console.log('***************')
       return chores
     } catch (error) {
       console.log(error)
