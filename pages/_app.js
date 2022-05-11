@@ -7,8 +7,8 @@ import { supabase } from '../client'
 // import SvgComponent from './randomSvg'
 import { Provider } from 'react-redux'
 import store from '../store/store'
-import Nav from './nav'
-import BottomMenu from './bottomMenu'
+import Nav from './components/nav'
+import BottomMenu from './components/bottomMenu'
 
 function MyApp({ Component, pageProps } = AppProps) {
   const [user, setUser] = useState(null)
