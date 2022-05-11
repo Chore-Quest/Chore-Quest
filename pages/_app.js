@@ -1,5 +1,6 @@
 import '../styles/globals.css'
 import { AppProps } from 'next/app'
+import Head from 'next/head'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { supabase } from '../client'
@@ -28,6 +29,10 @@ function MyApp({ Component, pageProps } = AppProps) {
 
   return (
     <Provider store={store}>
+      <Head>
+        <title>Chore Quest</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <div className="bg-base container w-full">
         <Nav user={user} />
         <div className="py-8 px-16">
