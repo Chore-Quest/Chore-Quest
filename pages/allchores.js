@@ -148,7 +148,7 @@ export default function AllDBChores() {
               <td className="border px-4 py-4"></td>
               <td className="border px-4 py-4">
                 <button
-                  className="focus:shadow-outline hover:bg-blue bg-blue rounded py-2 px-4 font-bold text-white focus:outline-none"
+                  className="btn btn-warning"
                   type="button"
                   // Deletes the chore
                   onClick={() => dispatch(deleteChore(chore.id))}
