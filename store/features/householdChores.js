@@ -61,7 +61,9 @@ export const createChore = createAsyncThunk(
       console.log('***************')
       console.log('Server Response from createChore Thunk:')
       console.log(res)
-      console.log('createChore Thunk Says: "Fetching All Household Chores"')
+      console.log(
+        'createChore Thunk Says: "Dispatching Fetch All Household Chores..."'
+      )
       console.log('***************')
       //dispatch fetchALlChores to update the state from db
       thunkAPI.dispatch(fetchAllChores())
@@ -77,7 +79,14 @@ export const deleteChore = createAsyncThunk(
   async (choreId, thunkAPI) => {
     try {
       //delete the chore
-      await supabase.from('chores').delete().eq('id', choreId)
+      const res = await supabase.from('chores').delete().eq('id', choreId)
+      console.log('***************')
+      console.log('Server Response from deleteChore Thunk:')
+      console.log(res)
+      console.log(
+        'deleteChore Thunk Says: "Dispatching Fetch All Household Chores..."'
+      )
+      console.log('***************')
       //dispatch fetchALlChores to update the state from db
       thunkAPI.dispatch(fetchAllChores())
     } catch (error) {
