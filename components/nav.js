@@ -12,7 +12,6 @@ export default function Nav({ user }) {
         <div className="flex-1">
           {router.pathname !== '/' && (
             <button onClick={() => router.back()}>
-              {' '}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"

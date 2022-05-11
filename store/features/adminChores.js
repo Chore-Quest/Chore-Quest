@@ -7,6 +7,8 @@ const initialState = {
 }
 
 // *** THUNKS *** //
+
+//ADMIN FETCH ALL CHORES FOR HOUSEHOLD
 export const fetchAllChores = createAsyncThunk(
   //action type string
   'chores/fetchAllChores',
