@@ -1,7 +1,7 @@
 import { Auth, Typography, Button } from '@supabase/ui'
 const { Text } = Typography
 import { supabase } from '../client'
-import Chores from './chores'
+import Chores from '../pages/chores'
 import UserProfileCard from './userProfileCard'
 
 function Profile(props) {

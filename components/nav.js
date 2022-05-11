@@ -40,7 +40,7 @@ export default function Nav({ user }) {
       </div>
       <div className="navbar-end">
         <div className="flex-none gap-2">
-          <div className="dropdown-end dropdown">
+          <div className="dropdown dropdown-end">
             <label tabIndex="0" className="avatar btn btn-ghost btn-circle">
               <div className="w-10 rounded-full">
                 <img src="https://api.lorem.space/image/face?hash=33791" />
@@ -54,6 +54,9 @@ export default function Nav({ user }) {
                 <Link href="/profile" className="justify-between">
                   Profile
                 </Link>
+              </li>
+              <li>
+                <Link href="/allchores">All Chores</Link>
               </li>
               <li>
                 <Link href="/clan">Clan</Link>
