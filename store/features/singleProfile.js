@@ -44,6 +44,24 @@ export const updateSingleProfile = createAsyncThunk(
   }
 )
 
+// update xp of single profile
+export const updateSingleProfileXP = createAsyncThunk(
+  'profiles/updateSingleProfileXP',
+  async (xp, thunkAPI) => {
+    const user = supabase.auth.user()
+    try {
+      await supabase.from('profiles').eq('id', user.id).update({ xp }) //update the xp
+      thunkAPI.dispatch(fetchSingleProfile()) //fetch the profile again
+      console.log('*******************')
+      console.log(xp, 'from update single profile xp thunk')
+      console.log('*******************')
+    } catch (error) {
+      console.log(error)
+      return error
+    }
+  }
+)
+
 // *** SLICES *** //
 const profilesSlice = createSlice({
   name: 'profiles',
@@ -52,6 +70,14 @@ const profilesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchSingleProfile.fulfilled, (state, action) => {
+        state.profile = action.payload
+        state.loading = false
+      })
+      .addCase(updateSingleProfile.fulfilled, (state, action) => {
+        state.profile = action.payload
+        state.loading = false
+      })
+      .addCase(updateSingleProfileXP.fulfilled, (state, action) => {
         state.profile = action.payload
         state.loading = false
       })
