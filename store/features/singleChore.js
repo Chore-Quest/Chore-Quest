@@ -82,7 +82,7 @@ export const fetchSingleUserChores = createAsyncThunk(
 
 // ***Slice Creator*** //
 const singleUserChoresSlice = createSlice({
-  name: 'singleUserChores',
+  name: 'singleChore',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -95,4 +95,4 @@ const singleUserChoresSlice = createSlice({
   },
 })
 
-export default singleUserChoresSlice.reducer
+export default singleChoreSlice.reducer
