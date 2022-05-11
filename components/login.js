@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { supabase } from '../client'
-import SignIn from './signInPage'
-import SignUp from './signUpPage'
+import SignIn from '../pages/signInPage'
+import SignUp from '../pages/signUpPage'
 export default function Login() {
   const [email, setEmail] = useState('')
 

@@ -5,7 +5,7 @@ import {
   fetchAllChores,
   addChore,
   deleteChore,
-} from '../store/features/allChores'
+} from '../store/features/adminChores'
 
 export default function AllDBChores() {
   // **** Need to add due date to database ****
@@ -61,14 +61,14 @@ export default function AllDBChores() {
     <>
       <div className="columns-1 flex-col">
         <div
-          tabindex="0"
-          class="collapse-arrow collapse rounded-box border border-base-300 bg-base-100"
+          tabIndex="0"
+          className="collapse-arrow collapse rounded-box border border-base-300 bg-base-100"
         >
-          <div class="collapse-title text-xl font-medium">
+          <div className="collapse-title text-xl font-medium">
             Focus me to see content
           </div>
-          <div class="collapse-content">
-            <p>tabindex="0" attribute is necessary to make the div focusable</p>
+          <div className="collapse-content">
+            <p>tabIndex="0" attribute is necessary to make the div focusable</p>
           </div>
         </div>
 

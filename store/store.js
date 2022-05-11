@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import choresReducer from './features/allChores'
+import choresReducer from './features/adminChores'
 
 const store = configureStore({
   reducer: {
