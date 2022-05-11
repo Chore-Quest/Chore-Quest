@@ -115,6 +115,15 @@ export default function AllDBChores() {
           </div>
         </form>
       </div>
+      <td className="border px-4 py-4"></td>
+      <td className="border px-4 py-4">Chore</td>
+      <td className="border px-4 py-4">Notes</td>
+      <td className="border px-4 py-4">Due Date</td>
+      <td className="border px-4 py-4">XP</td>
+      <td className="border px-4 py-4">Delete</td>
+      <td className="border px-4 py-4">Assigned to</td>
+      <td className="border px-4 py-4">Edit Chore</td>
+
       {
         //if there are chores, map through and display them
         chores &&
@@ -127,7 +136,6 @@ export default function AllDBChores() {
               <td className="border px-8 py-4">{chore.chores.dueDate}</td>
               <td className="border px-8 py-4">{chore.chores.xp}</td>
               <td className="border px-8 py-4">
-                {' '}
                 <button
                   className="focus:shadow-outline rounded bg-red-500 py-2 px-4 font-bold text-white hover:bg-red-700 focus:outline-none"
                   type="button"
@@ -135,6 +143,17 @@ export default function AllDBChores() {
                   onClick={() => dispatch(deleteChore(chore.id))}
                 >
                   Delete
+                </button>
+              </td>
+              <td className="border px-4 py-4"></td>
+              <td className="border px-4 py-4">
+                <button
+                  className="focus:shadow-outline hover:bg-blue bg-blue rounded py-2 px-4 font-bold text-white focus:outline-none"
+                  type="button"
+                  // Deletes the chore
+                  onClick={() => dispatch(deleteChore(chore.id))}
+                >
+                  Edit
                 </button>
               </td>
             </tr>
