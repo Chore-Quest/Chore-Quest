@@ -12,9 +12,24 @@ export const fetchAllChores = createAsyncThunk(
   'chores/fetchAllChores',
   //callback function
   async (thunkAPI) => {
+    const user = supabase.auth.user()
     try {
-      const { data } = await supabase.from('chores').select()
-      return data
+      let { data: houseHoldId } = await supabase
+        .from('profiles')
+        .select(`household_id`)
+        .eq('id', user.id)
+        .single()
+
+      let { data: chores } = await supabase
+        .from('responsibility')
+        .select(
+          `chore_id, chores (
+          *
+        ) `
+        )
+        .eq('household_id', houseHoldId.household_id)
+
+      return chores
     } catch (error) {
       console.log(error)
       return error

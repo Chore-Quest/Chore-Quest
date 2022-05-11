@@ -3,6 +3,8 @@ import { useState } from 'react'
 
 export default function Profile({ session }) {
   const [username, setUsername] = useState('')
+  const [avatar_url, setAvatar_url] = useState('')
+  const [isAdmin, setIsAdmin] = useState(false)
   async function getProfile() {
     try {
       const user = supabase.auth.user()
@@ -29,6 +31,10 @@ export default function Profile({ session }) {
       const updates = {
         id: user.id,
         username,
+        // adding ability to update avatar
+        avatar_url,
+        // adding ability to update admin status
+        isAdmin,
         updated_at: new Date(),
       }
 
@@ -50,6 +56,19 @@ export default function Profile({ session }) {
         placeholder="Enter a username"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
+      />
+      <input
+        className="my-4 w-full rounded-xl border-2 border-gray-500 p-4"
+        type="avatar_url"
+        placeholder="add an avatar"
+        value={avatar_url}
+        onChange={(e) => setAvatar_url(e.target.value)}
+      />
+      <h2>Will you be an Admin?</h2>
+      <input
+        type="checkbox"
+        className="toggle toggle-accent toggle-lg"
+        onChange={(e) => setIsAdmin(!isAdmin)}
       />
       <button
         onClick={(e) => {
