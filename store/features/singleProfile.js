@@ -15,7 +15,11 @@ export const fetchSingleProfile = createAsyncThunk(
     try {
       let { data: profile } = await supabase
         .from('profiles')
-        .select('*')
+        .select(
+          `*, chores (
+          *
+        ) `
+        )
         .eq('id', user.id)
         .single()
       console.log('*******************')
