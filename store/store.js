@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import choresReducer from './features/adminChores'
 import singleChoresReducer from './features/chores'
 import singleProfileReducer from './features/singleProfile'
-import singleHouseholdReducer from './features/singleHousehold'
+import singleHouseholdReducer from './features/houseProfiles'
 
 const store = configureStore({
   reducer: {
