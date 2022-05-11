@@ -2,8 +2,8 @@ import Head from 'next/head'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { supabase } from '../client'
-import Login from '../components/login'
-import Profile from '../components/profile'
+import Login from './components/login'
+import Profile from './components/profile'
 
 export default function Home() {
   // **** Need to add due date to database ****
