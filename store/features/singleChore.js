@@ -2,16 +2,16 @@ import { createAction, createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { supabase } from '../../client'
 
 const initialState = {
-  entities: [],
+  chore: {},
   loading: false,
 }
 
 // *** THUNKS *** //
 
 //Fetches all chores associated to that user only
-export const fetchSingleUserChores = createAsyncThunk(
+export const fetchSingleChore = createAsyncThunk(
   //action type string
-  'chores/fetchAllChores',
+  'chores/fetchSingleChore',
   //callback function
   async (thunkAPI) => {
     const user = supabase.auth.user()
