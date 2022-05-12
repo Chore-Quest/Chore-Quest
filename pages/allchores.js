@@ -5,7 +5,7 @@ import {
   fetchAllChores,
   addChore,
   deleteChore,
-} from '../store/features/adminChores'
+} from '../store/features/householdChores'
 
 export default function AllDBChores() {
   // **** Need to add due date to database ****
@@ -22,7 +22,6 @@ export default function AllDBChores() {
   //gets the list of chores and loading state from the redux store
   let { allChores } = useSelector((store) => store)
   let [chores, loading] = [allChores.entities, allChores.loading]
-  console.log(chores, 'this is chores from store')
   const dispatch = useDispatch()
   //fetchAllChores gets chores in the database
   useEffect(() => {
@@ -129,7 +128,6 @@ export default function AllDBChores() {
         chores &&
           chores.map((chore, index) => (
             <tr key={chore.id}>
-              {/* {console.log(chores)} */}
               <td className="border px-4 py-4">{index + 1}</td>
               <td className="border px-4 py-4">{chore.chores.name}</td>
               <td className="border px-8 py-4">{chore.chores.notes}</td>

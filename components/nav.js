@@ -5,7 +5,6 @@ import { supabase } from '../client'
 import { useRouter } from 'next/router'
 
 export default function Nav({ user }) {
-  console.log('user from nav', user)
   const router = useRouter()
   return (
     <nav className="navbar sticky top-0 z-50 border-b border-gray-500 bg-base-300 px-8 py-1">

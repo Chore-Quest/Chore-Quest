@@ -22,7 +22,6 @@ export default function Profile({ session }) {
         <p className="mx-auto">
           Oh hi there {profile ? profile.username : 'Guest'}
         </p>
-        {console.log(profile, 'this is profile')}
         <div className="justifyCenter mask mask-hexagon mx-auto box-content h-64 w-64">
           <img src={profile ? profile.avatar_url : null} />
         </div>
@@ -43,48 +42,3 @@ export default function Profile({ session }) {
     </div>
   )
 }
-
-// const [username, setUsername] = useState('')
-// const [avatar_url, setAvatar_url] = useState('')
-// const [isAdmin, setIsAdmin] = useState(false)
-// async function getProfile() {
-//   try {
-//     const user = supabase.auth.user()
-//     let { data, error, status } = await supabase
-//       .from('profiles')
-//       .select(`username`)
-//       .eq('id', user.id)
-//       .single()
-
-//     if (error && status !== 406) {
-//       throw error
-//     }
-
-//     if (data) {
-//       setUsername(data.username)
-//     }
-//   } catch (error) {
-//     alert(error.message)
-//   }
-// }
-// async function updateProfile() {
-//   try {
-//     const user = supabase.auth.user()
-//     const updates = {
-//       id: user.id,
-//       username,
-//       // adding ability to update avatar
-//       avatar_url,
-//       // adding ability to update admin status
-//       isAdmin,
-//       updated_at: new Date(),
-//     }
-
-//     let { error } = await supabase.from('profiles').upsert(updates)
-//     if (error) {
-//       throw error
-//     }
-//   } catch (error) {
-//     alert(error.message)
-//   }
-// }
