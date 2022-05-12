@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { fetchSingleProfile } from '../store/features/singleProfile'
 
 export default function Nav({ user }) {
+
   let { singleProfile } = useSelector((store) => store)
   let [profile, loading] = [singleProfile.profile, singleProfile.loading]
 
@@ -15,7 +16,6 @@ export default function Nav({ user }) {
   useEffect(() => {
     dispatch(fetchSingleProfile())
   }, [])
-  console.log(profile)
   const router = useRouter()
   return (
     <nav className="navbar sticky top-0 left-0 right-0 z-50 rounded-b-lg border-b border-gray-500 bg-base-300 px-8 py-1">
