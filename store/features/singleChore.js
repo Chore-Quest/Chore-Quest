@@ -2,34 +2,29 @@ import { createAction, createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { supabase } from '../../client'
 
 const initialState = {
-  entities: [],
+  chore: {},
+  assignedTo:
   loading: false,
 }
 
 // *** THUNKS *** //
 
-//Fetches all chores associated to that user only
-export const fetchSingleUserChores = createAsyncThunk(
+//Fetches a single chore from the database using the ID
+export const fetchSingleChores = createAsyncThunk(
   //action type string
-  'chores/fetchAllChores',
+  'singleChore/fetchSingleChore',
   //callback function
-  async (thunkAPI) => {
-    const user = supabase.auth.user()
+  async (choreId, thunkAPI) => {
     try {
-      let { data: userID } = await supabase
-        .from('profiles')
-        .select(`id`)
-        .eq('id', user.id)
-        .single()
+      let { data: chore, error } = await supabase
+        .from('chores')
+        .select('*',)
+        .eq('id', choreId)
 
-      let { data: chores } = await supabase
+      let { data: responsibility, error } = await supabase
         .from('responsibility')
-        .select(
-          `chore_id, chores (
-          *
-        ) `
-        )
-        .eq('profile_id', userID.id)
+        .select('profile_id')
+        .eq('chore_id', choreId)
       console.log(userID.id, 'this is user')
 
       return chores
