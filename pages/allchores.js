@@ -59,12 +59,51 @@ export default function AllDBChores() {
 
   return (
     <>
-      <div className="mb-20 columns-1 flex-col bg-base-100 p-20 shadow-xl">
+      {/* map over chores and place each into a card */}
+      <div className="md:flex md:gap-3">
+        {chores &&
+          chores.map((chore) => (
+            <div className="card mb-5 bg-base-100 shadow-xl drop-shadow-2xl  lg:card-side">
+              <figure>
+                <img src={chore.profiles.avatar_url} alt="Avatar image" />
+              </figure>
+              <div class="card-body flex justify-center bg-slate-800 align-middle">
+                {/* <h1 className="card-title">{chore.chores.name}</h1> */}
+                <p>
+                  <h1 className="text-2xl font-bold">{chore.chores.name}</h1>
+
+                  <span className="badge badge-sm badge-ghost">
+                    Notes: {chore.chores.notes}
+                  </span>
+                </p>
+
+                <div className="card-actions justify-end">
+                  <label className="swap swap-flip text-xl">
+                    <input type="checkbox" />
+                    {chore.isComplete ? (
+                      <p>
+                        Completed <span className="swap-on"> ✅</span>
+                      </p>
+                    ) : (
+                      <p>
+                        Not Completed<span className="swap-off"> ❌</span>
+                      </p>
+                    )}
+                  </label>
+                </div>
+              </div>
+            </div>
+          ))}
+      </div>
+      <div
+        tabIndex="0"
+        className="mb-20 columns-1 flex-col rounded-3xl bg-base-100 p-20 shadow-xl drop-shadow-2xl"
+      >
         <div
           tabIndex="0"
           className="collapse-arrow collapse rounded-box border border-base-300 bg-base-100"
         >
-          <div className="collapse-title text-xl font-medium">
+          <div tabIndex="0" className="collapse-title text-xl font-medium">
             Focus me to see content
           </div>
           <div className="collapse-content">
@@ -115,7 +154,7 @@ export default function AllDBChores() {
           </div>
         </form>
       </div>
-      <table className="table-zebra table-normal mx-auto mb-20 table rounded-3xl">
+      {/* <table className="table-zebra table-normal mx-auto mb-20 table rounded-3xl">
         <thead className="rounded-3xl">
           <th className="px-4 py-4">name</th>
           <th className="px-4 py-4">Chore</th>
@@ -180,7 +219,7 @@ export default function AllDBChores() {
               ))
           }
         </tbody>
-      </table>
+      </table> */}
     </>
   )
 }
