@@ -22,9 +22,9 @@ export const fetchSingleProfile = createAsyncThunk(
         )
         .eq('id', user.id)
         .single()
-      // console.log('*******************')
-      // console.log(profile, 'from single profile thunk')
-      // console.log('*******************')
+      console.log('*******************')
+      console.log(profile, 'from single profile thunk')
+      console.log('*******************')
       return profile
     } catch (error) {
       console.log(error)
