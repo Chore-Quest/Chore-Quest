@@ -72,7 +72,7 @@ export default function Nav({ user }) {
                 <Link href="/clan">Clan</Link>
               </li>
               <li>
-                <a>Logout</a>
+                <button onClick={() => supabase.auth.signOut()}>Logout</button>
               </li>
             </ul>
           </div>
