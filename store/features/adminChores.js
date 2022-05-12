@@ -43,7 +43,7 @@ export const addChore = createAsyncThunk(
   'chores/addChore',
   async (chore, thunkAPI) => {
     try {
-      let { name, notes } = chore
+      let { name, notes, household_id } = chore
       //add the chore to the database
       await supabase
         .from('chores') // Select the Table
@@ -51,14 +51,17 @@ export const addChore = createAsyncThunk(
           {
             name,
             notes,
+            household_id,
             // xp,
             // isComplete,
           },
         ])
+      alert('A Chore has been added!')
       //dispatch fetchALlChores to update the state from db
       thunkAPI.dispatch(fetchAllChores())
     } catch (error) {
       console.log(error)
+      alert('Unable to add Chore')
       return error
     }
   }

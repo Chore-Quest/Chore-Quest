@@ -22,7 +22,7 @@ export default function AllDBChores() {
   //gets the list of chores and loading state from the redux store
   let { allChores } = useSelector((store) => store)
   let [chores, loading] = [allChores.entities, allChores.loading]
-  console.log(chores, 'this is chores from store')
+  // console.log(chores, 'this is chores from store')
   const dispatch = useDispatch()
   //fetchAllChores gets chores in the database
   useEffect(() => {
