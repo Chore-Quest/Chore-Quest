@@ -1,28 +1,34 @@
 import { useState, useEffect } from 'react'
-import { addChore } from '../store/features/adminChores'
+import { createChore } from '../store/features/householdChores'
 import { fetchSingleProfile } from '../store/features/singleProfile'
 import { useSelector, useDispatch } from 'react-redux'
 
 export default function AddChore() {
-  const { singleProfile } = useSelector((store) => store)
-  const { household_id } = singleProfile.profile
-
   const dispatch = useDispatch()
+
   useEffect(() => {
     dispatch(fetchSingleProfile())
   }, [])
-  // console.log(household_id, 'this is singleProf')
+
+  const { singleProfile } = useSelector((store) => store)
+  const { household_id } = singleProfile.profile
+
   const [chore, setChore] = useState({
     name: '',
     notes: '',
-    household_id: household_id,
+    // household_id: '',
     // xp: '',
     // isComplete: '',
   })
+  // console.log(household_id, 'householdid')
   const { name, notes } = chore
-  console.log(chore, 'this is chore')
+
+  // console.log(chore, 'chores')
+
   function handleAddChore() {
-    dispatch(addChore(chore))
+    setChore({ ...chore, household_id: household_id })
+
+    dispatch(createChore({ ...chore, household_id }))
     // Reset the chore details & clears the form data
     setChore({
       name: '',

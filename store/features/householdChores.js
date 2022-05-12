@@ -44,39 +44,66 @@ export const fetchAllChores = createAsyncThunk(
 
 //ADDS A CHORE FOR THE USER'S HOSUEHOLD
 export const createChore = createAsyncThunk(
-  'chores/createChore',
+  'chores/addChore',
   async (chore, thunkAPI) => {
-    const user = supabase.auth.user()
     try {
-      let { data } = await supabase
-        .from('profiles')
-        .select(`household_id`)
-        .eq('id', user.id)
-      const household_id = data.household_id
-      let { name, notes } = chore
+      let { name, notes, household_id } = chore
       //add the chore to the database
-      const res = await supabase.from('chores').insert([
-        {
-          name,
-          notes,
-          household_id,
-        },
-      ])
-      console.log('***************')
-      console.log('Server Response from createChore Thunk:')
-      console.log(res)
-      console.log(
-        'createChore Thunk Says: "Dispatching Fetch All Household Chores..."'
-      )
-      console.log('***************')
+      await supabase
+        .from('chores') // Select the Table
+        .insert([
+          {
+            name,
+            notes,
+            household_id,
+            // xp,
+            // isComplete,
+          },
+        ])
+      alert('A Chore has been added!')
       //dispatch fetchALlChores to update the state from db
-      thunkAPI.dispatch(fetchAllChores())
+      // thunkAPI.dispatch(fetchAllChores())
     } catch (error) {
       console.log(error)
+      alert('Unable to add Chore')
       return error
     }
   }
 )
+// export const createChore = createAsyncThunk(
+//   'chores/createChore',
+//   async (chore, thunkAPI) => {
+//     const user = supabase.auth.user()
+//     try {
+//       let { data } = await supabase
+//         .from('profiles')
+//         .select(`household_id`)
+//         .eq('id', user.id)
+//       const household_id = data.household_id
+//       let { name, notes } = chore
+//       //add the chore to the database
+//       const res = await supabase.from('chores').insert([
+//         {
+//           name,
+//           notes,
+//           household_id,
+//         },
+//       ])
+//       console.log('***************')
+//       console.log('Server Response from createChore Thunk:')
+//       console.log(res)
+//       console.log(
+//         'createChore Thunk Says: "Dispatching Fetch All Household Chores..."'
+//       )
+//       console.log('***************')
+//       //dispatch fetchALlChores to update the state from db
+//       thunkAPI.dispatch(fetchAllChores())
+//     } catch (error) {
+//       console.log(error)
+//       return error
+//     }
+//   }
+// )
 
 export const deleteChore = createAsyncThunk(
   'chores/deleteChore',

@@ -39,7 +39,7 @@ export const fetchAllChores = createAsyncThunk(
   }
 )
 
-export const addChore = createAsyncThunk(
+export const createChore = createAsyncThunk(
   'chores/addChore',
   async (chore, thunkAPI) => {
     try {
