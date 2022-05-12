@@ -59,7 +59,7 @@ export default function AllDBChores() {
 
   return (
     <>
-      <div className="columns-1 flex-col">
+      <div className="mb-20 columns-1 flex-col bg-base-100 p-20 shadow-xl">
         <div
           tabIndex="0"
           className="collapse-arrow collapse rounded-box border border-base-300 bg-base-100"
@@ -115,50 +115,72 @@ export default function AllDBChores() {
           </div>
         </form>
       </div>
-      <td className="border px-4 py-4"></td>
-      <td className="border px-4 py-4">Chore</td>
-      <td className="border px-4 py-4">Notes</td>
-      <td className="border px-4 py-4">Due Date</td>
-      <td className="border px-4 py-4">XP</td>
-      <td className="border px-4 py-4">Delete</td>
-      <td className="border px-4 py-4">Assigned to</td>
-      <td className="border px-4 py-4">Edit Chore</td>
+      <table className="table-zebra table-normal mx-auto mb-20 table rounded-3xl">
+        <thead className="rounded-3xl">
+          <th className="px-4 py-4">name</th>
+          <th className="px-4 py-4">Chore</th>
+          <th className="px-4 py-4">Due Date</th>
+          <th className="px-4 py-4">XP</th>
+          <th className="px-4 py-4">Delete</th>
+          <th className="px-4 py-4">Edit Chore</th>
+        </thead>
+        <tbody>
+          {
+            //if there are chores, map through and display them
+            chores &&
+              chores.map((chore, index) => (
+                <tr key={chore.id} className="hover">
+                  {console.log(chores)}
+                  <td className="px-4 py-4">
+                    <div class="flex items-center space-x-3">
+                      <div class="avatar">
+                        <div class="mask mask-squircle h-12 w-12">
+                          <img
+                            src={chore.profiles.avatar_url}
+                            alt="Avatar Tailwind CSS Component"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <div class="font-bold">{chore.profiles.username}</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="px-4 py-4">
+                    {chore.chores.name}
+                    <br />
+                    <span className="badge badge-sm badge-ghost">
+                      Notes: {chore.chores.notes}
+                    </span>
+                  </td>
+                  <td className="px-8 py-4">{chore.chores.dueDate}</td>
+                  <td className="px-8 py-4">{chore.chores.xp}</td>
+                  <td className="px-8 py-4">
+                    <button
+                      className="focus:shadow-outline rounded bg-red-500 py-2 px-4 font-bold text-white hover:bg-red-700 focus:outline-none"
+                      type="button"
+                      // Deletes the chore
+                      onClick={() => dispatch(deleteChore(chore.id))}
+                    >
+                      Delete
+                    </button>
+                  </td>
 
-      {
-        //if there are chores, map through and display them
-        chores &&
-          chores.map((chore, index) => (
-            <tr key={chore.id}>
-              {/* {console.log(chores)} */}
-              <td className="border px-4 py-4">{index + 1}</td>
-              <td className="border px-4 py-4">{chore.chores.name}</td>
-              <td className="border px-8 py-4">{chore.chores.notes}</td>
-              <td className="border px-8 py-4">{chore.chores.dueDate}</td>
-              <td className="border px-8 py-4">{chore.chores.xp}</td>
-              <td className="border px-8 py-4">
-                <button
-                  className="focus:shadow-outline rounded bg-red-500 py-2 px-4 font-bold text-white hover:bg-red-700 focus:outline-none"
-                  type="button"
-                  // Deletes the chore
-                  onClick={() => dispatch(deleteChore(chore.id))}
-                >
-                  Delete
-                </button>
-              </td>
-              <td className="border px-4 py-4"></td>
-              <td className="border px-4 py-4">
-                <button
-                  className="btn btn-warning"
-                  type="button"
-                  // Deletes the chore
-                  onClick={() => dispatch(deleteChore(chore.id))}
-                >
-                  Edit
-                </button>
-              </td>
-            </tr>
-          ))
-      }
+                  <td className="px-4 py-4">
+                    <button
+                      className="btn btn-warning"
+                      type="button"
+                      // Deletes the chore
+                      onClick={() => dispatch(deleteChore(chore.id))}
+                    >
+                      Edit
+                    </button>
+                  </td>
+                </tr>
+              ))
+          }
+        </tbody>
+      </table>
     </>
   )
 }

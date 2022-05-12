@@ -1,13 +1,24 @@
 import React from 'react'
 import Link from 'next/link'
 // import CrestSvg from './crest'
+import { useState, useEffect } from 'react'
 import { supabase } from '../client'
 import { useRouter } from 'next/router'
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchSingleProfile } from '../store/features/singleProfile'
 
 export default function Nav({ user }) {
+
+  let { singleProfile } = useSelector((store) => store)
+  let [profile, loading] = [singleProfile.profile, singleProfile.loading]
+
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(fetchSingleProfile())
+  }, [])
   const router = useRouter()
   return (
-    <nav className="navbar sticky top-0 z-50 border-b border-gray-500 bg-base-300 px-8 py-1">
+    <nav className="navbar sticky top-0 left-0 right-0 z-50 rounded-b-lg border-b border-gray-500 bg-base-300 px-8 py-1">
       <div className="navbar-start">
         <div className="flex-1">
           {router.pathname !== '/' && (
@@ -42,7 +53,7 @@ export default function Nav({ user }) {
           <div className="dropdown-end dropdown">
             <label tabIndex="0" className="avatar btn btn-ghost btn-circle">
               <div className="w-10 rounded-full">
-                <img src="https://api.lorem.space/image/face?hash=33791" />
+                <img src={profile.avatar_url} />
               </div>
             </label>
             <ul
@@ -61,7 +72,7 @@ export default function Nav({ user }) {
                 <Link href="/clan">Clan</Link>
               </li>
               <li>
-                <a>Logout</a>
+                <button onClick={() => supabase.auth.signOut()}>Logout</button>
               </li>
             </ul>
           </div>

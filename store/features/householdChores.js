@@ -1,4 +1,4 @@
-import { createAction, createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSelector, createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { supabase } from '../../client'
 
 const initialState = {
@@ -143,3 +143,13 @@ const choresSlice = createSlice({
 })
 
 export default choresSlice.reducer
+
+//creates a memoized selector based on the filter input
+export const getFilteredChores = createSelector(
+  [
+    (state) => state.chores,
+    (state, category) => category,
+    (state, filter) => filter,
+  ],
+  (chores) => chores.filter((chore) => chore.category === filter)
+)
