@@ -3,6 +3,7 @@ import Link from 'next/link'
 // import CrestSvg from './crest'
 import { supabase } from '../client'
 import { useRouter } from 'next/router'
+// import { fetchSingleProfile } from '../store/features/singleProfile'
 
 export default function Nav({ user }) {
   console.log('user from nav', user)
@@ -40,7 +41,7 @@ export default function Nav({ user }) {
       </div>
       <div className="navbar-end">
         <div className="flex-none gap-2">
-          <div className="dropdown dropdown-end">
+          <div className="dropdown-end dropdown">
             <label tabIndex="0" className="avatar btn btn-ghost btn-circle">
               <div className="w-10 rounded-full">
                 <img src="https://api.lorem.space/image/face?hash=33791" />
@@ -62,7 +63,7 @@ export default function Nav({ user }) {
                 <Link href="/clan">Clan</Link>
               </li>
               <li>
-                <a>Logout</a>
+                <button onClick={() => supabase.auth.signOut()}>Logout</button>
               </li>
             </ul>
           </div>
