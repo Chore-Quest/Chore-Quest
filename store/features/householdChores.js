@@ -117,7 +117,7 @@ const choresSlice = createSlice({
 
 export default choresSlice.reducer
 
-//creates a memoized selector based on the fitler input
+//creates a memoized selector based on the filter input
 export const getFilteredChores = createSelector(
   [
     (state) => state.chores,
