@@ -20,22 +20,24 @@ const clan = ({ session }) => {
 
   console.log(profiles, 'this is profiles from clan page')
   return (
-    <div class="card w-96 bg-base-100 shadow-xl">
+    <div className="flex gap-5">
       {profiles.map((profile) => (
-        <>
-          <figure>
-            <img src={profile.avatar_url} alt="Profile image" />
-          </figure>
-          <div class="card-body">
-            <h2 class="card-title mx-auto">{profile.username}</h2>
-            <p className="mx-auto">profile tag line?</p>
-            <div class="card-actions justify-center">
-              <Link href="/profile">
-                <button class="btn btn-primary">Profile page</button>
-              </Link>
+        <div className="card mb-5 w-80 bg-base-100 shadow-xl">
+          <div className="">
+            <figure>
+              <img src={profile.avatar_url} alt="Profile image" />
+            </figure>
+            <div class="card-body">
+              <h2 class="card-title mx-auto">{profile.username}</h2>
+              <p className="mx-auto">profile tag line?</p>
+              <div class="card-actions justify-center">
+                <Link href="/profile">
+                  <button class="btn btn-primary">Profile page</button>
+                </Link>
+              </div>
             </div>
           </div>
-        </>
+        </div>
       ))}
     </div>
   )
