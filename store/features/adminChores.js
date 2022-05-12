@@ -27,7 +27,7 @@ export const fetchAllChores = createAsyncThunk(
         .select(
           `chore_id, chores (
           *
-        ) `
+        ), profiles ( * )`
         )
         .eq('household_id', houseHoldId.household_id)
 
