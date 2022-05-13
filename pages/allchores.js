@@ -22,7 +22,7 @@ export default function AllDBChores() {
   //gets the list of chores and loading state from the redux store
   let { allChores } = useSelector((store) => store)
   let [chores, loading] = [allChores.entities, allChores.loading]
-  console.log(chores, 'this is chores from store')
+  // console.log(chores, 'this is chores from store')
   const dispatch = useDispatch()
   //fetchAllChores gets chores in the database
   useEffect(() => {
@@ -59,7 +59,64 @@ export default function AllDBChores() {
 
   return (
     <>
-      <div className="columns-1 flex-col">
+      <div
+        className="card hero mx-auto mb-5 overflow-hidden rounded-3xl p-0 drop-shadow-2xl"
+        style={{
+          backgroundImage: `url(https://img.nerdburglars.net/wp-content/uploads/2020/04/spartan-3696073_1920-e1585934263741-696x381.jpg)`,
+        }}
+      >
+        <div className="hero-overlay bg-opacity-60"></div>
+        <div className="hero-content text-center text-neutral-content">
+          <div className="max-w-md">
+            <h1 className="mb-3 text-5xl font-bold">Chores</h1>
+            <p className="mb-5">
+              Here is the list of items you need to complete in order to LEVEL
+              UP!
+            </p>
+            {/* <button className="btn btn-primary">Get Started</button> */}
+          </div>
+        </div>
+      </div>
+      {/* map over chores and place each into a card */}
+      <div className="md:flex md:gap-3">
+        {chores &&
+          chores.map((chore) => (
+            <div className="card mb-5 bg-base-100 shadow-xl drop-shadow-2xl  lg:card-side">
+              <figure>
+                <img src={chore.profiles.avatar_url} alt="Avatar image" />
+              </figure>
+              <div class="card-body flex justify-center bg-slate-800 align-middle">
+                {/* <h1 className="card-title">{chore.chores.name}</h1> */}
+                <p>
+                  <h1 className="text-2xl font-bold">{chore.chores.name}</h1>
+
+                  <span className="badge badge-sm badge-ghost">
+                    Notes: {chore.chores.notes}
+                  </span>
+                </p>
+
+                <div className="card-actions justify-end">
+                  <label className="swap swap-flip text-xl">
+                    <input type="checkbox" />
+                    {chore.isComplete ? (
+                      <p>
+                        Completed <span className="swap-on"> ✅</span>
+                      </p>
+                    ) : (
+                      <p>
+                        Not Completed<span className="swap-off"> ❌</span>
+                      </p>
+                    )}
+                  </label>
+                </div>
+              </div>
+            </div>
+          ))}
+      </div>
+      <div
+        tabIndex="0"
+        className="mb-20 columns-1 flex-col rounded-3xl bg-base-100 p-20 shadow-xl drop-shadow-2xl"
+      >
         <div
           tabIndex="0"
           className="collapse-arrow collapse rounded-box border border-base-300 bg-base-100"
@@ -115,50 +172,72 @@ export default function AllDBChores() {
           </div>
         </form>
       </div>
-      <td className="border px-4 py-4"></td>
-      <td className="border px-4 py-4">Chore</td>
-      <td className="border px-4 py-4">Notes</td>
-      <td className="border px-4 py-4">Due Date</td>
-      <td className="border px-4 py-4">XP</td>
-      <td className="border px-4 py-4">Delete</td>
-      <td className="border px-4 py-4">Assigned to</td>
-      <td className="border px-4 py-4">Edit Chore</td>
+      {/* <table className="table-zebra table-normal mx-auto mb-20 table rounded-3xl">
+        <thead className="rounded-3xl">
+          <th className="px-4 py-4">name</th>
+          <th className="px-4 py-4">Chore</th>
+          <th className="px-4 py-4">Due Date</th>
+          <th className="px-4 py-4">XP</th>
+          <th className="px-4 py-4">Delete</th>
+          <th className="px-4 py-4">Edit Chore</th>
+        </thead>
+        <tbody>
+          {
+            //if there are chores, map through and display them
+            chores &&
+              chores.map((chore, index) => (
+                <tr key={chore.id} className="hover">
+                  {console.log(chores)}
+                  <td className="px-4 py-4">
+                    <div class="flex items-center space-x-3">
+                      <div class="avatar">
+                        <div class="mask mask-squircle h-12 w-12">
+                          <img
+                            src={chore.profiles.avatar_url}
+                            alt="Avatar Tailwind CSS Component"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <div class="font-bold">{chore.profiles.username}</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="px-4 py-4">
+                    {chore.chores.name}
+                    <br />
+                    <span className="badge badge-sm badge-ghost">
+                      Notes: {chore.chores.notes}
+                    </span>
+                  </td>
+                  <td className="px-8 py-4">{chore.chores.dueDate}</td>
+                  <td className="px-8 py-4">{chore.chores.xp}</td>
+                  <td className="px-8 py-4">
+                    <button
+                      className="focus:shadow-outline rounded bg-red-500 py-2 px-4 font-bold text-white hover:bg-red-700 focus:outline-none"
+                      type="button"
+                      // Deletes the chore
+                      onClick={() => dispatch(deleteChore(chore.id))}
+                    >
+                      Delete
+                    </button>
+                  </td>
 
-      {
-        //if there are chores, map through and display them
-        chores &&
-          chores.map((chore, index) => (
-            <tr key={chore.id}>
-              {/* {console.log(chores)} */}
-              <td className="border px-4 py-4">{index + 1}</td>
-              <td className="border px-4 py-4">{chore.chores.name}</td>
-              <td className="border px-8 py-4">{chore.chores.notes}</td>
-              <td className="border px-8 py-4">{chore.chores.dueDate}</td>
-              <td className="border px-8 py-4">{chore.chores.xp}</td>
-              <td className="border px-8 py-4">
-                <button
-                  className="focus:shadow-outline rounded bg-red-500 py-2 px-4 font-bold text-white hover:bg-red-700 focus:outline-none"
-                  type="button"
-                  // Deletes the chore
-                  onClick={() => dispatch(deleteChore(chore.id))}
-                >
-                  Delete
-                </button>
-              </td>
-              <td className="border px-4 py-4"></td>
-              <td className="border px-4 py-4">
-                <button
-                  className="btn btn-warning"
-                  type="button"
-                  // Deletes the chore
-                  onClick={() => dispatch(deleteChore(chore.id))}
-                >
-                  Edit
-                </button>
-              </td>
-            </tr>
-          ))
-      }
+                  <td className="px-4 py-4">
+                    <button
+                      className="btn btn-warning"
+                      type="button"
+                      // Deletes the chore
+                      onClick={() => dispatch(deleteChore(chore.id))}
+                    >
+                      Edit
+                    </button>
+                  </td>
+                </tr>
+              ))
+          }
+        </tbody>
+      </table> */}
     </>
   )
 }

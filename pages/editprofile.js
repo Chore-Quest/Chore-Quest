@@ -26,7 +26,7 @@ export default function editProfile({ session }) {
     })
   }, [storeProfile])
   return (
-    <>
+    <div className="card mx-auto w-96 bg-base-100 p-10 shadow-xl">
       <input
         className="my-4 w-full rounded-xl border-2 border-gray-500 p-4"
         type="username"
@@ -54,6 +54,6 @@ export default function editProfile({ session }) {
       >
         <span>Update profile</span>
       </button>
-    </>
+    </div>
   )
 }
