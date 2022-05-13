@@ -21,12 +21,12 @@ export const fetchSingleChore = createAsyncThunk(
         .select('*')
         .eq('id', choreId)
 
-      let { data: responsibility } = await supabase
+      let { data: responsibilities } = await supabase
         .from('responsibility')
-        .select('profile_id')
+        .select(`profile_id, profiles(*), chores()`)
         .eq('chore_id', choreId)
 
-      console.log(responsibility, 'this is responsibility')
+      console.log(responsibilities, 'this is responsibilities')
 
       let assignedTo = []
 
