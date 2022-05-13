@@ -28,6 +28,23 @@ export const fetchSingleChore = createAsyncThunk(
   }
 )
 
+//Updates a single chore in the database using the ID
+export const updateSingleChore = createAsyncThunk(
+  //action type string
+  'singleChore/updateSingleChore',
+  async (chore, thunkAPI) => {
+    console.log(chore, 'this is chore in thunk')
+    try {
+      await supabase.from('chores').update(chore).eq('id', chore.id)
+      console.log('Chore from Update chore', chore)
+      return chore
+    } catch (error) {
+      console.log(error)
+      return error
+    }
+  }
+)
+
 // ***Slice Creator*** //
 const singleChoreSlice = createSlice({
   name: 'singleChore',

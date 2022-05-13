@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { supabase } from '../client'
 import { fetchSingleChore } from '../store/features/singleChore'
-import { updateChore } from '../store/features/householdChores'
+import { updateSingleChore } from '../store/features/singleChore'
 
 export default function SingleChore(props) {
   const { choreId } = props
@@ -40,7 +40,7 @@ export default function SingleChore(props) {
     <>
       <div className="card mx-auto w-96 bg-base-100 p-10 shadow-xl">
         <figure>
-          {chore.profiles.length &&
+          {chore.profiles[0] &&
             chore.profiles.map((profile) => (
               <img key={profile.id} src={profile.avatar_url} />
             ))}
@@ -69,7 +69,16 @@ export default function SingleChore(props) {
           onChange={() => setChore({ ...chore, isComplete: !chore.isComplete })}
         />
         <button
-          onClick={() => dispatch(updateChore({ ...chore }))}
+          onClick={() =>
+            dispatch(
+              updateSingleChore({
+                name: chore.name,
+                id: choreId,
+                notes: chore.notes,
+                isComplete: chore.isComplete,
+              })
+            )
+          }
           className="mt-4 w-full rounded-lg border-blue-300 bg-blue-500 p-2 pl-5 pr-5 text-lg text-gray-100 focus:border-4"
         >
           <span>Update Chore</span>
