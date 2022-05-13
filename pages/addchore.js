@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react'
 import { createChore } from '../store/features/householdChores'
 import { fetchSingleProfile } from '../store/features/singleProfile'
 import { useSelector, useDispatch } from 'react-redux'
-import TierSelector from '../components/tierSelector'
+// import TierSelector from '../components/tierSelector'
+import { fetchAllItems } from '../store/features/itemTiers'
+import { fetchAllProfiles } from '../store/features/houseProfiles'
 
 export default function AddChore() {
   const dispatch = useDispatch()
@@ -11,23 +13,35 @@ export default function AddChore() {
     dispatch(fetchSingleProfile())
   }, [])
 
+  useEffect(() => {
+    dispatch(fetchAllItems())
+  }, [])
+
+  useEffect(() => {
+    dispatch(fetchAllProfiles())
+  }, [])
+
   const { singleProfile } = useSelector((store) => store)
   const { household_id } = singleProfile.profile
+  const { allItems } = useSelector((store) => store)
+  const { entities: items } = allItems
+  const { singleHouseholdProfiles: profiles } = useSelector((store) => store)
 
   const [chore, setChore] = useState({
     name: '',
     notes: '',
     // household_id: '',
-    // xp: '',
+    item: '',
     // isComplete: '',
+    assignedTo: '',
   })
-  // console.log(household_id, 'householdid')
   const { name, notes } = chore
-
-  // console.log(chore, 'chores')
 
   function handleAddChore() {
     setChore({ ...chore, household_id: household_id })
+    if (chore.assignedTo !== '') {
+      console.log('DISPATCH SOMETHING')
+    }
 
     dispatch(createChore({ ...chore, household_id }))
     // Reset the chore details & clears the form data
@@ -35,7 +49,7 @@ export default function AddChore() {
       name: '',
       notes: '',
       // household_id: singleProfile.household_id,
-      // xp: '',
+      // item: '',
       // isComplete: '',
     })
   }
@@ -72,8 +86,33 @@ export default function AddChore() {
           value={notes.toString()}
           onChange={(e) => setChore({ ...chore, notes: e.target.value })}
         ></textarea>
-      </div>{' '}
-      <TierSelector />
+      </div>
+      <select
+        className="select w-full max-w-xs"
+        onChange={(e) => setChore({ ...chore, item: Number(e.target.value) })}
+      >
+        <option defaultValue>Select Tier</option>
+        {items.map((item) => (
+          <option
+            key={item.id}
+            value={item.id}
+          >{`Tier: ${item.tier} ${item.name} ${item.xp} XP`}</option>
+        ))}
+      </select>
+
+      <select
+        className="select w-full max-w-xs"
+        // onChange={(e) => setChore({ ...chore, item: Number(e.target.value) })}
+      >
+        <option defaultValue>Assign To</option>
+        {profiles.entities.map((profile) => (
+          <option
+            key={profile.id}
+            value={profile.id}
+          >{`${profile.username}`}</option>
+        ))}
+      </select>
+
       <div className="flex items-center justify-between">
         <button
           className="focus:shadow-outline rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 focus:outline-none"
