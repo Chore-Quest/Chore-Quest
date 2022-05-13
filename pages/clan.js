@@ -74,12 +74,12 @@ const clan = ({ session }) => {
               <figure>
                 <img src={profile.avatar_url} alt="Profile image" />
               </figure>
-              <div class="card-body">
-                <h2 class="card-title mx-auto">{profile.username}</h2>
+              <div className="card-body">
+                <h2 className="card-title mx-auto">{profile.username}</h2>
                 <p className="mx-auto">profile tag line?</p>
-                <div class="card-actions justify-center">
+                <div className="card-actions justify-center">
                   <Link href="/profile">
-                    <button class="btn btn-primary">Profile page</button>
+                    <button className="btn btn-primary">Profile page</button>
                   </Link>
                 </div>
               </div>

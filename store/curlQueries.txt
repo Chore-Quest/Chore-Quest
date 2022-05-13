@@ -1,3 +1,0 @@
-//SELECT PROFILE_ID//
-//EQ CHORE_ID//
-

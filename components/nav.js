@@ -6,9 +6,6 @@ import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchSingleProfile } from '../store/features/singleProfile'
 
-<<<<<<< HEAD
-export default function Nav({ user }) {
-=======
 export default function Nav() {
   const { singleProfile } = useSelector((store) => store)
   const storeProfile = singleProfile.profile
@@ -16,7 +13,6 @@ export default function Nav() {
   useEffect(() => {
     dispatch(fetchSingleProfile())
   }, [])
->>>>>>> main
   const router = useRouter()
   return (
     <nav className="navbar sticky top-0 left-0 right-0 z-50 rounded-b-lg border-b border-gray-500 bg-base-300 px-8 py-1">
@@ -68,7 +64,7 @@ export default function Nav() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/allchores">All Chores</Link>
+                  <Link href="/chores">View Chores</Link>
                 </li>
                 <li>
                   <Link href="/clan">Clan</Link>

@@ -5,7 +5,7 @@ import {
   fetchAllChores,
   addChore,
   deleteChore,
-} from '../../store/features/adminChores'
+} from '../../store/features/householdChores'
 
 export default function AllDBChores() {
   // **** Need to add due date to database ****
@@ -85,7 +85,7 @@ export default function AllDBChores() {
               <figure>
                 <img src={chore.profiles.avatar_url} alt="Avatar image" />
               </figure>
-              <div class="card-body flex justify-center bg-slate-800 align-middle">
+              <div className="card-body flex justify-center bg-slate-800 align-middle">
                 {/* <h1 className="card-title">{chore.chores.name}</h1> */}
                 <p>
                   <h1 className="text-2xl font-bold">{chore.chores.name}</h1>
@@ -189,9 +189,9 @@ export default function AllDBChores() {
                 <tr key={chore.id} className="hover">
                   {console.log(chores)}
                   <td className="px-4 py-4">
-                    <div class="flex items-center space-x-3">
-                      <div class="avatar">
-                        <div class="mask mask-squircle h-12 w-12">
+                    <div className="flex items-center space-x-3">
+                      <div className="avatar">
+                        <div className="mask mask-squircle h-12 w-12">
                           <img
                             src={chore.profiles.avatar_url}
                             alt="Avatar Tailwind CSS Component"
@@ -199,7 +199,7 @@ export default function AllDBChores() {
                         </div>
                       </div>
                       <div>
-                        <div class="font-bold">{chore.profiles.username}</div>
+                        <div className="font-bold">{chore.profiles.username}</div>
                       </div>
                     </div>
                   </td>

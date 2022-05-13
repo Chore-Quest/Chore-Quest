@@ -6,24 +6,26 @@ import {
   updateSingleProfile,
 } from '../store/features/singleProfile'
 
-export default function editProfile({ session }) {
+export default function editProfile() {
   const { singleProfile } = useSelector((store) => store)
   const storeProfile = singleProfile.profile
   const [profile, setProfile] = useState({
     username: '',
     avatar_url: '',
-    isAdmin: '',
+    isAdmin: false,
   })
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchSingleProfile())
   }, [])
   useEffect(() => {
-    setProfile({
-      username: storeProfile.username,
-      avatar_url: storeProfile.avatar_url,
-      isAdmin: storeProfile.isAdmin,
-    })
+    if (singleProfile) {
+      setProfile({
+        username: storeProfile.username || '',
+        avatar_url: storeProfile.avatar_url || '',
+        isAdmin: storeProfile.isAdmin || false,
+      })
+    }
   }, [storeProfile])
   return (
     <div className="card mx-auto w-96 bg-base-100 p-10 shadow-xl">
