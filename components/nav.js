@@ -1,17 +1,14 @@
 import React from 'react'
 import Link from 'next/link'
-// import CrestSvg from './crest'
-import { useState, useEffect } from 'react'
 import { supabase } from '../client'
 import { useRouter } from 'next/router'
+import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchSingleProfile } from '../store/features/singleProfile'
 
-export default function Nav({ user }) {
-
-  let { singleProfile } = useSelector((store) => store)
-  let [profile, loading] = [singleProfile.profile, singleProfile.loading]
-
+export default function Nav() {
+  const { singleProfile } = useSelector((store) => store)
+  const storeProfile = singleProfile.profile
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchSingleProfile())
@@ -50,32 +47,34 @@ export default function Nav({ user }) {
       </div>
       <div className="navbar-end">
         <div className="flex-none gap-2">
-          <div className="dropdown-end dropdown">
-            <label tabIndex="0" className="avatar btn btn-ghost btn-circle">
-              <div className="w-10 rounded-full">
-                <img src={profile.avatar_url} />
-              </div>
-            </label>
-            <ul
-              tabIndex="0"
-              className="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-300 p-2 shadow-md"
-            >
-              <li>
-                <Link href="/profile" className="justify-between">
-                  Profile
-                </Link>
-              </li>
-              <li>
-                <Link href="/allchores">All Chores</Link>
-              </li>
-              <li>
-                <Link href="/clan">Clan</Link>
-              </li>
-              <li>
-                <button onClick={() => supabase.auth.signOut()}>Logout</button>
-              </li>
-            </ul>
-          </div>
+          {storeProfile.id ? (
+            <div className="dropdown-end dropdown">
+              <label tabIndex="0" className="avatar btn btn-ghost btn-circle">
+                <div className="w-10 rounded-full">
+                  <img src={storeProfile.avatar_url} />
+                </div>
+              </label>
+              <ul
+                tabIndex="0"
+                className="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-300 p-2 shadow-md"
+              >
+                <li>
+                  <Link href="/profile" className="justify-between">
+                    Profile
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/allchores">All Chores</Link>
+                </li>
+                <li>
+                  <Link href="/clan">Clan</Link>
+                </li>
+                <li>
+                  <a>Logout</a>
+                </li>
+              </ul>
+            </div>
+          ) : null}
         </div>
       </div>
     </nav>
