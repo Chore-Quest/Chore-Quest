@@ -87,7 +87,7 @@ const singleChoreSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchSingleUserChores.fulfilled, (state, action) => {
+      .addCase(fetchSingleChore.fulfilled, (state, action) => {
         state.loading = false
         state.entities = action.payload
       })
