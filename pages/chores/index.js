@@ -59,7 +59,64 @@ export default function AllDBChores() {
 
   return (
     <>
-      <div className="mb-20 columns-1 flex-col bg-base-100 p-20 shadow-xl">
+      <div
+        className="card hero mx-auto mb-5 overflow-hidden rounded-3xl p-0 drop-shadow-2xl"
+        style={{
+          backgroundImage: `url(https://img.nerdburglars.net/wp-content/uploads/2020/04/spartan-3696073_1920-e1585934263741-696x381.jpg)`,
+        }}
+      >
+        <div className="hero-overlay bg-opacity-60"></div>
+        <div className="hero-content text-center text-neutral-content">
+          <div className="max-w-md">
+            <h1 className="mb-3 text-5xl font-bold">Chores</h1>
+            <p className="mb-5">
+              Here is the list of items you need to complete in order to LEVEL
+              UP!
+            </p>
+            {/* <button className="btn btn-primary">Get Started</button> */}
+          </div>
+        </div>
+      </div>
+      {/* map over chores and place each into a card */}
+      <div className="md:flex md:gap-3">
+        {chores &&
+          chores.map((chore) => (
+            <div className="card mb-5 bg-base-100 shadow-xl drop-shadow-2xl  lg:card-side">
+              <figure>
+                <img src={chore.profiles.avatar_url} alt="Avatar image" />
+              </figure>
+              <div class="card-body flex justify-center bg-slate-800 align-middle">
+                {/* <h1 className="card-title">{chore.chores.name}</h1> */}
+                <p>
+                  <h1 className="text-2xl font-bold">{chore.chores.name}</h1>
+
+                  <span className="badge badge-sm badge-ghost">
+                    Notes: {chore.chores.notes}
+                  </span>
+                </p>
+
+                <div className="card-actions justify-end">
+                  <label className="swap swap-flip text-xl">
+                    <input type="checkbox" />
+                    {chore.isComplete ? (
+                      <p>
+                        Completed <span className="swap-on"> ✅</span>
+                      </p>
+                    ) : (
+                      <p>
+                        Not Completed<span className="swap-off"> ❌</span>
+                      </p>
+                    )}
+                  </label>
+                </div>
+              </div>
+            </div>
+          ))}
+      </div>
+      <div
+        tabIndex="0"
+        className="mb-20 columns-1 flex-col rounded-3xl bg-base-100 p-20 shadow-xl drop-shadow-2xl"
+      >
         <div
           tabIndex="0"
           className="collapse-arrow collapse rounded-box border border-base-300 bg-base-100"
@@ -115,7 +172,7 @@ export default function AllDBChores() {
           </div>
         </form>
       </div>
-      <table className="table-zebra table-normal mx-auto mb-20 table rounded-3xl">
+      {/* <table className="table-zebra table-normal mx-auto mb-20 table rounded-3xl">
         <thead className="rounded-3xl">
           <th className="px-4 py-4">name</th>
           <th className="px-4 py-4">Chore</th>
@@ -180,7 +237,7 @@ export default function AllDBChores() {
               ))
           }
         </tbody>
-      </table>
+      </table> */}
     </>
   )
 }

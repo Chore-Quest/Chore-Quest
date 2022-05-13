@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { createChore } from '../store/features/householdChores'
 import { fetchSingleProfile } from '../store/features/singleProfile'
 import { useSelector, useDispatch } from 'react-redux'
+import TierSelector from '../components/tierSelector'
 
 export default function AddChore() {
   const dispatch = useDispatch()
@@ -47,6 +48,7 @@ export default function AddChore() {
         >
           Chore Name
         </label>
+
         <input
           className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
           id="choreName"
@@ -70,7 +72,8 @@ export default function AddChore() {
           value={notes.toString()}
           onChange={(e) => setChore({ ...chore, notes: e.target.value })}
         ></textarea>
-      </div>
+      </div>{' '}
+      <TierSelector />
       <div className="flex items-center justify-between">
         <button
           className="focus:shadow-outline rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 focus:outline-none"
