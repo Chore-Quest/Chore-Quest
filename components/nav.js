@@ -15,7 +15,7 @@ export default function Nav() {
   }, [])
   const router = useRouter()
   return (
-    <nav className="navbar sticky top-0 left-0 right-0 z-50 rounded-b-lg border-b border-gray-500 bg-base-300 px-8 py-1">
+    <nav className="navbar sticky top-0 left-0 right-0 z-50 rounded-b-lg border-b border-black bg-base-300 px-8 py-1">
       <div className="navbar-start">
         <div className="flex-1">
           {router.pathname !== '/' && (

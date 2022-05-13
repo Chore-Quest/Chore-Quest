@@ -7,7 +7,7 @@ import {
   deleteChore,
 } from '../../store/features/householdChores'
 
-export default function AllDBChores() {
+export default function AllClanChores() {
   // **** Need to add due date to database ****
 
   //local state for controlled chore input form
@@ -79,19 +79,22 @@ export default function AllDBChores() {
       </div>
       {/* map over chores and place each into a card */}
       <div className="md:flex md:gap-3">
-        {chores &&
+        {chores.length &&
           chores.map((chore) => (
-            <div className="card mb-5 bg-base-100 shadow-xl drop-shadow-2xl  lg:card-side">
+            <div
+              key={chore.id}
+              className="frosted card mb-5 bg-base-100 shadow-xl drop-shadow-2xl  lg:card-side"
+            >
               <figure>
-                <img src={chore.profiles.avatar_url} alt="Avatar image" />
+                {chore.profiles.map((profile) => (
+                  <img key={profile.id} src={profile.avatar_url} />
+                ))}
               </figure>
               <div className="card-body flex justify-center bg-slate-800 align-middle">
-                {/* <h1 className="card-title">{chore.chores.name}</h1> */}
+                <h1 className="card-title">{chore.name}</h1>
                 <p>
-                  <h1 className="text-2xl font-bold">{chore.chores.name}</h1>
-
                   <span className="badge badge-sm badge-ghost">
-                    Notes: {chore.chores.notes}
+                    Notes: {chore.notes}
                   </span>
                 </p>
 

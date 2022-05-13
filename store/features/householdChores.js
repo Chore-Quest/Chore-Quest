@@ -22,11 +22,15 @@ export const fetchAllChores = createAsyncThunk(
         .from('profiles')
         .select(`household_id`)
         .eq('id', user.id)
+        .single()
       const householdId = data.household_id
       let { data: chores, error } = await supabase
         .from('chores')
-        .select('*')
+        .select(`*, profiles(*)`)
         .eq('household_id', householdId)
+
+      console.log(data, 'this is data')
+      console.log(householdId, 'this is householdId')
       console.log('***************')
       console.log('Chores from fetchAllChores Thunk:')
       console.log(chores)
@@ -34,6 +38,7 @@ export const fetchAllChores = createAsyncThunk(
         'createChore Thunk Says: "Returning Chores to Slice Creator..."'
       )
       console.log('***************')
+
       return chores
     } catch (error) {
       console.log(error)
