@@ -26,7 +26,9 @@ export default function TierSelector() {
         Select Tier
       </option>
       {items.map((item) => (
-        <option key={item.id}>{`Tier: ${item.tier} ${item.name}`}</option>
+        <option
+          key={item.id}
+        >{`Tier: ${item.tier} ${item.name} ${item.xp} XP`}</option>
       ))}
     </select>
   )
