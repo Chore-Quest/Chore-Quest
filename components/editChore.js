@@ -1,83 +1,79 @@
+import { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { supabase } from '../client'
-import { useState } from 'react'
+import { fetchSingleChore } from '../store/features/singleChore'
+import { updateChore } from '../store/features/householdChores'
 
-export default function EditChore() {
-  const [username, setUsername] = useState('')
-  const [avatar_url, setAvatar_url] = useState('')
-  const [isAdmin, setIsAdmin] = useState(false)
-  async function getProfile() {
-    try {
-      const user = supabase.auth.user()
-      let { data, error, status } = await supabase
-        .from('profiles')
-        .select(`username`)
-        .eq('id', user.id)
-        .single()
+export default function EditChore(props) {
+  const { choreId } = props
+  const { singleChore } = useSelector((store) => store)
+  const [chore, setChore] = useState({
+    name: '',
+    notes: '',
+    isComplete: false,
+    isAssigned: false,
+    xp: 0,
+    profiles: [],
+  })
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(fetchSingleChore(choreId))
+  }, [])
 
-      if (error && status !== 406) {
-        throw error
-      }
-
-      if (data) {
-        setUsername(data.username)
-      }
-    } catch (error) {
-      alert(error.message)
+  useEffect(() => {
+    if (singleChore) {
+      console.log(singleChore, 'this is singleChore in useEffect')
+      setChore({
+        name: singleChore.name || '',
+        notes: singleChore.notes || '',
+        isComplete: singleChore.isComplete || false,
+        isAssigned: singleChore.isAssigned || false,
+        xp: singleChore.xp || 0,
+        profiles: [] || [],
+      })
     }
-  }
-  async function updateProfile() {
-    try {
-      const user = supabase.auth.user()
-      const updates = {
-        id: user.id,
-        username,
-        // adding ability to update avatar
-        avatar_url,
-        // adding ability to update admin status
-        isAdmin,
-        updated_at: new Date(),
-      }
-
-      let { error } = await supabase.from('profiles').upsert(updates)
-      if (error) {
-        throw error
-      }
-    } catch (error) {
-      alert(error.message)
-    }
-  }
+  }, [singleChore])
 
   return (
-    <div className="card mx-auto w-96 bg-base-100 p-10 shadow-xl">
-      <input
-        className="my-4 w-full rounded-xl border-2 border-gray-500 p-4"
-        type="username"
-        placeholder="Enter a username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        className="my-4 w-full rounded-xl border-2 border-gray-500 p-4"
-        type="avatar_url"
-        placeholder="add an avatar"
-        value={avatar_url}
-        onChange={(e) => setAvatar_url(e.target.value)}
-      />
-      <h2>Will you be an Admin?</h2>
-      <input
-        type="checkbox"
-        className="toggle toggle-accent toggle-lg"
-        onChange={(e) => setIsAdmin(!isAdmin)}
-      />
-      <button
-        onClick={(e) => {
-          e.preventDefault()
-          updateProfile()
-        }}
-        className="mt-4 w-full rounded-lg border-blue-300 bg-blue-500 p-2 pl-5 pr-5 text-lg text-gray-100 focus:border-4"
-      >
-        <span>Update profile</span>
-      </button>
-    </div>
+    <>
+      <h4>This is choreId in the component: {choreId} </h4>
+      <div className="card mx-auto w-96 bg-base-100 p-10 shadow-xl">
+        <figure>
+          {chore.profiles.length &&
+            chore.profiles.map((profile) => (
+              <img key={profile.id} src={profile.avatar_url} />
+            ))}
+        </figure>
+        <label>Chore Name</label>
+        <input
+          className="my-4 w-full rounded-xl border-2 border-gray-500 p-4"
+          type="text"
+          placeholder="Chore Name"
+          value={chore.name}
+          onChange={(e) => setChore({ ...chore, name: e.target.value })}
+        />
+        <label>Chore Notes</label>
+        <input
+          className="my-4 w-full rounded-xl border-2 border-gray-500 p-4"
+          type="text"
+          placeholder="Chore Name"
+          value={chore.notes}
+          onChange={(e) => setChore({ ...chore, notes: e.target.value })}
+        />
+        <label>Completed</label>
+        <input
+          type="checkbox"
+          checked={chore.isComplete}
+          className="toggle toggle-accent toggle-lg"
+          onChange={() => setChore({ ...chore, isComplete: !chore.isComplete })}
+        />
+        <button
+          onClick={() => dispatch(updateChore({ ...chore }))}
+          className="mt-4 w-full rounded-lg border-blue-300 bg-blue-500 p-2 pl-5 pr-5 text-lg text-gray-100 focus:border-4"
+        >
+          <span>Update Chore</span>
+        </button>
+      </div>
+    </>
   )
 }
