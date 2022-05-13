@@ -5,7 +5,7 @@ import {
   fetchSingleUserChores,
   addChore,
   deleteChore,
-} from '../store/features/chores'
+} from '../store/features/householdChores'
 
 export default function AllDBChores() {
   // **** Need to add due date to database ****

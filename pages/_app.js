@@ -33,8 +33,8 @@ function MyApp({ Component, pageProps } = AppProps) {
         <title>Chore Quest</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Nav user={user} />
       <div className="bg-base container w-full">
-        <Nav user={user} />
         <div className="py-8 px-16">
           <Component {...pageProps} />
         </div>

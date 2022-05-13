@@ -13,7 +13,6 @@ const initialState = {
 export const fetchSingleChore = createAsyncThunk(
   //action type string
   'singleChore/fetchSingleChore',
-  //callback function
   async (choreId, thunkAPI) => {
     try {
       let { data: item } = await supabase

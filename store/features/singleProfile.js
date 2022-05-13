@@ -22,9 +22,9 @@ export const fetchSingleProfile = createAsyncThunk(
         )
         .eq('id', user.id)
         .single()
-      console.log('*******************')
-      console.log(profile, 'from single profile thunk')
-      console.log('*******************')
+      // console.log('*******************')
+      // console.log(profile, 'from single profile thunk')
+      // console.log('*******************')
       return profile
     } catch (error) {
       console.log(error)
@@ -39,7 +39,7 @@ export const updateSingleProfile = createAsyncThunk(
   async (profile, thunkAPI) => {
     const user = supabase.auth.user()
     try {
-      await supabase.from('profiles').eq('id', user.id).update(profile)
+      await supabase.from('profiles').update(profile).eq('id', user.id)
       thunkAPI.dispatch(fetchSingleProfile())
     } catch (error) {
       console.log(error)

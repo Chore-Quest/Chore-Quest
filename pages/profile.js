@@ -17,10 +17,13 @@ export default function Profile({ session }) {
   const router = useRouter()
 
   return (
-    <div className="container mx-auto grid min-h-screen place-content-center">
+    <div className="container min-h-screen">
       <div className="card w-96 bg-base-100 p-10 shadow-xl">
         <p className="mx-auto">
-          Oh hi there {profile ? profile.username : 'Guest'}
+          Oh hi there{' '}
+          <span className="text-2xl">
+            {profile ? profile.username : 'Guest'}!
+          </span>
         </p>
         <div className="justifyCenter mask mask-hexagon mx-auto box-content h-64 w-64">
           <img src={profile ? profile.avatar_url : null} />
@@ -32,12 +35,12 @@ export default function Profile({ session }) {
         >
           Edit Profile
         </button>
-        <button
+        {/* <button
           className="mt-4 rounded-lg border-blue-300 bg-blue-500 p-2 pl-5 pr-5 text-lg text-gray-100 focus:border-4"
           onClick={() => supabase.auth.signOut()}
         >
           Logout
-        </button>
+        </button> */}
       </div>
     </div>
   )
