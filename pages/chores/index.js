@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { supabase } from '../client'
+import { supabase } from '../../client'
 import {
   fetchAllChores,
   addChore,
   deleteChore,
-} from '../store/features/adminChores'
+} from '../../store/features/adminChores'
 
 export default function AllDBChores() {
   // **** Need to add due date to database ****
