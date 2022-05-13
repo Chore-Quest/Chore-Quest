@@ -1,84 +1,43 @@
-import { createAction, createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { supabase } from '../../client'
 
 const initialState = {
-  chore: {},
+  item: {},
+  assignedTo: [],
   loading: false,
 }
 
 // *** THUNKS *** //
 
-//Fetches all chores associated to that user only
+//Fetches a single chore from the database using the ID
 export const fetchSingleChore = createAsyncThunk(
   //action type string
-  'chores/fetchSingleChore',
-  //callback function
-  async (thunkAPI) => {
-    const user = supabase.auth.user()
+  'singleChore/fetchSingleChore',
+  async (choreId, thunkAPI) => {
     try {
-      let { data: userID } = await supabase
-        .from('profiles')
-        .select(`id`)
-        .eq('id', user.id)
-        .single()
+      let { data: item } = await supabase
+        .from('chores')
+        .select('*')
+        .eq('id', choreId)
 
-      let { data: chores } = await supabase
+      let { data: responsibilities } = await supabase
         .from('responsibility')
-        .select(
-          `chore_id, chores (
-          *
-        ) `
-        )
-        .eq('profile_id', userID.id)
-      console.log(userID.id, 'this is user')
+        .select(`profile_id, profiles(*), chores()`)
+        .eq('chore_id', choreId)
 
-      return chores
+      console.log(responsibilities, 'this is responsibilities')
+
+      let assignedTo = []
+
+      const chore = { item, assignedTo }
+      console.log(chore)
+      return chore
     } catch (error) {
       console.log(error)
       return error
     }
   }
 )
-
-// export const addChore = createAsyncThunk(
-//   'chores/addChore',
-//   async (chore, thunkAPI) => {
-//     try {
-//       let { name, notes } = chore
-//       //add the chore to the database
-//       await supabase
-//         .from('chores') // Select the Table
-//         .insert([
-//           {
-//             name,
-//             notes,
-//             // xp,
-//             // isComplete,
-//           },
-//         ])
-//       //dispatch fetchALlChores to update the state from db
-//       thunkAPI.dispatch(fetchAllChores())
-//     } catch (error) {
-//       console.log(error)
-//       return error
-//     }
-//   }
-// )
-
-// export const deleteChore = createAsyncThunk(
-//   'chores/deleteChore',
-//   async (choreId, thunkAPI) => {
-//     try {
-//       //delete the chore
-//       await supabase.from('chores').delete().eq('id', choreId)
-//       //dispatch fetchALlChores to update the state from db
-//       thunkAPI.dispatch(fetchAllChores())
-//     } catch (error) {
-//       console.log(error)
-//       return error
-//     }
-//   }
-// )
 
 // ***Slice Creator*** //
 const singleChoreSlice = createSlice({
