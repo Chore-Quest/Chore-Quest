@@ -1,14 +1,13 @@
 import { useRouter } from 'next/router'
-import EditChore from '../../components/editChore'
+import SingleChore from '../../components/singleChore'
 
-export default function SingleChore() {
+export default function Chore() {
   const router = useRouter()
   const { id } = router.query
 
   return (
     <>
-      <h3>This is the chore id {id}</h3>
-      <EditChore choreId={id} />
+      <SingleChore choreId={id} />
     </>
   )
 }

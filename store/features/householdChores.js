@@ -67,7 +67,7 @@ export const createChore = createAsyncThunk(
         ])
       alert('A Chore has been added!')
       //dispatch fetchALlChores to update the state from db
-      // thunkAPI.dispatch(fetchAllChores())
+      thunkAPI.dispatch(fetchAllChores())
     } catch (error) {
       console.log(error)
       alert('Unable to add Chore')
@@ -75,6 +75,7 @@ export const createChore = createAsyncThunk(
     }
   }
 )
+
 // export const createChore = createAsyncThunk(
 //   'chores/createChore',
 //   async (chore, thunkAPI) => {
