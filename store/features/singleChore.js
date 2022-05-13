@@ -1,10 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { supabase } from '../../client'
-
 const initialState = {
-  item: {},
-  assignedTo: [],
-  loading: false,
+  chore: {},
+  loading: true,
 }
 
 // *** THUNKS *** //
@@ -14,23 +12,14 @@ export const fetchSingleChore = createAsyncThunk(
   //action type string
   'singleChore/fetchSingleChore',
   async (choreId, thunkAPI) => {
+    console.log(choreId, 'this is choreId thunk')
     try {
-      let { data: item } = await supabase
+      let { data: chore } = await supabase
         .from('chores')
-        .select('*')
+        .select(`*, profiles(*)`)
         .eq('id', choreId)
-
-      let { data: responsibilities } = await supabase
-        .from('responsibility')
-        .select(`profile_id, profiles(*), chores()`)
-        .eq('chore_id', choreId)
-
-      console.log(responsibilities, 'this is responsibilities')
-
-      let assignedTo = []
-
-      const chore = { item, assignedTo }
-      console.log(chore)
+        .single()
+      console.log(chore, 'this is chore in thunk')
       return chore
     } catch (error) {
       console.log(error)
@@ -48,7 +37,7 @@ const singleChoreSlice = createSlice({
     builder
       .addCase(fetchSingleChore.fulfilled, (state, action) => {
         state.loading = false
-        state.entities = action.payload
+        state.chore = action.payload
       })
       .addDefaultCase((state, action) => {})
   },

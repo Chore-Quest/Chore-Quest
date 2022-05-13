@@ -6,7 +6,7 @@ import { updateChore } from '../store/features/householdChores'
 
 export default function SingleChore(props) {
   const { choreId } = props
-  const { singleChore } = useSelector((store) => store)
+  const storeChore = useSelector((store) => store.singleChore.chore)
   const [chore, setChore] = useState({
     name: '',
     notes: '',
@@ -17,26 +17,27 @@ export default function SingleChore(props) {
   })
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(fetchSingleChore(choreId))
-  }, [])
+    if (choreId) {
+      dispatch(fetchSingleChore(choreId))
+    }
+  }, [choreId])
 
   useEffect(() => {
-    if (singleChore) {
-      console.log(singleChore, 'this is singleChore in useEffect')
+    if (storeChore && storeChore.id) {
+      console.log(storeChore, 'this is storeChore in useEffect')
       setChore({
-        name: singleChore.name || '',
-        notes: singleChore.notes || '',
-        isComplete: singleChore.isComplete || false,
-        isAssigned: singleChore.isAssigned || false,
-        xp: singleChore.xp || 0,
-        profiles: [] || [],
+        name: storeChore.name || '',
+        notes: storeChore.notes || '',
+        isComplete: storeChore.isComplete || false,
+        isAssigned: storeChore.isAssigned || false,
+        xp: storeChore.xp || 0,
+        profiles: storeChore.profiles || [],
       })
     }
-  }, [singleChore])
+  }, [storeChore])
 
   return (
     <>
-      <h4>This is choreId in the component: {choreId} </h4>
       <div className="card mx-auto w-96 bg-base-100 p-10 shadow-xl">
         <figure>
           {chore.profiles.length &&
