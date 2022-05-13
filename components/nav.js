@@ -1,11 +1,18 @@
 import React from 'react'
 import Link from 'next/link'
-// import CrestSvg from './crest'
 import { supabase } from '../client'
 import { useRouter } from 'next/router'
+import { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchSingleProfile } from '../store/features/singleProfile'
 
-export default function Nav({ user }) {
-  console.log('user from nav', user)
+export default function Nav() {
+  const { singleProfile } = useSelector((store) => store)
+  const storeProfile = singleProfile.profile
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(fetchSingleProfile())
+  }, [])
   const router = useRouter()
   return (
     <nav className="navbar sticky top-0 z-50 border-b border-gray-500 bg-base-300 px-8 py-1">
@@ -40,11 +47,11 @@ export default function Nav({ user }) {
       </div>
       <div className="navbar-end">
         <div className="flex-none gap-2">
-          {user ? (
+          {storeProfile.id ? (
             <div className="dropdown-end dropdown">
               <label tabIndex="0" className="avatar btn btn-ghost btn-circle">
                 <div className="w-10 rounded-full">
-                  <img src="https://api.lorem.space/image/face?hash=33791" />
+                  <img src={storeProfile.avatar_url} />
                 </div>
               </label>
               <ul

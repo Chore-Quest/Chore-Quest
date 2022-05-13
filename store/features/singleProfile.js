@@ -39,7 +39,7 @@ export const updateSingleProfile = createAsyncThunk(
   async (profile, thunkAPI) => {
     const user = supabase.auth.user()
     try {
-      await supabase.from('profiles').eq('id', user.id).update(profile)
+      await supabase.from('profiles').update(profile).eq('id', user.id)
       thunkAPI.dispatch(fetchSingleProfile())
     } catch (error) {
       console.log(error)
