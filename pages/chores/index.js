@@ -6,6 +6,7 @@ import {
   addChore,
   deleteChore,
 } from '../../store/features/householdChores'
+import Link from 'next/link'
 
 export default function AllClanChores() {
   // **** Need to add due date to database ****
@@ -81,39 +82,45 @@ export default function AllClanChores() {
       <div className="md:flex md:gap-3">
         {chores.length &&
           chores.map((chore) => (
-            <div
-              key={chore.id}
-              className="frosted card mb-5 bg-base-100 shadow-xl drop-shadow-2xl  lg:card-side"
-            >
-              <figure>
-                {chore.profiles.map((profile) => (
-                  <img key={profile.id} src={profile.avatar_url} />
-                ))}
-              </figure>
-              <div className="card-body flex justify-center bg-slate-800 align-middle">
-                <h1 className="card-title">{chore.name}</h1>
-                <p>
-                  <span className="badge badge-sm badge-ghost">
-                    Notes: {chore.notes}
-                  </span>
-                </p>
+            <>
+              <div
+                key={chore.id}
+                className="frosted card mb-5 bg-base-100 shadow-xl drop-shadow-2xl  lg:card-side"
+              >
+                <Link href={`/chores/${encodeURIComponent(chore.id)}`}>
+                  <figure className="cursor-pointer">
+                    {chore.profiles.map((profile) => (
+                      <img key={profile.id} src={profile.avatar_url} />
+                    ))}
+                  </figure>
+                </Link>
+                <div className="card-body flex justify-center bg-slate-800 align-middle">
+                  <Link href={`/chores/${encodeURIComponent(chore.id)}`}>
+                    <h1 className="card-title cursor-pointer">{chore.name}</h1>
+                  </Link>
+                  <p>
+                    <span className="badge badge-sm badge-ghost">
+                      Notes: {chore.notes}
+                    </span>
+                  </p>
 
-                <div className="card-actions justify-end">
-                  <label className="swap swap-flip text-xl">
-                    <input type="checkbox" />
-                    {chore.isComplete ? (
-                      <p>
-                        Completed <span className="swap-on"> ✅</span>
-                      </p>
-                    ) : (
-                      <p>
-                        Not Completed<span className="swap-off"> ❌</span>
-                      </p>
-                    )}
-                  </label>
+                  <div className="card-actions justify-end">
+                    <label className="swap swap-flip text-xl">
+                      <input type="checkbox" />
+                      {chore.isComplete ? (
+                        <p>
+                          Completed <span className="swap-on"> ✅</span>
+                        </p>
+                      ) : (
+                        <p>
+                          Not Completed<span className="swap-off"> ❌</span>
+                        </p>
+                      )}
+                    </label>
+                  </div>
                 </div>
               </div>
-            </div>
+            </>
           ))}
       </div>
       <div
