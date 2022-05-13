@@ -4,7 +4,7 @@ import { supabase } from '../client'
 import { fetchSingleChore } from '../store/features/singleChore'
 import { updateChore } from '../store/features/householdChores'
 
-export default function EditChore(props) {
+export default function SingleChore(props) {
   const { choreId } = props
   const { singleChore } = useSelector((store) => store)
   const [chore, setChore] = useState({
