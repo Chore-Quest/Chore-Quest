@@ -18,7 +18,7 @@ export default function Profile({ session }) {
 
   return (
     <div className="container min-h-screen">
-      <div className="card w-96 bg-base-100 p-10 shadow-xl">
+      <div id="frosted" className="card w-96 bg-base-100 p-10 shadow-xl">
         <p className="mx-auto">
           Oh hi there{' '}
           <span className="text-2xl">
