@@ -7,7 +7,7 @@ import allItemsReducer from './features/itemTiers'
 
 const store = configureStore({
   reducer: {
-    allChores: choresReducer,
+    allClanChores: choresReducer,
     singleChore: singleChoreReducer,
     singleProfile: singleProfileReducer,
     singleHouseholdProfiles: singleHouseholdReducer,

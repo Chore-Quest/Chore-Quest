@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { supabase } from '../../client'
+import { supabase } from '../client'
 import {
   fetchAllChores,
   addChore,
   deleteChore,
-} from '../../store/features/householdChores'
+} from '../store/features/householdChores'
 import Link from 'next/link'
 
 export default function AllClanChores() {
@@ -21,8 +21,8 @@ export default function AllClanChores() {
   const { name, notes } = chore
 
   //gets the list of chores and loading state from the redux store
-  let { allChores } = useSelector((store) => store)
-  let [chores, loading] = [allChores.entities, allChores.loading]
+  let { allClanChores } = useSelector((store) => store)
+  let [chores, loading] = [allClanChores.entities, allClanChores.loading]
   // console.log(chores, 'this is chores from store')
   const dispatch = useDispatch()
   //fetchAllChores gets chores in the database
