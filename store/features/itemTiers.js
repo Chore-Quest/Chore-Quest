@@ -12,7 +12,7 @@ const initialState = {
 //FETCH ALL CHORES FOR HOUSEHOLD
 export const fetchAllItems = createAsyncThunk(
   //action type string
-  'chores/fetchAllChores',
+  'item/fetchAllItems',
   //callback function
   async () => {
     // const user = supabase.auth.user()
@@ -20,7 +20,7 @@ export const fetchAllItems = createAsyncThunk(
       //get the householdID
       let { data: items } = await supabase.from('items').select('*')
       items.sort((a, b) => a.xp - b.xp)
-      console.log(items, 'itemsss')
+
       return items
     } catch (error) {
       console.log(error)

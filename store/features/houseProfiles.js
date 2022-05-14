@@ -23,7 +23,6 @@ export const fetchAllProfiles = createAsyncThunk(
         .from('profiles')
         .select('*')
         .eq('household_id', houseHoldId.household_id)
-      console.log('this is profiles thunk', profiles)
       return profiles
     } catch (error) {
       console.log(error)
