@@ -79,21 +79,14 @@ export default function AllClanChores() {
         </div>
       </div>
       {/* map over chores and place each into a card */}
-      <div className="md:flex md:gap-3">
+      <div className="columns-3xs">
         {chores.length &&
           chores.map((chore) => (
             <>
               <div
                 key={chore.id}
-                className="frosted card mb-5 bg-base-100 shadow-xl drop-shadow-2xl  lg:card-side"
+                className="frosted card mb-5 bg-base-100 shadow-xl drop-shadow-2xl"
               >
-                <Link href={`/chores/${encodeURIComponent(chore.id)}`}>
-                  <figure className="cursor-pointer">
-                    {chore.profiles.map((profile) => (
-                      <img key={profile.id} src={profile.avatar_url} />
-                    ))}
-                  </figure>
-                </Link>
                 <div className="card-body flex justify-center bg-slate-800 align-middle">
                   <Link href={`/chores/${encodeURIComponent(chore.id)}`}>
                     <h1 className="card-title cursor-pointer">{chore.name}</h1>
@@ -103,7 +96,22 @@ export default function AllClanChores() {
                       Notes: {chore.notes}
                     </span>
                   </p>
+                  {chore.profiles[0] ? <p>Assigned to:</p> : <p>Unassigned</p>}
 
+                  <div class="avatar-group -space-x-1">
+                    {chore.profiles.map((profile) => (
+                      <div class="avatar">
+                        <div class="w-16 rounded">
+                          <img
+                            key={profile.id}
+                            src={profile.avatar_url}
+                            alt={`${profile.username} avatar`}
+                            title={profile.username}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                   <div className="card-actions justify-end">
                     <label className="swap swap-flip text-xl">
                       <input type="checkbox" />
