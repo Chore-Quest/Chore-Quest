@@ -5,6 +5,7 @@ import {
   fetchAllChores,
   addChore,
   deleteChore,
+  getFilteredChores,
 } from '../store/features/householdChores'
 import Link from 'next/link'
 
@@ -27,7 +28,7 @@ export default function AllClanChores() {
   const dispatch = useDispatch()
   //fetchAllChores gets chores in the database
   useEffect(() => {
-    dispatch(fetchAllChores())
+    dispatch(getFilteredChores('isComplete', true))
   }, [])
 
   // Dispatches new chores to the store
@@ -101,7 +102,7 @@ export default function AllClanChores() {
                   <div class="avatar-group -space-x-1">
                     {chore.profiles.map((profile) => (
                       <div class="avatar">
-                        <div class="w-16 rounded">
+                        <div class="w-12 rounded">
                           <img
                             key={profile.id}
                             src={profile.avatar_url}
@@ -131,131 +132,48 @@ export default function AllClanChores() {
             </>
           ))}
       </div>
-      <div
-        tabIndex="0"
-        className="mb-20 columns-1 flex-col rounded-3xl bg-base-100 p-20 shadow-xl drop-shadow-2xl"
-      >
-        <div
-          tabIndex="0"
-          className="collapse-arrow collapse rounded-box border border-base-300 bg-base-100"
-        >
-          <div className="collapse-title text-xl font-medium">
-            Focus me to see content
-          </div>
-          <div className="collapse-content">
-            <p>tabIndex="0" attribute is necessary to make the div focusable</p>
-          </div>
+      <form>
+        <div>
+          <label
+            className="mb-2 block text-sm font-bold text-gray-700"
+            htmlFor="choreName"
+          >
+            Chore Name
+          </label>
+          <input
+            className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
+            id="choreName"
+            type="text"
+            value={name.toString()}
+            onChange={(e) => setChore({ ...chore, name: e.target.value })}
+          />
         </div>
+        <div className="mb-4">
+          <label
+            className="mb-2 block text-sm font-bold text-gray-700"
+            htmlFor="choreNotes"
+          >
+            Chore Notes
+          </label>
 
-        <form>
-          <div>
-            <label
-              className="mb-2 block text-sm font-bold text-gray-700"
-              htmlFor="choreName"
-            >
-              Chore Name
-            </label>
-            <input
-              className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
-              id="choreName"
-              type="text"
-              value={name.toString()}
-              onChange={(e) => setChore({ ...chore, name: e.target.value })}
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              className="mb-2 block text-sm font-bold text-gray-700"
-              htmlFor="choreNotes"
-            >
-              Chore Notes
-            </label>
-
-            <textarea
-              className="form-textarea focus:shadow-outline mt-1 block w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
-              rows="3"
-              placeholder="Chore Notes"
-              value={notes.toString()}
-              onChange={(e) => setChore({ ...chore, notes: e.target.value })}
-            ></textarea>
-          </div>
-          <div className="flex items-center justify-between">
-            <button
-              className="focus:shadow-outline rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 focus:outline-none"
-              type="button"
-              onClick={dispatchChore} // Call the addChore Function
-            >
-              Add Chore
-            </button>
-          </div>
-        </form>
-      </div>
-      {/* <table className="table-zebra table-normal mx-auto mb-20 table rounded-3xl">
-        <thead className="rounded-3xl">
-          <th className="px-4 py-4">name</th>
-          <th className="px-4 py-4">Chore</th>
-          <th className="px-4 py-4">Due Date</th>
-          <th className="px-4 py-4">XP</th>
-          <th className="px-4 py-4">Delete</th>
-          <th className="px-4 py-4">Edit Chore</th>
-        </thead>
-        <tbody>
-          {
-            //if there are chores, map through and display them
-            chores &&
-              chores.map((chore, index) => (
-                <tr key={chore.id} className="hover">
-                  {console.log(chores)}
-                  <td className="px-4 py-4">
-                    <div className="flex items-center space-x-3">
-                      <div className="avatar">
-                        <div className="mask mask-squircle h-12 w-12">
-                          <img
-                            src={chore.profiles.avatar_url}
-                            alt="Avatar Tailwind CSS Component"
-                          />
-                        </div>
-                      </div>
-                      <div>
-                        <div className="font-bold">{chore.profiles.username}</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-4 py-4">
-                    {chore.chores.name}
-                    <br />
-                    <span className="badge badge-sm badge-ghost">
-                      Notes: {chore.chores.notes}
-                    </span>
-                  </td>
-                  <td className="px-8 py-4">{chore.chores.dueDate}</td>
-                  <td className="px-8 py-4">{chore.chores.xp}</td>
-                  <td className="px-8 py-4">
-                    <button
-                      className="focus:shadow-outline rounded bg-red-500 py-2 px-4 font-bold text-white hover:bg-red-700 focus:outline-none"
-                      type="button"
-                      // Deletes the chore
-                      onClick={() => dispatch(deleteChore(chore.id))}
-                    >
-                      Delete
-                    </button>
-                  </td>
-
-                  <td className="px-4 py-4">
-                    <button
-                      className="btn btn-warning"
-                      type="button"
-                      // Deletes the chore
-                      onClick={() => dispatch(deleteChore(chore.id))}
-                    >
-                      Edit
-                    </button>
-                  </td>
-                </tr>
-              ))
-          }
-        </tbody>
-      </table> */}
+          <textarea
+            className="form-textarea focus:shadow-outline mt-1 block w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
+            rows="3"
+            placeholder="Chore Notes"
+            value={notes.toString()}
+            onChange={(e) => setChore({ ...chore, notes: e.target.value })}
+          ></textarea>
+        </div>
+        <div className="flex items-center justify-between">
+          <button
+            className="focus:shadow-outline rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 focus:outline-none"
+            type="button"
+            onClick={dispatchChore} // Call the addChore Function
+          >
+            Add Chore
+          </button>
+        </div>
+      </form>
     </>
   )
 }

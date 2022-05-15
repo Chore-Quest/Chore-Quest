@@ -66,41 +66,6 @@ export const createChore = createAsyncThunk(
   }
 )
 
-// export const createChore = createAsyncThunk(
-//   'chores/createChore',
-//   async (chore, thunkAPI) => {
-//     const user = supabase.auth.user()
-//     try {
-//       let { data } = await supabase
-//         .from('profiles')
-//         .select(`household_id`)
-//         .eq('id', user.id)
-//       const household_id = data.household_id
-//       let { name, notes } = chore
-//       //add the chore to the database
-//       const res = await supabase.from('chores').insert([
-//         {
-//           name,
-//           notes,
-//           household_id,
-//         },
-//       ])
-//       console.log('***************')
-//       console.log('Server Response from createChore Thunk:')
-//       console.log(res)
-//       console.log(
-//         'createChore Thunk Says: "Dispatching Fetch All Household Chores..."'
-//       )
-//       console.log('***************')
-//       //dispatch fetchALlChores to update the state from db
-//       thunkAPI.dispatch(fetchAllChores())
-//     } catch (error) {
-//       console.log(error)
-//       return error
-//     }
-//   }
-// )
-
 export const deleteChore = createAsyncThunk(
   'chores/deleteChore',
   async (choreId, thunkAPI) => {
@@ -143,9 +108,11 @@ export default choresSlice.reducer
 //creates a memoized selector based on the filter input
 export const getFilteredChores = createSelector(
   [
-    (state) => state.chores,
-    (state, category) => category,
-    (state, filter) => filter,
+    (store) => store.allClanChores,
+    (store, category) => category,
+    (store, criteria) => criteria,
   ],
-  (chores) => chores.filter((chore) => chore.category === filter)
+  (allClanChores) => {
+    allClanChores.map((chore) => chore.category === criteria)
+  }
 )
