@@ -5,8 +5,8 @@ import {
   fetchAllChores,
   addChore,
   deleteChore,
+  getFilteredChores,
 } from '../store/features/householdChores'
-import { getFilteredChores } from '../store/store'
 import Link from 'next/link'
 
 export default function AllClanChores() {
@@ -31,7 +31,8 @@ export default function AllClanChores() {
     dispatch(fetchAllChores())
   }, [])
   useEffect(async () => {
-    getFilteredChores()
+    let filteredChores = getFilteredChores(allClanChores)
+    console.log(filteredChores, 'this is filtered chores')
   }, [allClanChores])
 
   // Dispatches new chores to the store
