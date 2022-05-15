@@ -1,9 +1,10 @@
-import { createSelector, createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { supabase } from '../../client'
 
 const initialState = {
   entities: [],
-  filtered: [],
+  filter: 'IS_COMPLETE',
+  id: 0,
   loading: false,
 }
 
@@ -56,7 +57,7 @@ export const createChore = createAsyncThunk(
           },
         ])
       alert('A Chore has been added!')
-      //dispatch fetchALlChores to update the state from db
+      //dispatch fetchALlChores to update the store from db
       thunkAPI.dispatch(fetchAllChores())
     } catch (error) {
       console.log(error)
@@ -71,15 +72,7 @@ export const deleteChore = createAsyncThunk(
   async (choreId, thunkAPI) => {
     try {
       //delete the chore
-      const res = await supabase.from('chores').delete().eq('id', choreId)
-      console.log('***************')
-      console.log('Server Response from deleteChore Thunk:')
-      console.log(res)
-      console.log(
-        'deleteChore Thunk Says: "Dispatching Fetch All Household Chores..."'
-      )
-      console.log('***************')
-      //dispatch fetchALlChores to update the state from db
+      await supabase.from('chores').delete().eq('id', choreId)
       thunkAPI.dispatch(fetchAllChores())
     } catch (error) {
       console.log(error)
@@ -90,29 +83,17 @@ export const deleteChore = createAsyncThunk(
 
 // ***Slice Creator*** //
 const choresSlice = createSlice({
-  name: 'allChores',
+  name: 'allClanChores',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAllChores.fulfilled, (state, action) => {
-        state.loading = false
-        state.entities = action.payload
+      .addCase(fetchAllChores.fulfilled, (store, action) => {
+        store.loading = false
+        store.entities = action.payload
       })
-      .addDefaultCase((state, action) => {})
+      .addDefaultCase((store, action) => {})
   },
 })
 
 export default choresSlice.reducer
-
-//creates a memoized selector based on the filter input
-export const getFilteredChores = createSelector(
-  [
-    (store) => store.allClanChores,
-    (store, category) => category,
-    (store, criteria) => criteria,
-  ],
-  (allClanChores) => {
-    allClanChores.map((chore) => chore.category === criteria)
-  }
-)
