@@ -38,11 +38,13 @@ export default function SingleChore(props) {
 
   return (
     <>
-      <div className="card mx-auto w-96 bg-base-100 p-10 shadow-xl">
+      <div className="frosted card mx-auto w-96 bg-base-100 p-10 shadow-xl">
         <figure>
           {chore.profiles[0] &&
             chore.profiles.map((profile) => (
-              <img key={profile.id} src={profile.avatar_url} />
+              <div className="justifyCenter mask mask-hexagon mx-auto box-content h-64 w-64">
+                <img key={profile.id} src={profile.avatar_url} />
+              </div>
             ))}
         </figure>
         <label>Chore Name</label>
