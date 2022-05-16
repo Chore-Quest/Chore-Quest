@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 // import TierSelector from '../components/tierSelector'
 import { fetchAllItems } from '../store/features/itemTiers'
 import { fetchAllProfiles } from '../store/features/houseProfiles'
+import Link from 'next/link'
 
 export default function AddChore() {
   const dispatch = useDispatch()
@@ -122,7 +123,7 @@ export default function AddChore() {
           type="button"
           onClick={handleAddChore} // Call the addChore Function
         >
-          Add Chore
+          <Link href="/">Add Chore</Link>
         </button>
       </div>
     </form>

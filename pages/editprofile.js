@@ -5,6 +5,7 @@ import {
   fetchSingleProfile,
   updateSingleProfile,
 } from '../store/features/singleProfile'
+import Link from 'next/link'
 
 export default function editProfile() {
   const { singleProfile } = useSelector((store) => store)
@@ -54,7 +55,9 @@ export default function editProfile() {
         onClick={() => dispatch(updateSingleProfile({ ...profile }))}
         className="mt-4 w-full rounded-lg border-blue-300 bg-blue-500 p-2 pl-5 pr-5 text-lg text-gray-100 focus:border-4"
       >
-        <span>Update profile</span>
+        <Link href="/">
+          <span>Update profile</span>
+        </Link>
       </button>
     </div>
   )
