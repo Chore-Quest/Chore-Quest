@@ -56,7 +56,7 @@ const clan = ({ session }) => {
         <div className="hero-overlay bg-opacity-60"></div>
         <div className="hero-content text-center text-neutral-content">
           <div className="max-w-md">
-            <h1 className="mb-3 text-5xl font-bold">House: {householdName}</h1>
+            <h1 className="mb-3 text-8xl font-bold">House: {householdName}</h1>
             <p className="mb-5">
               Level up and surpass your peers by completing chores and earning
               XP. Your xp will be used to trade for gold and as we know gold is

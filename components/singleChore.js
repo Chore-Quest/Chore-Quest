@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { supabase } from '../client'
@@ -83,7 +84,9 @@ export default function SingleChore(props) {
           }
           className="mt-4 w-full rounded-lg border-blue-300 bg-blue-500 p-2 pl-5 pr-5 text-lg text-gray-100 focus:border-4"
         >
-          <span>Update Chore</span>
+          <Link href="/">
+            <span>Update Chore</span>
+          </Link>
         </button>
       </div>
     </>

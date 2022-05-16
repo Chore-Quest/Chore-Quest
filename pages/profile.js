@@ -44,11 +44,11 @@ export default function Profile({ session }) {
 
   return (
     <div className="container min-h-screen">
-      <div className="frosted w-296 p-15 card mb-5 items-center justify-start bg-base-100 pt-5 shadow-xl sm:grid-cols-2 sm:p-5 md:grid md:grid-cols-5">
+      <div className="frosted w-296 shadow-3xl card mb-5 items-center justify-start bg-base-100 pt-5 sm:grid-cols-2 sm:p-5 md:grid md:grid-cols-5">
         <div className="h-94 w-94 mask mask-hexagon mr-10">
           <img src={profile ? profile.avatar_url : null} />
         </div>
-        <div className="justify-self-center">
+        <div className="">
           <p>
             <span className="text-4xl">
               {profile ? profile.username : 'Guest'}
@@ -63,9 +63,13 @@ export default function Profile({ session }) {
           </button>
         </div>
         <div>
+          <h2 className="houseName gap-5 justify-self-auto align-middle">
+            Clan
+          </h2>
           <h1 className="houseName ml-10 justify-self-auto align-middle">
             {householdName}
           </h1>
+          <div></div>
         </div>
       </div>
       <AllClanChores />
