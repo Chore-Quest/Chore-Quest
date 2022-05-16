@@ -22,17 +22,16 @@ export default function AllClanChores() {
 
   //gets the list of chores and loading state from the redux store
   let { allClanChores } = useSelector((store) => store)
-  let [chores, loading] = [allClanChores.entities, allClanChores.loading]
+  let filteredChores = getFilteredChores(allClanChores)
+  let { loading } = allClanChores
 
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchAllChores())
   }, [])
+
   useEffect(async () => {
-    let filteredChores = getFilteredChores(allClanChores, {
-      filterType: 'PROFILE_ID',
-      filterCriteria: 'L:KJSDF:LKJDSF:LKj',
-    })
+    filteredChores = getFilteredChores(allClanChores)
     console.log(filteredChores, 'this is filtered chores')
   }, [allClanChores])
 
@@ -86,8 +85,8 @@ export default function AllClanChores() {
       <ChoreFilters />
       {/* map over chores and place each into a card */}
       <div className="mb-5 gap-4 md:grid md:grid-cols-3 md:gap-3">
-        {chores[0] &&
-          chores.map((chore) => (
+        {filteredChores[0] &&
+          filteredChores.map((chore) => (
             <div
               key={chore.id}
               className="frosted card mb-5 bg-base-100 shadow-xl drop-shadow-2xl"

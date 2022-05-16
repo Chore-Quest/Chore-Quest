@@ -1,16 +1,28 @@
-import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit'
+import {
+  createSlice,
+  createAction,
+  createAsyncThunk,
+  createSelector,
+} from '@reduxjs/toolkit'
 import { supabase } from '../../client'
 
 const initialState = {
   entities: [],
-  filterType: 'PROFILE_ID',
-  filterCriteria: '7a11347c-61ab-46d2-a80b-b307370a251e',
+  filterType: '',
+  filterCriteria: undefined,
+  // filterCriteria: '7a11347c-61ab-46d2-a80b-b307370a251e',
+  // filterType: 'PROFILE_ID',
+  // filterCriteria: '7a11347c-61ab-46d2-a80b-b307370a251e',
   // filterType: 'UNASSIGNED',
   // filterCriteria: null,
   // filterType: 'IS_COMPLETE',
   // filterCriteria: true,
   loading: true,
 }
+
+// **** ACTION CREATORS **** //
+const updateFilterType = createAction('choreFilterType/update')
+const updateFilterCriteria = createAction('choreFilterCriteria/update')
 
 // *** THUNKS *** //
 
@@ -71,7 +83,6 @@ export const createChore = createAsyncThunk(
           },
         ])
       }
-
       alert('A Chore has been added!')
       //dispatch fetchALlChores to update the store from db
       thunkAPI.dispatch(fetchAllChores())
@@ -101,7 +112,14 @@ export const deleteChore = createAsyncThunk(
 const choresSlice = createSlice({
   name: 'allClanChores',
   initialState,
-  reducers: {},
+  reducers: {
+    updateFilterType(state, action) {
+      state.filterType = action.payload
+    },
+    updateFilterCriteria(state, action) {
+      state.filterCriteria = action.payload
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllChores.fulfilled, (store, action) => {
