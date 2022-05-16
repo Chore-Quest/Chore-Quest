@@ -79,11 +79,11 @@ export default function AllClanChores() {
         </div>
       </div>
       {/* map over chores and place each into a card */}
-      <div className="md:flex md:gap-3">
+      <div className="mb-5 gap-4 md:grid md:grid-cols-3 md:gap-3">
         {chores.length &&
           chores.map((chore) => (
             <>
-              <div className="md:min-w-300 frosted card mx-auto mb-5 basis-full bg-base-100  shadow-xl">
+              <div className="md:min-w-300 frosted card basis-full bg-base-100  shadow-xl">
                 <Link href={`/chores/${encodeURIComponent(chore.id)}`}>
                   <figure className="cursor-pointer">
                     {chore.profiles.map((profile) => (
