@@ -3,12 +3,12 @@ import { supabase } from '../../client'
 
 const initialState = {
   entities: [],
-  // filter: 'PROFILE_ID',
-  // filterCriteria: '7a11347c-61ab-46d2-a80b-b307370a251e',
-  filterType: 'UNASSIGNED',
-  filterCriteria: null,
-  // filter: 'IS_COMPLETE',
-  // filterCriteria: false,
+  filterType: 'PROFILE_ID',
+  filterCriteria: '7a11347c-61ab-46d2-a80b-b307370a251e',
+  // filterType: 'UNASSIGNED',
+  // filterCriteria: null,
+  // filterType: 'IS_COMPLETE',
+  // filterCriteria: true,
   loading: true,
 }
 

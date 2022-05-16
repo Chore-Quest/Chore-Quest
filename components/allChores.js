@@ -31,7 +31,10 @@ export default function AllClanChores() {
     dispatch(fetchAllChores())
   }, [])
   useEffect(async () => {
-    let filteredChores = getFilteredChores(allClanChores)
+    let filteredChores = getFilteredChores(allClanChores, {
+      filterType: 'PROFILE_ID',
+      filterCriteria: 'L:KJSDF:LKJDSF:LKj',
+    })
     console.log(filteredChores, 'this is filtered chores')
   }, [allClanChores])
 
