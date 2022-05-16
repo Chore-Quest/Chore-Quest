@@ -126,65 +126,16 @@ export default function AllClanChores() {
             </>
           ))}
       </div>
-      <div
-        tabIndex="0"
-        className="mb-20 columns-1 flex-col rounded-3xl bg-base-100 p-20 shadow-xl drop-shadow-2xl"
-      >
-        <div
-          tabIndex="0"
-          className="collapse-arrow collapse rounded-box border border-base-300 bg-base-100"
+
+      <Link href="/addchore">
+        <button
+          className="focus:shadow-outline rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 focus:outline-none"
+          type="button"
         >
-          <div className="collapse-title text-xl font-medium">
-            Focus me to see content
-          </div>
-          <div className="collapse-content">
-            <p>tabIndex="0" attribute is necessary to make the div focusable</p>
-          </div>
-        </div>
+          Add Chore
+        </button>
+      </Link>
 
-        <form>
-          <div>
-            <label
-              className="mb-2 block text-sm font-bold text-gray-700"
-              htmlFor="choreName"
-            >
-              Chore Name
-            </label>
-            <input
-              className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
-              id="choreName"
-              type="text"
-              value={name.toString()}
-              onChange={(e) => setChore({ ...chore, name: e.target.value })}
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              className="mb-2 block text-sm font-bold text-gray-700"
-              htmlFor="choreNotes"
-            >
-              Chore Notes
-            </label>
-
-            <textarea
-              className="form-textarea focus:shadow-outline mt-1 block w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
-              rows="3"
-              placeholder="Chore Notes"
-              value={notes.toString()}
-              onChange={(e) => setChore({ ...chore, notes: e.target.value })}
-            ></textarea>
-          </div>
-          <div className="flex items-center justify-between">
-            <button
-              className="focus:shadow-outline rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 focus:outline-none"
-              type="button"
-              onClick={dispatchChore} // Call the addChore Function
-            >
-              Add Chore
-            </button>
-          </div>
-        </form>
-      </div>
       {/* <table className="table-zebra table-normal mx-auto mb-20 table rounded-3xl">
         <thead className="rounded-3xl">
           <th className="px-4 py-4">name</th>
