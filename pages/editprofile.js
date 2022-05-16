@@ -31,14 +31,14 @@ export default function editProfile() {
   return (
     <div className="card mx-auto w-96 bg-base-100 p-10 shadow-xl">
       <input
-        className="my-4 w-full rounded-xl border-2 border-gray-500 p-4"
+        className="frosted my-4 w-full rounded-xl border-2 border-gray-500 p-4"
         type="username"
         placeholder="Enter a username"
         value={profile.username}
         onChange={(e) => setProfile({ ...profile, username: e.target.value })}
       />
       <input
-        className="my-4 w-full rounded-xl border-2 border-gray-500 p-4"
+        className="frosted my-4 w-full rounded-xl border-2 border-gray-500 p-4"
         type="avatar_url"
         placeholder="add an avatar"
         value={profile.avatar_url}

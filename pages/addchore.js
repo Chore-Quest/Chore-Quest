@@ -66,7 +66,7 @@ export default function AddChore() {
         </label>
 
         <input
-          className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
+          className="frosted focus:shadow-outline  w-full appearance-none rounded border py-2 px-3 leading-tight  text-gray-400 shadow focus:outline-none"
           id="choreName"
           type="text"
           value={name.toString()}
@@ -75,14 +75,14 @@ export default function AddChore() {
       </div>
       <div className="mb-4">
         <label
-          className="mb-2 block text-sm font-bold text-gray-700"
+          className="mb-2 block text-sm font-bold text-gray-400"
           htmlFor="choreNotes"
         >
           Chore Notes
         </label>
 
         <textarea
-          className="form-textarea focus:shadow-outline mt-1 block w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
+          className="form-textarea frosted focus:shadow-outline mt-1 block w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
           rows="3"
           placeholder="Chore Notes"
           value={notes.toString()}
@@ -90,7 +90,7 @@ export default function AddChore() {
         ></textarea>
       </div>
       <select
-        className="select w-full max-w-xs"
+        className="select mb-2 w-full max-w-xs"
         onChange={(e) => setChore({ ...chore, item: e.target.value })}
       >
         <option defaultValue>Select Tier</option>
@@ -103,7 +103,7 @@ export default function AddChore() {
       </select>
 
       <select
-        className="select w-full max-w-xs"
+        className="select mb-2 w-full max-w-xs"
         onChange={(e) => setChore({ ...chore, profile_id: e.target.value })}
       >
         <option defaultValue value="">

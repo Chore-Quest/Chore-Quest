@@ -66,7 +66,7 @@ export default function AllClanChores() {
           chores.map((chore) => (
             <>
               <div
-                className="md:min-w-300 frosted card basis-full bg-base-100  shadow-xl"
+                className="md:min-w-300 frosted card mb-5 basis-full  bg-base-100 shadow-xl"
                 key={chore.id}
               >
                 <Link href={`/chores/${encodeURIComponent(chore.id)}`}>
@@ -82,7 +82,7 @@ export default function AllClanChores() {
                     ))}
                   </figure>
                 </Link>
-                <div className="card-body flex justify-center bg-slate-800 align-middle">
+                <div className="card-body  flex justify-center bg-slate-800 align-middle">
                   <Link href={`/chores/${encodeURIComponent(chore.id)}`}>
                     <h1 className="card-title cursor-pointer">{chore.name}</h1>
                   </Link>
@@ -93,18 +93,20 @@ export default function AllClanChores() {
                   </p>
 
                   <div className="card-actions justify-end">
-                    <label className="swap swap-flip text-xl">
-                      <input type="checkbox" />
-                      {chore.isComplete ? (
-                        <p>
-                          Completed <span className="swap-on"> ✅</span>
-                        </p>
-                      ) : (
-                        <p>
-                          Not Completed<span className="swap-off"> ❌</span>
-                        </p>
-                      )}
-                    </label>
+                    <Link href={`/chores/${encodeURIComponent(chore.id)}`}>
+                      <label className="swap swap-flip text-xl">
+                        <input type="checkbox" />
+                        {chore.isComplete ? (
+                          <p>
+                            Completed <span className="swap-on"> ✅</span>
+                          </p>
+                        ) : (
+                          <p>
+                            Not Completed<span className="swap-off"> ❌</span>
+                          </p>
+                        )}
+                      </label>
+                    </Link>
                   </div>
                 </div>
               </div>

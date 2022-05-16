@@ -72,7 +72,7 @@ export default function Profile({ session }) {
           <div></div>
         </div>
       </div>
-      <AllClanChores />
+      <AllClanChores className="mb-5" />
     </div>
   )
 }
