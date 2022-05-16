@@ -67,10 +67,10 @@ const clan = ({ session }) => {
         </div>
       </div>
 
-      <div className="justify-around md:grid md:grid-cols-2 md:gap-4">
+      <div className="justify-around md:grid md:grid-cols-2">
         {profiles.map((profile) => (
           <div className="min-w-200 frosted card flex-auto basis-full bg-base-100 p-5 shadow-xl">
-            <div>
+            <div className="mb-5">
               <figure>
                 <img
                   src={profile.avatar_url}
