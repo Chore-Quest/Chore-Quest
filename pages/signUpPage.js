@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
-
 import { useRouter } from 'next/router'
-
 import { supabase } from '../client'
 
 const SignUp = () => {
@@ -20,7 +18,7 @@ const SignUp = () => {
     if (error) {
       alert(JSON.stringify(error))
     } else {
-      router.push('/signin')
+      router.push('/profile')
     }
   }
 
