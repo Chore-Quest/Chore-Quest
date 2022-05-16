@@ -69,8 +69,8 @@ const clan = ({ session }) => {
 
       <div className="mx-auto grid-flow-col grid-rows-2 flex-row gap-4 gap-x-3 md:grid">
         {profiles.map((profile) => (
-          <div className="min-w-200 frosted card flex-auto basis-full bg-base-100 p-5 shadow-xl">
-            <div>
+          <div className="min-w-200 frosted grid-col-8 card mask mask-hexagon grid flex-auto basis-full gap-4 bg-base-100 p-5 shadow-xl">
+            <div className="col-span-3 col-start-1">
               <figure>
                 <img
                   src={profile.avatar_url}
