@@ -10,8 +10,6 @@ import {
 import Link from 'next/link'
 
 export default function AllClanChores() {
-  // **** Need to add due date to database ****
-
   //local state for controlled chore input form
   const [chore, setChore] = useState({
     name: '',
@@ -24,9 +22,8 @@ export default function AllClanChores() {
   //gets the list of chores and loading state from the redux store
   let { allClanChores } = useSelector((store) => store)
   let [chores, loading] = [allClanChores.entities, allClanChores.loading]
-  // console.log(chores, 'this is chores from store')
+
   const dispatch = useDispatch()
-  //fetchAllChores gets chores in the database
   useEffect(() => {
     dispatch(fetchAllChores())
   }, [])
@@ -87,7 +84,7 @@ export default function AllClanChores() {
         </div>
       </div>
       {/* map over chores and place each into a card */}
-      <div className="columns-3xs">
+      <div className="mb-5 gap-4 md:grid md:grid-cols-3 md:gap-3">
         {chores[0] &&
           chores.map((chore) => (
             <div
