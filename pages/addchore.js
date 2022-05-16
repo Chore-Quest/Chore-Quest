@@ -33,15 +33,16 @@ export default function AddChore() {
     // household_id: '',
     item: '',
     // isComplete: '',
-    assignedTo: '',
+    profile_id: '',
   })
   const { name, notes } = chore
 
+  console.log(chore, 'this is chore')
   function handleAddChore() {
-    setChore({ ...chore, household_id: household_id })
-    if (chore.assignedTo !== '') {
-      console.log('DISPATCH SOMETHING')
-    }
+    // setChore({ ...chore, household_id: household_id })
+    // if (chore.assignedTo !== '') {
+    //   console.log('DISPATCH SOMETHING')
+    // }
 
     dispatch(createChore({ ...chore, household_id }))
     // Reset the chore details & clears the form data
@@ -89,7 +90,7 @@ export default function AddChore() {
       </div>
       <select
         className="select w-full max-w-xs"
-        onChange={(e) => setChore({ ...chore, item: Number(e.target.value) })}
+        onChange={(e) => setChore({ ...chore, item: e.target.value })}
       >
         <option defaultValue>Select Tier</option>
         {items.map((item) => (
@@ -102,10 +103,12 @@ export default function AddChore() {
 
       <select
         className="select w-full max-w-xs"
-        // onChange={(e) => setChore({ ...chore, item: Number(e.target.value) })}
+        onChange={(e) => setChore({ ...chore, profile_id: e.target.value })}
       >
-        <option defaultValue>Assign To</option>
-        {profiles.entities.map((profile) => (
+        <option defaultValue value="">
+          Assign To
+        </option>
+        {profiles.entities?.map((profile) => (
           <option
             key={profile.id}
             value={profile.id}
