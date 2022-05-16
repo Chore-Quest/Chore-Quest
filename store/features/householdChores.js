@@ -5,9 +5,11 @@ const initialState = {
   entities: [],
   // filter: 'PROFILE_ID',
   // filterCriteria: '7a11347c-61ab-46d2-a80b-b307370a251e',
-  filter: 'IS_COMPLETE',
-  filterCriteria: true,
-  loading: false,
+  filterType: 'UNASSIGNED',
+  filterCriteria: null,
+  // filter: 'IS_COMPLETE',
+  // filterCriteria: false,
+  loading: true,
 }
 
 // *** THUNKS *** //
@@ -101,29 +103,29 @@ const choresSlice = createSlice({
 export default choresSlice.reducer
 
 export const getAllClanChores = (store) => store.entities
-export const getFilter = (store) => store.filter
+export const getFilter = (store) => store.filterType
 export const getCriteria = (store) => store.filterCriteria
 
 //creates a memoized selector based on the filter input
 export const getFilteredChores = createSelector(
   [getAllClanChores, getFilter, getCriteria],
-  (allClanChores, filter, filterCriteria) => {
+  (allClanChores, filterType, filterCriteria) => {
     console.log(allClanChores, 'this is all clan chores')
-    console.log(filter, 'this is filter')
+    console.log(filterType, 'this is filterType')
     console.log(filterCriteria, 'this is filterCriteria')
-    switch (filter) {
+    switch (filterType) {
       case 'IS_COMPLETE':
         return allClanChores.filter(
           (chore) => chore.isComplete == filterCriteria
         )
       case 'PROFILE_ID': {
-        const hasFilterCriteria = (element) => element.id === filterCriteria
+        const hasProfileId = (profile) => profile.id === filterCriteria
         return allClanChores.filter((chore) =>
-          chore.profiles.some(hasFilterCriteria)
+          chore.profiles.some(hasProfileId)
         )
       }
-      // const r = data.filter(d => d.courses.every(c => courses.includes(c.id)));
-      // console.log(r);
+      case 'UNASSIGNED':
+        return allClanChores.filter((chore) => chore.profiles.length === 0)
       default:
         return allClanChores
     }
