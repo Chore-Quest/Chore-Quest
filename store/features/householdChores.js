@@ -3,8 +3,10 @@ import { supabase } from '../../client'
 
 const initialState = {
   entities: [],
+  // filter: 'PROFILE_ID',
+  // filterCriteria: '7a11347c-61ab-46d2-a80b-b307370a251e',
   filter: 'IS_COMPLETE',
-  criteria: 1,
+  filterCriteria: true,
   loading: false,
 }
 
@@ -100,24 +102,28 @@ export default choresSlice.reducer
 
 export const getAllClanChores = (store) => store.entities
 export const getFilter = (store) => store.filter
-export const getCriteria = (store) => store.criteria
+export const getCriteria = (store) => store.filterCriteria
 
 //creates a memoized selector based on the filter input
 export const getFilteredChores = createSelector(
   [getAllClanChores, getFilter, getCriteria],
-  (allClanChores, filter, criteria) => {
+  (allClanChores, filter, filterCriteria) => {
     console.log(allClanChores, 'this is all clan chores')
     console.log(filter, 'this is filter')
-    console.log(criteria, 'this is criteria')
+    console.log(filterCriteria, 'this is filterCriteria')
     switch (filter) {
       case 'IS_COMPLETE':
-        return allClanChores.filter((chore) => chore.isComplete == criteria)
-      case 'PROFILE_ID':
-        return allClanChores.filter((chore) => {
-          if (chore.profiles[0]) {
-            chore.profiles.filter((profile) => profile.id === criteria)
-          }
-        })
+        return allClanChores.filter(
+          (chore) => chore.isComplete == filterCriteria
+        )
+      case 'PROFILE_ID': {
+        const hasFilterCriteria = (element) => element.id === filterCriteria
+        return allClanChores.filter((chore) =>
+          chore.profiles.some(hasFilterCriteria)
+        )
+      }
+      // const r = data.filter(d => d.courses.every(c => courses.includes(c.id)));
+      // console.log(r);
       default:
         return allClanChores
     }
