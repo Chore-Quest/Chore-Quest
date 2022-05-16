@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@1,100&display=swap');
 
 body {
   background-color: rgb(72, 72, 72);
@@ -82,9 +83,8 @@ body {
 .houseName {
   text-shadow: 0px 1px 1px rgba(255, 255, 2555, 0.75),
     0px -1px 1px rgba(0, 0, 0, 0.75);
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 4.5rem;
+  font-family: 'Urbanist', sans-serif;
+  font-size: 5rem;
   text-transform: uppercase;
   color: #999;
-  margin-right: 20px;
 }
