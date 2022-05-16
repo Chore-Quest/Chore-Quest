@@ -83,7 +83,7 @@ export default function AllClanChores() {
         {chores.length &&
           chores.map((chore) => (
             <>
-              <div className="md:min-w-300 frosted card basis-full bg-base-100  shadow-xl">
+              <div className="md:min-w-300 frosted card mb-5  basis-full bg-base-100 shadow-xl">
                 <Link href={`/chores/${encodeURIComponent(chore.id)}`}>
                   <figure className="cursor-pointer">
                     {chore.profiles.map((profile) => (
