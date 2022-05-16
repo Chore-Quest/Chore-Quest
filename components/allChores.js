@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { supabase } from '../client'
+import Link from 'next/link'
 import {
   fetchAllChores,
   addChore,
   deleteChore,
   getFilteredChores,
 } from '../store/features/householdChores'
-import Link from 'next/link'
+import ChoreFilters from '../components/choreFilters'
 
 export default function AllClanChores() {
   //local state for controlled chore input form
@@ -79,10 +80,10 @@ export default function AllClanChores() {
               Here is the list of items you need to complete in order to LEVEL
               UP!
             </p>
-            {/* <button className="btn btn-primary">Get Started</button> */}
           </div>
         </div>
       </div>
+      <ChoreFilters />
       {/* map over chores and place each into a card */}
       <div className="mb-5 gap-4 md:grid md:grid-cols-3 md:gap-3">
         {chores[0] &&
