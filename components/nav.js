@@ -18,7 +18,7 @@ export default function Nav() {
   const handleLogout = () => {
     supabase.auth.signOut()
     router.push('/')
-    // dispatch fetchsingle profile = ''
+    dispatch(fetchSingleProfile())
   }
 
   return (
@@ -69,6 +69,9 @@ export default function Nav() {
                   <Link href="/profile" className="justify-between">
                     Profile
                   </Link>
+                </li>
+                <li>
+                  <Link href="/items">Items</Link>
                 </li>
                 <li>
                   <Link href="/chores">View Chores</Link>
