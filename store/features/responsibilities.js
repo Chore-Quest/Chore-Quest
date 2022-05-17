@@ -3,6 +3,7 @@ import { supabase } from '../../client'
 
 const initialState = {
   chore: {},
+  unassigned: [],
   loading: true,
 }
 //ADDS A CHORE FOR THE USER'S HOSUEHOLD
@@ -12,7 +13,7 @@ export const createResponsibility = createAsyncThunk(
     try {
       let { chore_id, household_id, profile_id } = responsibility
       //add the chore to the database
-      await supabase
+      let { data: newResp } = await supabase
         .from('responsibility') // Select the Table
         .insert([
           {
@@ -22,6 +23,7 @@ export const createResponsibility = createAsyncThunk(
           },
         ])
       alert('Responsibility attached!')
+      return newResp
       //dispatch fetchALlChores to update the state from db
       // thunkAPI.dispatch(fetchAllChores())
     } catch (error) {
@@ -62,13 +64,11 @@ export const fetchUnassigned = createAsyncThunk(
         for (let i = 0; i < profiles.length; i++) profileID.push(profiles[i].id)
         return profileID
       }
-      console.log(chore, 'this is chore')
+
       const assignedID = extractAllIds(chore.profiles)
       const unAssigned = profiles.filter(
         (profile) => !assignedID.includes(profile.id)
       )
-      console.log(assignedID, 'assignedID')
-      console.log(unAssigned, 'this is unassigned')
       return unAssigned
     } catch (error) {
       console.log(error)
@@ -137,6 +137,16 @@ const responsibilitySlice = createSlice({
       .addCase(fetchResponsiblity.fulfilled, (state, action) => {
         state.loading = false
         state.chore = action.payload
+      })
+      .addCase(fetchUnassigned.fulfilled, (state, action) => {
+        state.loading = false
+        state.unassigned = action.payload
+      })
+      .addCase(createResponsibility.fulfilled, (state, action) => {
+        state.loading = false
+        state.unassigned = state.unassigned.filter((user) => {
+          user.id !== action.payload.id
+        })
       })
       .addDefaultCase((state, action) => {})
   },

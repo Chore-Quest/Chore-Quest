@@ -16,8 +16,10 @@ export default function SingleChore(props) {
   const profiles = useSelector(
     (store) => store.singleHouseholdProfiles.entities
   )
-  const assignedTo = useSelector((store) => store.responsibility.chore)
-  // console.log(profiles, 'profiles')
+  const unAssigned = useSelector((store) => store.responsibility.unassigned)
+  const assigned = useSelector((store) => store.responsibility.chore)
+
+  console.log(unAssigned, ' this is unassigned frontend')
 
   const [chore, setChore] = useState({
     name: '',
@@ -62,23 +64,23 @@ export default function SingleChore(props) {
   function handleAssignTask() {
     dispatch(createResponsibility(chore))
   }
-  //Filter Assigned Profiles
-  function extractAllIds(profiles) {
-    const profileID = []
-    for (let i = 0; i < profiles.length; i++)
-      profileID.push(profiles[i].profile_id)
-    return profileID
-  }
+  // //Filter Assigned Profiles
+  // function extractAllIds(profiles) {
+  //   const profileID = []
+  //   for (let i = 0; i < profiles.length; i++)
+  //     profileID.push(profiles[i].profile_id)
+  //   return profileID
+  // }
 
-  // Array of all ID's that are assigned to this task
-  const assignedID = extractAllIds(assignedTo)
+  // // Array of all ID's that are assigned to this task
+  // const assignedID = extractAllIds(assignedTo)
 
-  // Finds household profiles that isn't currently assgined to this task
-  const unAssigned = profiles.filter(
-    (profile) => !assignedID.includes(profile.id)
-  )
+  // // Finds household profiles that isn't currently assgined to this task
+  // const unAssigned = profiles.filter(
+  //   (profile) => !assignedID.includes(profile.id)
+  // )
 
-  // console.log(chore, 'local chore')
+  // // console.log(chore, 'local chore')
 
   return (
     <>
@@ -117,8 +119,8 @@ export default function SingleChore(props) {
           className="toggle toggle-accent toggle-lg"
           onChange={() => setChore({ ...chore, isComplete: !chore.isComplete })}
         />
-        {assignedTo[0] ? (
-          assignedTo.map((profile) => (
+        {assigned[0] ? (
+          assigned.map((profile) => (
             <div key={profile.id}>
               <label>Currently Assigned to: {profile.profiles.username}</label>
               <button className="mt-4 w-full rounded-lg border-blue-300 bg-blue-500 p-2 pl-5 pr-5 text-lg text-gray-100 focus:border-4">
