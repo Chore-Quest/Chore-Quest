@@ -3,13 +3,16 @@ import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchSingleProfile } from '../store/features/singleProfile'
+// import { fetchDynamicSingleProfile } from '../store/features/dynamicSingleProfile'
 import AllClanChores from '../components/choreList'
 
-export default function Profile({ session }) {
+export default function Profile({ userId }) {
+  console.log(userId, 'this is id')
   //gets profile from the database
   let [householdName, setHouseholdName] = useState('')
   useEffect(() => {
     dispatch(fetchSingleProfile())
+    // dispatch(fetchDynamicSingleProfile())
     getHouseholdInfo()
   }, [])
 
@@ -25,15 +28,15 @@ export default function Profile({ session }) {
       let { data: userID } = await supabase
         .from('profiles')
         .select(`*`)
-        .eq('id', user.id)
+        .eq('id', userId)
         .single()
       let { data: household } = await supabase
         .from('household_table')
         .select(`*`)
         .eq('id', userID.household_id)
         .single()
-      console.log(userID, 'this is user')
-      console.log(household, 'this is household')
+      // console.log(userID, 'this is user')
+      // console.log(household, 'this is household')
       setHouseholdName(household.name)
       return household
     } catch (error) {

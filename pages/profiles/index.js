@@ -1,15 +1,13 @@
 import React from 'react'
-import { supabase } from '../client'
-import Link from 'next/link'
 
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchAllProfiles } from '../store/features/houseProfiles'
-import { fetchDynamicSingleProfile } from '../store/features/singleProfile'
+import { supabase } from '../../client'
+import Link from 'next/link'
+import { fetchAllProfiles } from '../../store/features/houseProfiles'
 
 const clan = ({ session }) => {
   let { singleHouseholdProfiles } = useSelector((store) => store)
-
   let [profiles, loading] = [
     singleHouseholdProfiles.entities,
     singleHouseholdProfiles.loading,
@@ -46,7 +44,7 @@ const clan = ({ session }) => {
     }
   }
 
-  console.log(profiles, 'this is profiles from clan page')
+  console.log(profiles, 'this is profiles from profiles page')
   return (
     <>
       <div
@@ -75,18 +73,20 @@ const clan = ({ session }) => {
         {profiles.map((profile) => (
           <div className="min-w-200 frosted card mb-5 flex-auto basis-full bg-base-100 p-5 shadow-xl">
             <div className="mb-5">
-              <figure>
-                <img
-                  src={profile.avatar_url}
-                  alt="Profile image"
-                  className="justifyCenter mask mask-hexagon mx-auto h-64 w-64 content-center"
-                />
-              </figure>
+              <Link href={`/profiles/${encodeURIComponent(profile.id)}`}>
+                <figure>
+                  <img
+                    src={profile.avatar_url}
+                    alt="Profile image"
+                    className="justifyCenter mask mask-hexagon mx-auto h-64 w-64 content-center"
+                  />
+                </figure>
+              </Link>
               <div className="card-body">
                 <h2 className="card-title mx-auto">{profile.username}</h2>
                 <p className="mx-auto">profile tag line?</p>
                 <div className="card-actions justify-center">
-                  <Link href={`/profiles/${encodeURIComponent(profile.id)}`}>
+                  <Link href="/profile">
                     <button className="btn btn-primary">Profile page</button>
                   </Link>
                 </div>

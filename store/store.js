@@ -4,6 +4,7 @@ import singleChoreReducer from './features/singleChore'
 import singleProfileReducer from './features/singleProfile'
 import singleHouseholdReducer from './features/houseProfiles'
 import allItemsReducer from './features/itemTiers'
+import responsibilityReducer from './features/responsibilities'
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     singleProfile: singleProfileReducer,
     singleHouseholdProfiles: singleHouseholdReducer,
     allItems: allItemsReducer,
+    responsibility: responsibilityReducer,
   },
 })
 

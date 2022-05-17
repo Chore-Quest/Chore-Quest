@@ -5,7 +5,7 @@ export default function BottomMenu() {
   return (
     <ul className="menu menu-horizontal sticky bottom-0 w-full justify-between rounded-t-lg bg-base-300 px-6">
       <li>
-        <a>
+        <a href="/">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-8 w-8"
