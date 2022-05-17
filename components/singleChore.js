@@ -3,11 +3,11 @@ import { useSelector, useDispatch } from 'react-redux'
 import { supabase } from '../client'
 import { fetchSingleChore } from '../store/features/singleChore'
 import { updateSingleChore } from '../store/features/singleChore'
-import { fetchResponsiblity } from '../store/features/responsibilities'
 import { fetchAllProfiles } from '../store/features/houseProfiles'
 import {
   createResponsibility,
   fetchUnassigned,
+  fetchResponsiblity,
 } from '../store/features/responsibilities'
 
 export default function SingleChore(props) {
@@ -19,7 +19,7 @@ export default function SingleChore(props) {
   const unAssigned = useSelector((store) => store.responsibility.unassigned)
   const assigned = useSelector((store) => store.responsibility.chore)
 
-  console.log(unAssigned, ' this is unassigned frontend')
+  console.log(assigned, 'this is assigned')
 
   const [chore, setChore] = useState({
     name: '',
@@ -37,9 +37,12 @@ export default function SingleChore(props) {
   }, [choreId])
 
   useEffect(() => {
+    if (choreId) dispatch(fetchResponsiblity(choreId))
+  }, [choreId])
+
+  useEffect(() => {
     if (choreId) {
       dispatch(fetchSingleChore(choreId))
-      dispatch(fetchResponsiblity(choreId))
     }
   }, [choreId])
 
@@ -86,13 +89,16 @@ export default function SingleChore(props) {
     <>
       <div className="frosted card mx-auto w-96 bg-base-100 p-10 shadow-xl">
         <figure>
-          {chore.profiles[0] &&
-            chore.profiles.map((profile) => (
+          {assigned[0] &&
+            assigned.map((profile) => (
               <div
-                key={profile.id}
+                key={profile.profiles.id}
                 className="justifyCenter mask mask-hexagon mx-auto box-content h-64 w-64"
               >
-                <img key={profile.id} src={profile.avatar_url} />
+                <img
+                  key={profile.profiles.id}
+                  src={profile.profiles.avatar_url}
+                />
               </div>
             ))}
         </figure>
@@ -119,11 +125,14 @@ export default function SingleChore(props) {
           className="toggle toggle-accent toggle-lg"
           onChange={() => setChore({ ...chore, isComplete: !chore.isComplete })}
         />
-        {assigned[0] ? (
+        {assigned.length > 0 ? (
           assigned.map((profile) => (
             <div key={profile.id}>
               <label>Currently Assigned to: {profile.profiles.username}</label>
-              <button className="mt-4 w-full rounded-lg border-blue-300 bg-blue-500 p-2 pl-5 pr-5 text-lg text-gray-100 focus:border-4">
+              <button
+                onClick
+                className="mt-4 w-full rounded-lg border-blue-300 bg-blue-500 p-2 pl-5 pr-5 text-lg text-gray-100 focus:border-4"
+              >
                 X
               </button>
             </div>

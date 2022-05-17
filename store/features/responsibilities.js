@@ -23,6 +23,7 @@ export const createResponsibility = createAsyncThunk(
           },
         ])
       alert('Responsibility attached!')
+      thunkAPI.dispatch(fetchResponsiblity())
       return newResp
       //dispatch fetchALlChores to update the state from db
       // thunkAPI.dispatch(fetchAllChores())
@@ -107,6 +108,20 @@ export const fetchResponsiblity = createAsyncThunk(
   }
 )
 
+export const deleteResponsibility = createAsyncThunk(
+  'chores/deleteChore',
+  async (profileId, thunkAPI) => {
+    try {
+      //delete the chore
+      await supabase.from('responsibility').delete().eq('id', profileId)
+      thunkAPI.dispatch(fetchAllChores())
+    } catch (error) {
+      console.log(error)
+      return error
+    }
+  }
+)
+
 // export const fetchSingleChore = createAsyncThunk(
 //   //action type string
 //   'singleChore/fetchSingleChore',
@@ -146,6 +161,7 @@ const responsibilitySlice = createSlice({
         state.loading = false
         state.unassigned = state.unassigned.filter((user) => {
           user.id !== action.payload.id
+          state.chore = { ...state.chore }
         })
       })
       .addDefaultCase((state, action) => {})
