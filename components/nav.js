@@ -48,7 +48,7 @@ export default function Nav() {
       <div className="navbar-end">
         <div className="flex-none gap-2">
           {storeProfile.id ? (
-            <div className="dropdown dropdown-end">
+            <div className="dropdown-end dropdown">
               <label tabIndex="0" className="avatar btn btn-ghost btn-circle">
                 <div className="w-10 rounded-full">
                   <img src={storeProfile.avatar_url} />
@@ -70,7 +70,9 @@ export default function Nav() {
                   <Link href="/clan">Clan</Link>
                 </li>
                 <li>
-                  <a onClick={() => supabase.auth.signOut()}>Logout</a>
+                  <Link href="/">
+                    <a onClick={() => supabase.auth.signOut()}>Logout</a>
+                  </Link>
                 </li>
               </ul>
             </div>
