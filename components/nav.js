@@ -18,7 +18,7 @@ export default function Nav() {
   const handleLogout = () => {
     supabase.auth.signOut()
     router.push('/')
-    // dispatch fetchsingle profile = ''
+    dispatch(fetchSingleProfile())
   }
 
   return (
