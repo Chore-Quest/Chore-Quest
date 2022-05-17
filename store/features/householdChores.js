@@ -109,7 +109,6 @@ const choresSlice = createSlice({
   initialState,
   reducers: {
     updateFilterType(state, action) {
-      console.log('I should update Filter Type')
       state.filterType = action.payload
     },
     updateFilterCriteria(state, action) {
@@ -137,9 +136,6 @@ export const getCriteria = (store) => store.filterCriteria
 export const getFilteredChores = createSelector(
   [getAllClanChores, getFilter, getCriteria],
   (allClanChores, filterType, filterCriteria) => {
-    console.log(allClanChores, 'this is all clan chores')
-    console.log(filterType, 'this is filterType')
-    console.log(filterCriteria, 'this is filterCriteria')
     switch (filterType) {
       case ALL_CHORES:
         return allClanChores
