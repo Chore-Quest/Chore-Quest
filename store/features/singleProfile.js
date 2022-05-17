@@ -36,7 +36,7 @@ export const fetchSingleProfile = createAsyncThunk(
 
 export const fetchDynamicSingleProfile = createAsyncThunk(
   'profiles/fetchDynamicSingleProfile',
-  async (userId, thunkAPI) => {
+  async (userId) => {
     console.log(userId, 'this is id from thunk')
     try {
       let { data: profile } = await supabase
@@ -47,10 +47,10 @@ export const fetchDynamicSingleProfile = createAsyncThunk(
         ) `
         )
         .eq('id', userId)
-        .single()
-      console.log('*******************')
-      console.log(profile, 'from single profile thunk')
-      console.log('*******************')
+      // console.log(profile, 'this is profile')
+      // console.log('*******************')
+      // console.log(profile, 'from single profile thunk')
+      // console.log('*******************')
       return profile
     } catch (error) {
       console.log(error)
@@ -87,7 +87,7 @@ const profilesSlice = createSlice({
         state.profile = action.payload
         state.loading = false
       })
-      .addCase(fetchDynamicSingleProfile.pending, (state, action) => {
+      .addCase(fetchDynamicSingleProfile.fulfilled, (state, action) => {
         state.profile = state.profile
         state.dynamicProfile = action.payload
         state.loading = false

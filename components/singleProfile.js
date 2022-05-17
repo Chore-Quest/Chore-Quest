@@ -5,19 +5,28 @@ import { useSelector, useDispatch } from 'react-redux'
 import { fetchDynamicSingleProfile } from '../store/features/singleProfile'
 import AllClanChores from '../components/allChores'
 
-export default function Profile({ userId }) {
-  console.log(userId, 'this is id')
+export default function Profile(props) {
+  const { userId } = props
+  // console.log(userId, 'this is id at single prof')
   //gets profile from the database
   let [householdName, setHouseholdName] = useState('')
+
   useEffect(() => {
     dispatch(fetchDynamicSingleProfile(userId))
     getHouseholdInfo()
-  }, [])
+  }, [userId])
 
   let { singleProfile } = useSelector((store) => store)
-  let [profile, loading] = [singleProfile.dynamicProfile, singleProfile.loading]
+  let profile
 
-  console.log(singleProfile, 'this is Profile')
+  useEffect(() => {
+    singleProfile.dynamicProfile && singleProfile.dynamicProfile[0]
+      ? (profile = singleProfile.dynamicProfile[0])
+      : profile
+  }, [singleProfile])
+
+  console.log(profile, 'this is profile')
+
   const dispatch = useDispatch()
   const router = useRouter()
 
