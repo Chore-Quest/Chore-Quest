@@ -60,14 +60,16 @@ export const fetchUnassigned = createAsyncThunk(
         .select('*')
         .eq('household_id', houseHoldId.household_id)
 
-      // Filter the household
+      // Extract IDs
       function extractAllIds(profiles) {
         const profileID = []
         for (let i = 0; i < profiles.length; i++) profileID.push(profiles[i].id)
         return profileID
       }
-
+      // Extract all the ids of members currently assigned to this chore
       const assignedID = extractAllIds(chore.profiles)
+
+      // Only return the profiles that are not currently assigned to this chore
       const unAssigned = profiles.filter(
         (profile) => !assignedID.includes(profile.id)
       )
