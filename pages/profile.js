@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchSingleProfile } from '../store/features/singleProfile'
-import AllClanChores from '../components/choreList'
+import AllClanChores from '../components/allChores'
 
 export default function Profile({ session }) {
   //gets profile from the database
