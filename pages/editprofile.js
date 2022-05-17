@@ -29,8 +29,9 @@ export default function editProfile() {
       })
     }
   }, [storeProfile])
+  console.log(profile)
   return (
-    <div className="card mx-auto w-96 bg-base-100 p-10 shadow-xl">
+    <div className="frosted w-196 card mx-auto h-screen bg-base-100 p-10 shadow-xl">
       <input
         className="frosted my-4 w-full rounded-xl border-2 border-gray-500 p-4"
         type="username"

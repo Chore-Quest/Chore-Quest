@@ -25,6 +25,8 @@ export default function AllClanChores() {
   let filteredChores = getFilteredChores(allClanChores)
   let { loading } = allClanChores
 
+  console.log(filteredChores)
+
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchAllChores())
@@ -56,7 +58,7 @@ export default function AllClanChores() {
     h-32
     w-32
     animate-spin
-    rounded-full border-t-2 border-b-2 border-blue-500
+    rounded-full border-t-2 border-b-8 border-blue-900
   "
         ></div>
       </div>
@@ -65,6 +67,7 @@ export default function AllClanChores() {
   return (
     <>
       <ChoreFilters />
+
       {/* map over chores and place each into a card */}
       <div className="mb-5 gap-4 md:grid md:grid-cols-3 md:gap-3">
         {filteredChores[0] &&

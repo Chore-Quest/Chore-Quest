@@ -11,6 +11,7 @@ import {
   fetchResponsiblity,
   deleteResponsibility,
 } from '../store/features/responsibilities'
+import { router } from 'next/router'
 
 export default function SingleChore(props) {
   const { choreId } = props
@@ -68,6 +69,11 @@ export default function SingleChore(props) {
 
   function handleAssignTask() {
     dispatch(createResponsibility(chore))
+  }
+
+  function handleUpdateChore() {
+    dispatch(updateSingleChore(chore))
+    router.push('/chores')
   }
 
   // //Filter Assigned Profiles
@@ -177,16 +183,7 @@ export default function SingleChore(props) {
           Assign Now
         </button>
         <button
-          onClick={() =>
-            dispatch(
-              updateSingleChore({
-                name: chore.name,
-                id: choreId,
-                notes: chore.notes,
-                isComplete: chore.isComplete,
-              })
-            )
-          }
+          onClick={handleUpdateChore}
           className="mt-4 w-full rounded-lg border-blue-300 bg-blue-500 p-2 pl-5 pr-5 text-lg text-gray-100 focus:border-4"
         >
           <span>Update Chore</span>
