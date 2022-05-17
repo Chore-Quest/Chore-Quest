@@ -1,16 +1,28 @@
-import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit'
+import {
+  createSlice,
+  createAction,
+  createAsyncThunk,
+  createSelector,
+} from '@reduxjs/toolkit'
 import { supabase } from '../../client'
 
 const initialState = {
   entities: [],
-  filterType: 'PROFILE_ID',
-  filterCriteria: '7a11347c-61ab-46d2-a80b-b307370a251e',
+  filterType: '',
+  filterCriteria: undefined,
+  // filterCriteria: '7a11347c-61ab-46d2-a80b-b307370a251e',
+  // filterType: 'PROFILE_ID',
+  // filterCriteria: '7a11347c-61ab-46d2-a80b-b307370a251e',
   // filterType: 'UNASSIGNED',
   // filterCriteria: null,
   // filterType: 'IS_COMPLETE',
   // filterCriteria: true,
   loading: true,
 }
+
+// // **** ACTION CREATORS **** //
+// export const updateFilterType = createAction('chores/filterType/update')
+// export const updateFilterCriteria = createAction('chores/filterCriteria/update')
 
 // *** THUNKS *** //
 
@@ -71,7 +83,6 @@ export const createChore = createAsyncThunk(
           },
         ])
       }
-
       alert('A Chore has been added!')
       //dispatch fetchALlChores to update the store from db
       thunkAPI.dispatch(fetchAllChores())
@@ -101,7 +112,15 @@ export const deleteChore = createAsyncThunk(
 const choresSlice = createSlice({
   name: 'allClanChores',
   initialState,
-  reducers: {},
+  reducers: {
+    updateFilterType(state, action) {
+      console.log('I should update Filter Type')
+      state.filterType = action.payload
+    },
+    updateFilterCriteria(state, action) {
+      state.filterCriteria = action.payload
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllChores.fulfilled, (store, action) => {
@@ -112,6 +131,7 @@ const choresSlice = createSlice({
   },
 })
 
+export const { updateFilterType, updateFilterCriteria } = choresSlice.actions
 export default choresSlice.reducer
 
 export const getAllClanChores = (store) => store.entities
@@ -127,9 +147,9 @@ export const getFilteredChores = createSelector(
     console.log(filterCriteria, 'this is filterCriteria')
     switch (filterType) {
       case 'IS_COMPLETE':
-        return allClanChores.filter(
-          (chore) => chore.isComplete == filterCriteria
-        )
+        return allClanChores.filter((chore) => chore.isComplete === true)
+      case 'IS_INCOMPLETE':
+        return allClanChores.filter((chore) => chore.isComplete === false)
       case 'PROFILE_ID': {
         const hasProfileId = (profile) => profile.id === filterCriteria
         return allClanChores.filter((chore) =>

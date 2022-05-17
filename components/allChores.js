@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { supabase } from '../client'
+import Link from 'next/link'
 import {
   fetchAllChores,
   addChore,
   deleteChore,
   getFilteredChores,
 } from '../store/features/householdChores'
-import Link from 'next/link'
+import ChoreFilters from '../components/choreFilters'
 
 export default function AllClanChores() {
   //local state for controlled chore input form
@@ -21,21 +22,19 @@ export default function AllClanChores() {
 
   //gets the list of chores and loading state from the redux store
   let { allClanChores } = useSelector((store) => store)
-  let [chores, loading] = [allClanChores.entities, allClanChores.loading]
+  let filteredChores = getFilteredChores(allClanChores)
+  let { loading } = allClanChores
 
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchAllChores())
   }, [])
+
   useEffect(async () => {
-    let filteredChores = getFilteredChores(allClanChores, {
-      filterType: 'PROFILE_ID',
-      filterCriteria: 'L:KJSDF:LKJDSF:LKj',
-    })
-    // console.log(filteredChores, 'this is filtered chores')
+    filteredChores = getFilteredChores(allClanChores)
+    console.log(filteredChores, 'this is filtered chores')
   }, [allClanChores])
 
-  console.log(chores, 'this is chores')
   // Dispatches new chores to the store
   function dispatchChore() {
     dispatch(addChore(chore))
@@ -80,14 +79,14 @@ export default function AllClanChores() {
               Here is the list of items you need to complete in order to LEVEL
               UP!
             </p>
-            {/* <button className="btn btn-primary">Get Started</button> */}
           </div>
         </div>
       </div>
+      <ChoreFilters />
       {/* map over chores and place each into a card */}
       <div className="mb-5 gap-4 md:grid md:grid-cols-3 md:gap-3">
-        {chores[0] &&
-          chores.map((chore) => (
+        {filteredChores[0] &&
+          filteredChores.map((chore) => (
             <div
               key={chore.id}
               className="frosted card mb-5 bg-base-100 shadow-xl drop-shadow-2xl"
