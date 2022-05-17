@@ -32,9 +32,10 @@ export default function AllClanChores() {
       filterType: 'PROFILE_ID',
       filterCriteria: 'L:KJSDF:LKJDSF:LKj',
     })
-    console.log(filteredChores, 'this is filtered chores')
+    // console.log(filteredChores, 'this is filtered chores')
   }, [allClanChores])
 
+  console.log(chores, 'this is chores')
   // Dispatches new chores to the store
   function dispatchChore() {
     dispatch(addChore(chore))
