@@ -19,8 +19,20 @@ export default function ChoreFilters() {
 
   function handleClick(type, criteria) {
     switch (type) {
+      case IS_INCOMPLETE:
+        filterType === type
+          ? dispatch(updateFilterType(''))
+          : dispatch(updateFilterType(type))
+        dispatch(updateFilterCriteria(true))
+        break
+      case IS_COMPLETE:
+        filterType === type
+          ? dispatch(updateFilterType(''))
+          : dispatch(updateFilterType(type))
+        dispatch(updateFilterCriteria(true))
+        break
       case PROFILE_ID:
-        filterType == PROFILE_ID
+        filterCriteria === criteria
           ? dispatch(updateFilterType(''))
           : dispatch(updateFilterType(PROFILE_ID))
         dispatch(updateFilterCriteria(criteria))
@@ -31,22 +43,19 @@ export default function ChoreFilters() {
           : dispatch(updateFilterType(UNASSIGNED))
         dispatch(updateFilterCriteria(criteria))
         break
-      case IS_COMPLETE:
-        filterType === type
-          ? dispatch(updateFilterType(''))
-          : dispatch(updateFilterType(type))
-        dispatch(updateFilterCriteria(false))
-        break
       default:
         break
     }
   }
 
   return (
-    <>
+    <article className="prose">
+      <h2 id="filterHeading" className="text-center">
+        All Chores
+      </h2>
       <ul className="menu menu-horizontal w-full justify-around px-4">
         <li>
-          <a onClick={() => handleClick(IS_COMPLETE, false)}>
+          <a onClick={() => handleClick(IS_INCOMPLETE, true)}>
             <div className="tooltip" data-tip="incomplete">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -66,7 +75,7 @@ export default function ChoreFilters() {
           </a>
         </li>
         <li>
-          <a>
+          <a onClick={() => handleClick(IS_COMPLETE, true)}>
             <div className="tooltip" data-tip="completed">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -126,6 +135,6 @@ export default function ChoreFilters() {
           </a>
         </li>
       </ul>
-    </>
+    </article>
   )
 }
