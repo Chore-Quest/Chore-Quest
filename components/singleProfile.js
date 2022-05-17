@@ -16,14 +16,13 @@ export default function Profile(props) {
     getHouseholdInfo()
   }, [userId])
 
-  let { singleProfile } = useSelector((store) => store)
-  let profile
+  let profile = useSelector((store) => store.singleProfile.dynamicProfile)
 
-  useEffect(() => {
-    singleProfile.dynamicProfile && singleProfile.dynamicProfile[0]
-      ? (profile = singleProfile.dynamicProfile[0])
-      : profile
-  }, [singleProfile])
+  // useEffect(() => {
+  //   singleProfile.dynamicProfile && singleProfile.dynamicProfile[0]
+  //     ? (profile = singleProfile.dynamicProfile[0])
+  //     : profile
+  // }, [singleProfile])
 
   console.log(profile, 'this is profile')
 

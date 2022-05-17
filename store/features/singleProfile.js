@@ -47,6 +47,7 @@ export const fetchDynamicSingleProfile = createAsyncThunk(
         ) `
         )
         .eq('id', userId)
+        .single()
       // console.log(profile, 'this is profile')
       // console.log('*******************')
       // console.log(profile, 'from single profile thunk')
