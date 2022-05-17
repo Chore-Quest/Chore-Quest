@@ -2,22 +2,29 @@ import { supabase } from '../client'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchSingleProfile } from '../store/features/singleProfile'
-// import { fetchDynamicSingleProfile } from '../store/features/dynamicSingleProfile'
-import AllClanChores from '../components/choreList'
+import { fetchDynamicSingleProfile } from '../store/features/singleProfile'
+import AllClanChores from '../components/allChores'
 
-export default function Profile({ userId }) {
-  console.log(userId, 'this is id')
+export default function Profile(props) {
+  const { userId } = props
+  // console.log(userId, 'this is id at single prof')
   //gets profile from the database
   let [householdName, setHouseholdName] = useState('')
-  useEffect(() => {
-    dispatch(fetchSingleProfile())
-    // dispatch(fetchDynamicSingleProfile())
-    getHouseholdInfo()
-  }, [])
 
-  let { singleProfile } = useSelector((store) => store)
-  let [profile, loading] = [singleProfile.profile, singleProfile.loading]
+  useEffect(() => {
+    dispatch(fetchDynamicSingleProfile(userId))
+    getHouseholdInfo()
+  }, [userId])
+
+  let profile = useSelector((store) => store.singleProfile.dynamicProfile)
+
+  // useEffect(() => {
+  //   singleProfile.dynamicProfile && singleProfile.dynamicProfile[0]
+  //     ? (profile = singleProfile.dynamicProfile[0])
+  //     : profile
+  // }, [singleProfile])
+
+  console.log(profile, 'this is profile')
 
   const dispatch = useDispatch()
   const router = useRouter()

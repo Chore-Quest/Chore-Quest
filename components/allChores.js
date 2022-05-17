@@ -64,23 +64,6 @@ export default function AllClanChores() {
 
   return (
     <>
-      <div
-        className="card hero mx-auto mb-5 overflow-hidden rounded-3xl p-0 drop-shadow-2xl"
-        style={{
-          backgroundImage: `url(https://img.nerdburglars.net/wp-content/uploads/2020/04/spartan-3696073_1920-e1585934263741-696x381.jpg)`,
-        }}
-      >
-        <div className="hero-overlay bg-opacity-60"></div>
-        <div className="hero-content text-center text-neutral-content">
-          <div className="max-w-md">
-            <h1 className="mb-3 text-5xl font-bold">Chores</h1>
-            <p className="mb-5">
-              Here is the list of items you need to complete in order to LEVEL
-              UP!
-            </p>
-          </div>
-        </div>
-      </div>
       <ChoreFilters />
       {/* map over chores and place each into a card */}
       <div className="mb-5 gap-4 md:grid md:grid-cols-3 md:gap-3">
@@ -115,65 +98,36 @@ export default function AllClanChores() {
                   ))}
                 </div>
                 <div className="card-actions justify-end">
-                  <label className="swap swap-flip text-xl">
-                    <input type="checkbox" />
-                    {chore.isComplete ? (
-                      <p>
-                        Completed <span className="swap-on"> ✅</span>
-                      </p>
-                    ) : (
-                      <p>
-                        Not Completed<span className="swap-off"> ❌</span>
-                      </p>
-                    )}
-                  </label>
+                  <Link href={`/chores/${encodeURIComponent(chore.id)}`}>
+                    <label className="swap swap-flip text-xl">
+                      <input type="checkbox" />
+                      {chore.isComplete ? (
+                        <p>
+                          Completed <span className="swap-on"> ✅</span>
+                        </p>
+                      ) : (
+                        <p>
+                          Not Completed<span className="swap-off"> ❌</span>
+                        </p>
+                      )}
+                    </label>
+                  </Link>
                 </div>
               </div>
             </div>
           ))}
       </div>
-      <form>
-        <div>
-          <label
-            className="mb-2 block text-sm font-bold text-gray-700"
-            htmlFor="choreName"
-          >
-            Chore Name
-          </label>
-          <input
-            className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
-            id="choreName"
-            type="text"
-            value={name.toString()}
-            onChange={(e) => setChore({ ...chore, name: e.target.value })}
-          />
-        </div>
-        <div className="mb-4">
-          <label
-            className="mb-2 block text-sm font-bold text-gray-700"
-            htmlFor="choreNotes"
-          >
-            Chore Notes
-          </label>
 
-          <textarea
-            className="form-textarea focus:shadow-outline mt-1 block w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
-            rows="3"
-            placeholder="Chore Notes"
-            value={notes.toString()}
-            onChange={(e) => setChore({ ...chore, notes: e.target.value })}
-          ></textarea>
-        </div>
-        <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between">
+        <Link href="/addchore">
           <button
             className="focus:shadow-outline rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 focus:outline-none"
             type="button"
-            onClick={dispatchChore} // Call the addChore Function
           >
             Add Chore
           </button>
-        </div>
-      </form>
+        </Link>
+      </div>
     </>
   )
 }

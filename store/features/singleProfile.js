@@ -3,6 +3,7 @@ import { supabase } from '../../client'
 
 const initialState = {
   profile: {},
+  dynamicProfile: {},
   loading: false,
 }
 
@@ -34,9 +35,9 @@ export const fetchSingleProfile = createAsyncThunk(
 )
 
 export const fetchDynamicSingleProfile = createAsyncThunk(
-  'profiles/fetchSingleProfile',
-  async (userId, thunkAPI) => {
-    const user = supabase.auth.user()
+  'profiles/fetchDynamicSingleProfile',
+  async (userId) => {
+    console.log(userId, 'this is id from thunk')
     try {
       let { data: profile } = await supabase
         .from('profiles')
@@ -47,6 +48,7 @@ export const fetchDynamicSingleProfile = createAsyncThunk(
         )
         .eq('id', userId)
         .single()
+      // console.log(profile, 'this is profile')
       // console.log('*******************')
       // console.log(profile, 'from single profile thunk')
       // console.log('*******************')
@@ -84,6 +86,11 @@ const profilesSlice = createSlice({
     builder
       .addCase(fetchSingleProfile.fulfilled, (state, action) => {
         state.profile = action.payload
+        state.loading = false
+      })
+      .addCase(fetchDynamicSingleProfile.fulfilled, (state, action) => {
+        state.profile = state.profile
+        state.dynamicProfile = action.payload
         state.loading = false
       })
       .addDefaultCase((state, action) => {})

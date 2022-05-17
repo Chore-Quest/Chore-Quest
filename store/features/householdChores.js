@@ -68,7 +68,6 @@ export const createChore = createAsyncThunk(
           },
         ])
       const chore_id = newChore.body[0].id
-      console.log(newChore.body[0].id, 'this chore was just created')
       if (profile_id.length > 0) {
         await supabase.from('responsibility').insert([
           {
