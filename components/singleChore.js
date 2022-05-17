@@ -8,6 +8,7 @@ import {
   createResponsibility,
   fetchUnassigned,
   fetchResponsiblity,
+  deleteResponsibility,
 } from '../store/features/responsibilities'
 
 export default function SingleChore(props) {
@@ -19,7 +20,7 @@ export default function SingleChore(props) {
   const unAssigned = useSelector((store) => store.responsibility.unassigned)
   const assigned = useSelector((store) => store.responsibility.chore)
 
-  console.log(assigned, 'this is assigned')
+  // console.log(assigned, 'this is assigned')
 
   const [chore, setChore] = useState({
     name: '',
@@ -67,6 +68,7 @@ export default function SingleChore(props) {
   function handleAssignTask() {
     dispatch(createResponsibility(chore))
   }
+
   // //Filter Assigned Profiles
   // function extractAllIds(profiles) {
   //   const profileID = []
@@ -89,7 +91,8 @@ export default function SingleChore(props) {
     <>
       <div className="frosted card mx-auto w-96 bg-base-100 p-10 shadow-xl">
         <figure>
-          {assigned[0] &&
+          {console.log(assigned, 'this is assigned')}
+          {assigned ? (
             assigned.map((profile) => (
               <div
                 key={profile.profiles.id}
@@ -100,7 +103,10 @@ export default function SingleChore(props) {
                   src={profile.profiles.avatar_url}
                 />
               </div>
-            ))}
+            ))
+          ) : (
+            <div></div>
+          )}
         </figure>
         <label>Chore Name</label>
         <input
@@ -128,9 +134,17 @@ export default function SingleChore(props) {
         {assigned.length > 0 ? (
           assigned.map((profile) => (
             <div key={profile.id}>
+              {console.log(profile, 'this is profile')}
               <label>Currently Assigned to: {profile.profiles.username}</label>
               <button
-                onClick
+                onClick={() =>
+                  dispatch(
+                    deleteResponsibility({
+                      profileId: profile.id,
+                      choreId: chore.chore_id,
+                    })
+                  )
+                }
                 className="mt-4 w-full rounded-lg border-blue-300 bg-blue-500 p-2 pl-5 pr-5 text-lg text-gray-100 focus:border-4"
               >
                 X
@@ -153,7 +167,7 @@ export default function SingleChore(props) {
               value={profile.id}
             >{`${profile.username}`}</option>
           ))}
-        </select>{' '}
+        </select>
         <button
           onClick={handleAssignTask}
           className="mt-4 w-full rounded-lg border-blue-300 bg-blue-500 p-2 pl-5 pr-5 text-lg text-gray-100 focus:border-4"

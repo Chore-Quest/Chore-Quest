@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { supabase } from '../../client'
 
 const initialState = {
-  chore: {},
+  chore: [],
   unassigned: [],
   loading: true,
 }
@@ -23,7 +23,8 @@ export const createResponsibility = createAsyncThunk(
           },
         ])
       alert('Responsibility attached!')
-      thunkAPI.dispatch(fetchResponsiblity())
+      thunkAPI.dispatch(fetchUnassigned(chore_id))
+      thunkAPI.dispatch(fetchResponsiblity(chore_id))
       return newResp
       //dispatch fetchALlChores to update the state from db
       // thunkAPI.dispatch(fetchAllChores())
@@ -110,11 +111,12 @@ export const fetchResponsiblity = createAsyncThunk(
 
 export const deleteResponsibility = createAsyncThunk(
   'chores/deleteChore',
-  async (profileId, thunkAPI) => {
+  async ({ profileId, choreId }, thunkAPI) => {
     try {
       //delete the chore
       await supabase.from('responsibility').delete().eq('id', profileId)
-      thunkAPI.dispatch(fetchAllChores())
+      thunkAPI.dispatch(fetchUnassigned(choreId))
+      thunkAPI.dispatch(fetchResponsiblity(choreId))
     } catch (error) {
       console.log(error)
       return error
@@ -151,20 +153,19 @@ const responsibilitySlice = createSlice({
     builder
       .addCase(fetchResponsiblity.fulfilled, (state, action) => {
         state.loading = false
-        state.chore = action.payload
+        state.chore = [...action.payload]
       })
       .addCase(fetchUnassigned.fulfilled, (state, action) => {
         state.loading = false
         state.unassigned = action.payload
       })
-      .addCase(createResponsibility.fulfilled, (state, action) => {
-        state.loading = false
-        state.unassigned = state.unassigned.filter((user) => {
-          user.id !== action.payload.id
-          state.chore = { ...state.chore }
-        })
-      })
-      .addDefaultCase((state, action) => {})
+    // .addCase(createResponsibility.fulfilled, (state, action) => {
+    //   state.loading = false
+    //   state.unassigned = state.unassigned.filter((user) => {
+    //     user.id !== action.payload.id
+    //   })
+    // })
+    // .addDefaultCase((state, action) => {})
   },
 })
 
