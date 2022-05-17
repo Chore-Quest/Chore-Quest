@@ -35,7 +35,7 @@ function MyApp({ Component, pageProps } = AppProps) {
       </Head>
       <Nav user={user} />
       <div className="bg-base container w-full">
-        <div className="py-8 px-16">
+        <div className="py-8 px-4">
           <Component {...pageProps} />
         </div>
         <BottomMenu />

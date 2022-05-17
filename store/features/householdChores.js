@@ -20,9 +20,9 @@ const initialState = {
   loading: true,
 }
 
-// **** ACTION CREATORS **** //
-const updateFilterType = createAction('choreFilterType/update')
-const updateFilterCriteria = createAction('choreFilterCriteria/update')
+// // **** ACTION CREATORS **** //
+// export const updateFilterType = createAction('chores/filterType/update')
+// export const updateFilterCriteria = createAction('chores/filterCriteria/update')
 
 // *** THUNKS *** //
 
@@ -114,6 +114,7 @@ const choresSlice = createSlice({
   initialState,
   reducers: {
     updateFilterType(state, action) {
+      console.log('I should update Filter Type')
       state.filterType = action.payload
     },
     updateFilterCriteria(state, action) {
@@ -130,6 +131,7 @@ const choresSlice = createSlice({
   },
 })
 
+export const { updateFilterType, updateFilterCriteria } = choresSlice.actions
 export default choresSlice.reducer
 
 export const getAllClanChores = (store) => store.entities
@@ -145,9 +147,9 @@ export const getFilteredChores = createSelector(
     console.log(filterCriteria, 'this is filterCriteria')
     switch (filterType) {
       case 'IS_COMPLETE':
-        return allClanChores.filter(
-          (chore) => chore.isComplete == filterCriteria
-        )
+        return allClanChores.filter((chore) => chore.isComplete === true)
+      case 'IS_INCOMPLETE':
+        return allClanChores.filter((chore) => chore.isComplete === false)
       case 'PROFILE_ID': {
         const hasProfileId = (profile) => profile.id === filterCriteria
         return allClanChores.filter((chore) =>
