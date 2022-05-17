@@ -61,12 +61,22 @@ export default function Profile({ session }) {
               {profile ? profile.username : 'Guest'}
             </h1>
             <div></div>
-            <button
-              className=" justify-self-center rounded-lg border-blue-300 bg-gray-500 p-2 pl-5 pr-5 text-lg text-gray-100 focus:border-4"
-              onClick={() => router.push('/editprofile')}
-            >
-              Edit Profile
-            </button>
+            <div className="flex flex-row gap-4">
+              <button
+                className="frosted rounded-lg border-gray-300 bg-gray-500 p-2 pl-5 pr-5 text-lg text-gray-100 focus:border-4"
+                onClick={() => router.push('/editprofile')}
+              >
+                Edit Profile
+              </button>
+
+              <button
+                className="frosted focus:shadow-outline rounded  py-2 px-4 font-bold text-white hover:bg-black focus:outline-none"
+                type="button"
+                onClick={() => router.push('/addchore')}
+              >
+                Add Chore
+              </button>
+            </div>
           </div>
         </div>
       </div>

@@ -117,17 +117,6 @@ export default function AllClanChores() {
             </div>
           ))}
       </div>
-
-      <div className="flex items-center justify-between">
-        <Link href="/addchore">
-          <button
-            className="focus:shadow-outline rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 focus:outline-none"
-            type="button"
-          >
-            Add Chore
-          </button>
-        </Link>
-      </div>
     </>
   )
 }

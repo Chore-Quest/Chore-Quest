@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { supabase } from '../../client'
+import { toast } from 'react-toastify'
 
 const initialState = {
   profile: {},
@@ -67,8 +68,14 @@ export const updateSingleProfile = createAsyncThunk(
     const user = supabase.auth.user()
     try {
       await supabase.from('profiles').update(profile).eq('id', user.id)
+      toast.success('Profile Updated!', {
+        position: 'top-center',
+      })
       thunkAPI.dispatch(fetchSingleProfile())
     } catch (error) {
+      toast.error('Error Updating Profile', {
+        position: 'top-center',
+      })
       console.log(error)
       return error
     }
