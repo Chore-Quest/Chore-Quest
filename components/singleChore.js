@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { supabase } from '../client'
@@ -38,7 +39,7 @@ export default function SingleChore(props) {
 
   return (
     <>
-      <div className="frosted card mx-auto w-96 bg-base-100 p-10 shadow-xl">
+      <div className="frosted w-196 card mx-auto bg-base-100 p-10 shadow-xl">
         <figure>
           {chore.profiles[0] &&
             chore.profiles.map((profile) => (
@@ -49,7 +50,7 @@ export default function SingleChore(props) {
         </figure>
         <label>Chore Name</label>
         <input
-          className="my-4 w-full rounded-xl border-2 border-gray-500 p-4"
+          className="frosted my-4 w-full rounded-xl border-2 border-gray-500 p-4"
           type="text"
           placeholder="Chore Name"
           value={chore.name}
@@ -57,7 +58,7 @@ export default function SingleChore(props) {
         />
         <label>Chore Notes</label>
         <input
-          className="my-4 w-full rounded-xl border-2 border-gray-500 p-4"
+          className="frosted my-4 w-full rounded-xl border-2 border-gray-500 p-4"
           type="text"
           placeholder="Chore Name"
           value={chore.notes}
@@ -70,21 +71,23 @@ export default function SingleChore(props) {
           className="toggle toggle-accent toggle-lg"
           onChange={() => setChore({ ...chore, isComplete: !chore.isComplete })}
         />
-        <button
-          onClick={() =>
-            dispatch(
-              updateSingleChore({
-                name: chore.name,
-                id: choreId,
-                notes: chore.notes,
-                isComplete: chore.isComplete,
-              })
-            )
-          }
-          className="mt-4 w-full rounded-lg border-blue-300 bg-blue-500 p-2 pl-5 pr-5 text-lg text-gray-100 focus:border-4"
-        >
-          <span>Update Chore</span>
-        </button>
+        <Link href="/">
+          <button
+            onClick={() =>
+              dispatch(
+                updateSingleChore({
+                  name: chore.name,
+                  id: choreId,
+                  notes: chore.notes,
+                  isComplete: chore.isComplete,
+                })
+              )
+            }
+            className="mt-4 w-full rounded-lg border-blue-300 bg-blue-500 p-2 pl-5 pr-5 text-lg text-gray-100 focus:border-4"
+          >
+            <span>Update Chore</span>
+          </button>
+        </Link>
       </div>
     </>
   )

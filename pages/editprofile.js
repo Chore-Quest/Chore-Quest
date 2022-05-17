@@ -5,6 +5,7 @@ import {
   fetchSingleProfile,
   updateSingleProfile,
 } from '../store/features/singleProfile'
+import Link from 'next/link'
 
 export default function editProfile() {
   const { singleProfile } = useSelector((store) => store)
@@ -30,14 +31,14 @@ export default function editProfile() {
   return (
     <div className="card mx-auto w-96 bg-base-100 p-10 shadow-xl">
       <input
-        className="my-4 w-full rounded-xl border-2 border-gray-500 p-4"
+        className="frosted my-4 w-full rounded-xl border-2 border-gray-500 p-4"
         type="username"
         placeholder="Enter a username"
         value={profile.username}
         onChange={(e) => setProfile({ ...profile, username: e.target.value })}
       />
       <input
-        className="my-4 w-full rounded-xl border-2 border-gray-500 p-4"
+        className="frosted my-4 w-full rounded-xl border-2 border-gray-500 p-4"
         type="avatar_url"
         placeholder="add an avatar"
         value={profile.avatar_url}
@@ -54,7 +55,9 @@ export default function editProfile() {
         onClick={() => dispatch(updateSingleProfile({ ...profile }))}
         className="mt-4 w-full rounded-lg border-blue-300 bg-blue-500 p-2 pl-5 pr-5 text-lg text-gray-100 focus:border-4"
       >
-        <span>Update profile</span>
+        <Link href="/">
+          <span>Update profile</span>
+        </Link>
       </button>
     </div>
   )
