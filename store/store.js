@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore, createSelector } from '@reduxjs/toolkit'
 import choresReducer from './features/householdChores'
 import singleChoreReducer from './features/singleChore'
 import singleProfileReducer from './features/singleProfile'
@@ -7,7 +7,7 @@ import allItemsReducer from './features/itemTiers'
 
 const store = configureStore({
   reducer: {
-    allChores: choresReducer,
+    allClanChores: choresReducer,
     singleChore: singleChoreReducer,
     singleProfile: singleProfileReducer,
     singleHouseholdProfiles: singleHouseholdReducer,

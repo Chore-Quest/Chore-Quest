@@ -14,6 +14,13 @@ export default function Nav() {
     dispatch(fetchSingleProfile())
   }, [])
   const router = useRouter()
+
+  const handleLogout = () => {
+    supabase.auth.signOut()
+    router.push('/')
+    // dispatch fetchsingle profile = ''
+  }
+
   return (
     <nav className="navbar sticky top-0 left-0 right-0 z-50 rounded-b-lg border-b border-black bg-base-300 px-8 py-1">
       <div className="navbar-start">
@@ -70,9 +77,7 @@ export default function Nav() {
                   <Link href="/clan">Clan</Link>
                 </li>
                 <li>
-                  <Link href="/">
-                    <a onClick={() => supabase.auth.signOut()}>Logout</a>
-                  </Link>
+                  <a onClick={handleLogout}>Logout</a>
                 </li>
               </ul>
             </div>

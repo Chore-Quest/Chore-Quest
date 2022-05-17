@@ -1,10 +1,15 @@
-import { createSelector, createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit'
 import { supabase } from '../../client'
 
 const initialState = {
   entities: [],
-  filtered: [],
-  loading: false,
+  filterType: 'PROFILE_ID',
+  filterCriteria: '7a11347c-61ab-46d2-a80b-b307370a251e',
+  // filterType: 'UNASSIGNED',
+  // filterCriteria: null,
+  // filterType: 'IS_COMPLETE',
+  // filterCriteria: true,
+  loading: true,
 }
 
 // *** THUNKS *** //
@@ -68,7 +73,7 @@ export const createChore = createAsyncThunk(
       }
 
       alert('A Chore has been added!')
-      //dispatch fetchALlChores to update the state from db
+      //dispatch fetchALlChores to update the store from db
       thunkAPI.dispatch(fetchAllChores())
     } catch (error) {
       console.log(error)
@@ -78,55 +83,12 @@ export const createChore = createAsyncThunk(
   }
 )
 
-// export const createChore = createAsyncThunk(
-//   'chores/createChore',
-//   async (chore, thunkAPI) => {
-//     const user = supabase.auth.user()
-//     try {
-//       let { data } = await supabase
-//         .from('profiles')
-//         .select(`household_id`)
-//         .eq('id', user.id)
-//       const household_id = data.household_id
-//       let { name, notes } = chore
-//       //add the chore to the database
-//       const res = await supabase.from('chores').insert([
-//         {
-//           name,
-//           notes,
-//           household_id,
-//         },
-//       ])
-//       console.log('***************')
-//       console.log('Server Response from createChore Thunk:')
-//       console.log(res)
-//       console.log(
-//         'createChore Thunk Says: "Dispatching Fetch All Household Chores..."'
-//       )
-//       console.log('***************')
-//       //dispatch fetchALlChores to update the state from db
-//       thunkAPI.dispatch(fetchAllChores())
-//     } catch (error) {
-//       console.log(error)
-//       return error
-//     }
-//   }
-// )
-
 export const deleteChore = createAsyncThunk(
   'chores/deleteChore',
   async (choreId, thunkAPI) => {
     try {
       //delete the chore
-      const res = await supabase.from('chores').delete().eq('id', choreId)
-      console.log('***************')
-      console.log('Server Response from deleteChore Thunk:')
-      console.log(res)
-      console.log(
-        'deleteChore Thunk Says: "Dispatching Fetch All Household Chores..."'
-      )
-      console.log('***************')
-      //dispatch fetchALlChores to update the state from db
+      await supabase.from('chores').delete().eq('id', choreId)
       thunkAPI.dispatch(fetchAllChores())
     } catch (error) {
       console.log(error)
@@ -137,27 +99,47 @@ export const deleteChore = createAsyncThunk(
 
 // ***Slice Creator*** //
 const choresSlice = createSlice({
-  name: 'allChores',
+  name: 'allClanChores',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAllChores.fulfilled, (state, action) => {
-        state.loading = false
-        state.entities = action.payload
+      .addCase(fetchAllChores.fulfilled, (store, action) => {
+        store.loading = false
+        store.entities = action.payload
       })
-      .addDefaultCase((state, action) => {})
+      .addDefaultCase((store, action) => {})
   },
 })
 
 export default choresSlice.reducer
 
+export const getAllClanChores = (store) => store.entities
+export const getFilter = (store) => store.filterType
+export const getCriteria = (store) => store.filterCriteria
+
 //creates a memoized selector based on the filter input
 export const getFilteredChores = createSelector(
-  [
-    (state) => state.chores,
-    (state, category) => category,
-    (state, filter) => filter,
-  ],
-  (chores) => chores.filter((chore) => chore.category === filter)
+  [getAllClanChores, getFilter, getCriteria],
+  (allClanChores, filterType, filterCriteria) => {
+    console.log(allClanChores, 'this is all clan chores')
+    console.log(filterType, 'this is filterType')
+    console.log(filterCriteria, 'this is filterCriteria')
+    switch (filterType) {
+      case 'IS_COMPLETE':
+        return allClanChores.filter(
+          (chore) => chore.isComplete == filterCriteria
+        )
+      case 'PROFILE_ID': {
+        const hasProfileId = (profile) => profile.id === filterCriteria
+        return allClanChores.filter((chore) =>
+          chore.profiles.some(hasProfileId)
+        )
+      }
+      case 'UNASSIGNED':
+        return allClanChores.filter((chore) => chore.profiles.length === 0)
+      default:
+        return allClanChores
+    }
+  }
 )

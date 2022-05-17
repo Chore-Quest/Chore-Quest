@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
-
 import { useRouter } from 'next/router'
-
 import { supabase } from '../client'
 
 const SignIn = () => {
