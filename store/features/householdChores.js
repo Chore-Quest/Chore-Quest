@@ -6,23 +6,18 @@ import {
 } from '@reduxjs/toolkit'
 import { supabase } from '../../client'
 
+const ALL_CHORES = 'ALL_CHORES'
+const IS_COMPLETE = 'IS_COMPLETE'
+const IS_INCOMPLETE = 'IS_INCOMPLETE'
+const PROFILE_ID = 'PROFILE_ID'
+const UNASSIGNED = 'UNASSIGNED'
+
 const initialState = {
   entities: [],
-  filterType: '',
-  filterCriteria: undefined,
-  // filterCriteria: '7a11347c-61ab-46d2-a80b-b307370a251e',
-  // filterType: 'PROFILE_ID',
-  // filterCriteria: '7a11347c-61ab-46d2-a80b-b307370a251e',
-  // filterType: 'UNASSIGNED',
-  // filterCriteria: null,
-  // filterType: 'IS_COMPLETE',
-  // filterCriteria: true,
+  filterType: ALL_CHORES,
+  filterCriteria: 0,
   loading: true,
 }
-
-// // **** ACTION CREATORS **** //
-// export const updateFilterType = createAction('chores/filterType/update')
-// export const updateFilterCriteria = createAction('chores/filterCriteria/update')
 
 // *** THUNKS *** //
 
@@ -114,7 +109,6 @@ const choresSlice = createSlice({
   initialState,
   reducers: {
     updateFilterType(state, action) {
-      console.log('I should update Filter Type')
       state.filterType = action.payload
     },
     updateFilterCriteria(state, action) {
@@ -142,15 +136,14 @@ export const getCriteria = (store) => store.filterCriteria
 export const getFilteredChores = createSelector(
   [getAllClanChores, getFilter, getCriteria],
   (allClanChores, filterType, filterCriteria) => {
-    console.log(allClanChores, 'this is all clan chores')
-    console.log(filterType, 'this is filterType')
-    console.log(filterCriteria, 'this is filterCriteria')
     switch (filterType) {
-      case 'IS_COMPLETE':
+      case ALL_CHORES:
+        return allClanChores
+      case IS_COMPLETE:
         return allClanChores.filter((chore) => chore.isComplete === true)
-      case 'IS_INCOMPLETE':
+      case IS_INCOMPLETE:
         return allClanChores.filter((chore) => chore.isComplete === false)
-      case 'PROFILE_ID': {
+      case PROFILE_ID: {
         const hasProfileId = (profile) => profile.id === filterCriteria
         return allClanChores.filter((chore) =>
           chore.profiles.some(hasProfileId)

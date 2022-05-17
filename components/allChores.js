@@ -32,7 +32,6 @@ export default function AllClanChores() {
 
   useEffect(async () => {
     filteredChores = getFilteredChores(allClanChores)
-    console.log(filteredChores, 'this is filtered chores')
   }, [allClanChores])
 
   // Dispatches new chores to the store
