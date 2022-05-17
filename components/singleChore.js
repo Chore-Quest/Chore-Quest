@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { supabase } from '../client'
@@ -89,7 +90,7 @@ export default function SingleChore(props) {
 
   return (
     <>
-      <div className="frosted card mx-auto w-96 bg-base-100 p-10 shadow-xl">
+      <div className="frosted w-196 card mx-auto bg-base-100 p-10 shadow-xl">
         <figure>
           {console.log(assigned, 'this is assigned')}
           {assigned ? (
@@ -110,7 +111,7 @@ export default function SingleChore(props) {
         </figure>
         <label>Chore Name</label>
         <input
-          className="my-4 w-full rounded-xl border-2 border-gray-500 p-4"
+          className="frosted my-4 w-full rounded-xl border-2 border-gray-500 p-4"
           type="text"
           placeholder="Chore Name"
           value={chore.name}
@@ -118,7 +119,7 @@ export default function SingleChore(props) {
         />
         <label>Chore Notes</label>
         <input
-          className="my-4 w-full rounded-xl border-2 border-gray-500 p-4"
+          className="frosted my-4 w-full rounded-xl border-2 border-gray-500 p-4"
           type="text"
           placeholder="Chore Name"
           value={chore.notes}
@@ -131,6 +132,7 @@ export default function SingleChore(props) {
           className="toggle toggle-accent toggle-lg"
           onChange={() => setChore({ ...chore, isComplete: !chore.isComplete })}
         />
+
         {assigned.length > 0 ? (
           assigned.map((profile) => (
             <div key={profile.id}>

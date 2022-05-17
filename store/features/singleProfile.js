@@ -33,6 +33,31 @@ export const fetchSingleProfile = createAsyncThunk(
   }
 )
 
+export const fetchDynamicSingleProfile = createAsyncThunk(
+  'profiles/fetchSingleProfile',
+  async (userId, thunkAPI) => {
+    const user = supabase.auth.user()
+    try {
+      let { data: profile } = await supabase
+        .from('profiles')
+        .select(
+          `*, chores (
+          *
+        ) `
+        )
+        .eq('id', userId)
+        .single()
+      // console.log('*******************')
+      // console.log(profile, 'from single profile thunk')
+      // console.log('*******************')
+      return profile
+    } catch (error) {
+      console.log(error)
+      return error
+    }
+  }
+)
+
 // update single profile
 export const updateSingleProfile = createAsyncThunk(
   'profiles/updateSingleProfile',
