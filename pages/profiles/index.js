@@ -34,8 +34,6 @@ const clan = ({ session }) => {
         .select(`*`)
         .eq('id', userID.household_id)
         .single()
-      console.log(userID, 'this is user')
-      console.log(household, 'this is household')
       setHouseholdName(household.name)
       return household
     } catch (error) {
@@ -44,7 +42,6 @@ const clan = ({ session }) => {
     }
   }
 
-  console.log(profiles, 'this is profiles from profiles page')
   return (
     <>
       <div

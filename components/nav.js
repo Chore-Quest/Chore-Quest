@@ -71,6 +71,9 @@ export default function Nav() {
                   </Link>
                 </li>
                 <li>
+                  <Link href="/items">Items</Link>
+                </li>
+                <li>
                   <Link href="/chores">View Chores</Link>
                 </li>
                 <li>
