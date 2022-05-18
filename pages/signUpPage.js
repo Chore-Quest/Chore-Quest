@@ -18,7 +18,7 @@ const SignUp = () => {
     if (error) {
       alert(JSON.stringify(error))
     } else {
-      router.push('/editprofile')
+      router.push('/profile')
     }
   }
 
