@@ -1,14 +1,12 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { supabase } from '../client'
+import { useRouter } from 'next/router'
 import {
   fetchSingleChore,
   updateSingleChore,
   deleteSingleChore,
 } from '../store/features/singleChore'
-
-import { fetchAllProfiles } from '../store/features/houseProfiles'
 import {
   createResponsibility,
   fetchUnassigned,
@@ -24,7 +22,7 @@ export default function SingleChore(props) {
   )
   const unAssigned = useSelector((store) => store.responsibility.unassigned)
   const assigned = useSelector((store) => store.responsibility.chore)
-
+  const router = useRouter()
   // console.log(assigned, 'this is assigned')
 
   const [chore, setChore] = useState({
@@ -77,6 +75,8 @@ export default function SingleChore(props) {
       isComplete: chore.isComplete,
     }
     dispatch(updateSingleChore(updateChore))
+
+    // router.push('/chores')
   }
 
   function handleDeleteChore() {
