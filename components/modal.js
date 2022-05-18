@@ -61,7 +61,6 @@ const Modal = ({ showModal, setShowModal }) => {
               </motion.button>
               <motion.button
                 className="frosted formFont"
-                onClick={null}
                 onClick={handleMagicLink}
               >
                 <button>Sign in/up with magic link</button>
