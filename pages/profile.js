@@ -48,7 +48,7 @@ export default function Profile({ session }) {
         </div>
         <div className="">
           <p>
-            <span className="text-4xl">{householdName}</span>
+            <span className="text-2xl">Clan {householdName}</span>
           </p>
           <h1 className="mx-auto">XP:{profile ? profile.personalXP : null}</h1>
           <div className="">

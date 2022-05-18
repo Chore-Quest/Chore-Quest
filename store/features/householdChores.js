@@ -51,7 +51,7 @@ export const fetchAllChores = createAsyncThunk(
 
 //ADDS A CHORE FOR THE USER'S HOSUEHOLD
 export const createChore = createAsyncThunk(
-  'chores/addChore',
+  'chores/createChore',
   async (chore, thunkAPI) => {
     try {
       let { name, notes, household_id, item, profile_id } = chore
