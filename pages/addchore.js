@@ -56,7 +56,7 @@ export default function AddChore() {
     })
   }
   return (
-    <form>
+    <form className="h-screen">
       <div>
         <label
           className="mb-2 block text-sm font-bold text-gray-700"

@@ -23,7 +23,7 @@ const SignUp = () => {
   }
 
   return (
-    <div className="flex h-screen items-center justify-center bg-gray-800">
+    <div className="flex items-center justify-center">
       <div className="w-full max-w-lg">
         <h1 className="text-center text-3xl font-semibold text-white">
           Create new account

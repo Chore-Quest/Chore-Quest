@@ -41,8 +41,8 @@ function MyApp({ Component, pageProps } = AppProps) {
         <div className="py-8 px-4">
           <Component {...pageProps} />
         </div>
-        <BottomMenu />
       </div>
+      <BottomMenu />
     </Provider>
   )
 }
