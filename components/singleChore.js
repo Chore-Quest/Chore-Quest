@@ -2,8 +2,12 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { supabase } from '../client'
-import { fetchSingleChore } from '../store/features/singleChore'
-import { updateSingleChore } from '../store/features/singleChore'
+import {
+  fetchSingleChore,
+  updateSingleChore,
+  deleteSingleChore,
+} from '../store/features/singleChore'
+
 import { fetchAllProfiles } from '../store/features/houseProfiles'
 import {
   createResponsibility,
@@ -36,16 +40,10 @@ export default function SingleChore(props) {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (choreId) dispatch(fetchUnassigned(choreId))
-  }, [choreId])
-
-  useEffect(() => {
-    if (choreId) dispatch(fetchResponsiblity(choreId))
-  }, [choreId])
-
-  useEffect(() => {
     if (choreId) {
+      dispatch(fetchUnassigned(choreId))
       dispatch(fetchSingleChore(choreId))
+      dispatch(fetchResponsiblity(choreId))
     }
   }, [choreId])
 
@@ -69,36 +67,53 @@ export default function SingleChore(props) {
 
   function handleAssignTask() {
     dispatch(createResponsibility(chore))
+    setChore({ ...chore, profile_id: 0 })
   }
+
 
   function handleUpdateChore() {
     dispatch(updateSingleChore(chore))
     router.push('/chores')
   }
 
-  // //Filter Assigned Profiles
-  // function extractAllIds(profiles) {
-  //   const profileID = []
-  //   for (let i = 0; i < profiles.length; i++)
-  //     profileID.push(profiles[i].profile_id)
-  //   return profileID
+
+  function handleDeleteChore() {
+    if (assigned) {
+      assigned.map((profile) => {
+        console.log(chore.chore_id, 'this is delete chore id')
+        dispatch(
+          deleteResponsibility({
+            profileId: profile.profile_id,
+            choreId: chore.chore_id,
+          })
+        )
+      })
+    }
+    dispatch(deleteSingleChore(choreId))
+  }
+
+
+  //FOR LOOP DELETE CHORE
+  // function handleDeleteChore() {
+  //   if (assigned) {
+  //     for (let i = 0; i < assigned.length; i++) {
+  //       dispatch(
+  //         deleteResponsibility({
+  //           profileId: assigned[i].profile_id,
+  //           choreId: chore.chore_id,
+  //         })
+  //       )
+  //     }
+  //     dispatch(deleteSingleChore(choreId))
+  //   }
+  //   dispatch(deleteSingleChore(choreId))
   // }
 
-  // // Array of all ID's that are assigned to this task
-  // const assignedID = extractAllIds(assignedTo)
-
-  // // Finds household profiles that isn't currently assgined to this task
-  // const unAssigned = profiles.filter(
-  //   (profile) => !assignedID.includes(profile.id)
-  // )
-
-  // // console.log(chore, 'local chore')
-
+  console.log(assigned, 'this is assigned')
   return (
     <>
       <div className="frosted w-196 card mx-auto bg-base-100 p-10 shadow-xl">
         <figure>
-          {console.log(assigned, 'this is assigned')}
           {assigned ? (
             assigned.map((profile) => (
               <div
@@ -142,17 +157,18 @@ export default function SingleChore(props) {
         {assigned.length > 0 ? (
           assigned.map((profile) => (
             <div key={profile.id}>
-              {console.log(profile, 'this is profile')}
+              {/* {console.log(chore, 'this is chore')} */}
               <label>Currently Assigned to: {profile.profiles.username}</label>
               <button
-                onClick={() =>
+                onClick={() => {
+                  console.log(profile.profile_id, 'profileid wth')
                   dispatch(
                     deleteResponsibility({
-                      profileId: profile.id,
+                      profileId: profile.profile_id,
                       choreId: chore.chore_id,
                     })
                   )
-                }
+                }}
                 className="mt-4 w-full rounded-lg border-blue-300 bg-blue-500 p-2 pl-5 pr-5 text-lg text-gray-100 focus:border-4"
               >
                 X
@@ -166,9 +182,7 @@ export default function SingleChore(props) {
           className="select w-full max-w-xs"
           onChange={(e) => setChore({ ...chore, profile_id: e.target.value })}
         >
-          <option defaultValue value="">
-            Assign To
-          </option>
+          <option defaultValue={0}>Assign To</option>
           {unAssigned.map((profile) => (
             <option
               key={profile.id}
@@ -188,6 +202,16 @@ export default function SingleChore(props) {
         >
           <span>Update Chore</span>
         </button>
+        <div>
+          <Link href="/chores">
+            <button
+              onClick={handleDeleteChore}
+              className="mt-4 w-full rounded-lg border-blue-300 bg-blue-500 p-2 pl-5 pr-5 text-lg text-gray-100 focus:border-4"
+            >
+              <span>Delete</span>
+            </button>
+          </Link>
+        </div>
       </div>
     </>
   )

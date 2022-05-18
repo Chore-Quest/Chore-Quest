@@ -118,12 +118,26 @@ export const fetchResponsiblity = createAsyncThunk(
   }
 )
 
+// export const deleteResponsibility = createAsyncThunk(
+//   'chores/deleteChore',
+//   async ({ profileId, choreId }, thunkAPI) => {
+//     try {
+//       //delete the chore
+//       await supabase.from('responsibility').delete().eq('id', profileId)
+//       thunkAPI.dispatch(fetchUnassigned(choreId))
+//       thunkAPI.dispatch(fetchResponsiblity(choreId))
+//     } catch (error) {
+//       console.log(error)
+//       return error
+//     }
+//   }
+// )
 export const deleteResponsibility = createAsyncThunk(
-  'chores/deleteChore',
+  'responsibility/deleteResponsibility',
   async ({ profileId, choreId }, thunkAPI) => {
     try {
       //delete the chore
-      await supabase.from('responsibility').delete().eq('id', profileId)
+      await supabase.from('responsibility').delete().eq('profile_id', profileId)
       thunkAPI.dispatch(fetchUnassigned(choreId))
       thunkAPI.dispatch(fetchResponsiblity(choreId))
     } catch (error) {

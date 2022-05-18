@@ -4,23 +4,14 @@ import { supabase } from '../client'
 import Link from 'next/link'
 import {
   fetchAllChores,
-  addChore,
-  deleteChore,
   getFilteredChores,
+  updateFilterType,
+  updateFilterCriteria,
 } from '../store/features/householdChores'
-import ChoreFilters from '../components/choreFilters'
+import ChoreFilters from './choreFilters'
 import { motion } from 'framer-motion'
 
 export default function AllClanChores() {
-  //local state for controlled chore input form
-  const [chore, setChore] = useState({
-    name: '',
-    notes: '',
-    // xp: '',
-    // isComplete: '',
-  })
-  const { name, notes } = chore
-
   //gets the list of chores and loading state from the redux store
   let { allClanChores } = useSelector((store) => store)
   let filteredChores = getFilteredChores(allClanChores)
@@ -29,25 +20,20 @@ export default function AllClanChores() {
   console.log(filteredChores)
 
   const dispatch = useDispatch()
+
   useEffect(() => {
     dispatch(fetchAllChores())
+    //this return statement tells the component what to do when it unmounts
+    return () => {
+      //clear out the store filters when unmounting
+      dispatch(updateFilterType('ALL_CHORES'))
+      dispatch(updateFilterCriteria(true))
+    }
   }, [])
 
   useEffect(async () => {
     filteredChores = getFilteredChores(allClanChores)
   }, [allClanChores])
-
-  // Dispatches new chores to the store
-  function dispatchChore() {
-    dispatch(addChore(chore))
-    // Reset the chore details & clears the form data
-    setChore({
-      name: '',
-      notes: '',
-      // xp: '',
-      // isComplete: '',
-    })
-  }
 
   // Display the spinner if loading
   if (loading)
@@ -96,11 +82,13 @@ export default function AllClanChores() {
       <ChoreFilters />
 
       {/* map over chores and place each into a card */}
+
       <motion.div
         variants={stagger}
         className="md:grid-row-3 mb-5 gap-4 md:grid md:gap-3"
       >
-        {filteredChores[0] &&
+        {filteredChores[0] ? (
+          filteredChores[0] &&
           filteredChores.map((chore) => (
             <div
               key={chore.id}
@@ -151,7 +139,28 @@ export default function AllClanChores() {
                 </div>
               </motion.div>
             </div>
-          ))}
+          ))
+        ) : (
+          <>
+            <div>&nbsp;</div>
+            <div className="w-full">
+              <h4 className="text-center">
+                This user doesn't have any chores.
+              </h4>
+            </div>
+          </>
+        )}
+
+        <div className="flex items-center justify-center">
+          <Link href="/addchore">
+            <button
+              className="focus:shadow-outline rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 focus:outline-none"
+              type="button"
+            >
+              Add Chore
+            </button>
+          </Link>
+        </div>
       </motion.div>
     </motion.div>
   )

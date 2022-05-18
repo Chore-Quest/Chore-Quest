@@ -7,7 +7,7 @@ import AllClanChores from '../components/allChores'
 
 export default function Profile(props) {
   const { userId } = props
-  // console.log(userId, 'this is id at single prof')
+
   //gets profile from the database
   let [householdName, setHouseholdName] = useState('')
 
@@ -17,14 +17,6 @@ export default function Profile(props) {
   }, [userId])
 
   let profile = useSelector((store) => store.singleProfile.dynamicProfile)
-
-  // useEffect(() => {
-  //   singleProfile.dynamicProfile && singleProfile.dynamicProfile[0]
-  //     ? (profile = singleProfile.dynamicProfile[0])
-  //     : profile
-  // }, [singleProfile])
-
-  console.log(profile, 'this is profile')
 
   const dispatch = useDispatch()
   const router = useRouter()
@@ -42,8 +34,6 @@ export default function Profile(props) {
         .select(`*`)
         .eq('id', userID.household_id)
         .single()
-      // console.log(userID, 'this is user')
-      // console.log(household, 'this is household')
       setHouseholdName(household.name)
       return household
     } catch (error) {
@@ -61,11 +51,10 @@ export default function Profile(props) {
             src={profile ? profile.avatar_url : null}
           />
         </div>
-
         <div className="">
           <p>
             <span className="mb-2 flex justify-center text-2xl">
-              {householdName}
+              Clan {householdName}
             </span>
           </p>
           <h1 className="mb-2 flex justify-center">

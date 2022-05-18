@@ -52,7 +52,7 @@ export default function Profile({ session }) {
         <div className="">
           <p>
             <span className="mb-2 flex justify-center text-2xl">
-              {householdName}
+              Clan {householdName}
             </span>
           </p>
           <h1 className="mb-2 flex justify-center">

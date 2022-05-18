@@ -7,12 +7,18 @@ export default function UserItems() {
   const { id } = router.query
 
   return (
-    <motion.div
-      exit={{ opacity: 0 }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-    >
-      <Items itemId={id} />
-    </motion.div>
+    // <motion.div
+    //   exit={{ opacity: 0 }}
+    //   initial={{ opacity: 0 }}
+    //   animate={{ opacity: 1 }}
+    // >
+    //   <Items itemId={id} />
+    // </motion.div>
+
+    <>
+      {/* returning nothing causes deployment error */}
+      {/* <Items itemId={id} /> */}
+      Item ID: {id}
+    </>
   )
 }

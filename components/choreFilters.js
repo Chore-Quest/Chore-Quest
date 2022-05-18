@@ -7,6 +7,12 @@ import {
 } from '../store/features/householdChores'
 
 export default function ChoreFilters() {
+  const ALL_CHORES = 'ALL_CHORES'
+  const IS_COMPLETE = 'IS_COMPLETE'
+  const IS_INCOMPLETE = 'IS_INCOMPLETE'
+  const PROFILE_ID = 'PROFILE_ID'
+  const UNASSIGNED = 'UNASSIGNED'
+
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchAllProfiles())
@@ -14,12 +20,6 @@ export default function ChoreFilters() {
   let clanProfiles = useSelector(
     (store) => store.singleHouseholdProfiles.entities
   )
-
-  const ALL_CHORES = 'ALL_CHORES'
-  const IS_COMPLETE = 'IS_COMPLETE'
-  const IS_INCOMPLETE = 'IS_INCOMPLETE'
-  const PROFILE_ID = 'PROFILE_ID'
-  const UNASSIGNED = 'UNASSIGNED'
 
   function handleFilterChange(e) {
     let { filterType, filterCriteria } = JSON.parse(e.target.value)
@@ -37,7 +37,7 @@ export default function ChoreFilters() {
               filterCriteria: 0,
             })}
           >
-            All Chores
+            All Clan Chores
           </option>
           <option
             value={JSON.stringify({
