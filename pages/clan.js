@@ -1,6 +1,7 @@
 import React from 'react'
 import { supabase } from '../client'
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
@@ -48,7 +49,11 @@ const clan = ({ session }) => {
 
   console.log(profiles, 'this is profiles from clan page')
   return (
-    <>
+    <motion.div
+      exit={{ opacity: 0 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+    >
       <div
         className="card hero mx-auto mb-5 overflow-hidden rounded-3xl p-0 drop-shadow-2xl"
         style={{
@@ -57,16 +62,15 @@ const clan = ({ session }) => {
       >
         <div className="hero-overlay bg-opacity-60"></div>
         <div className="hero-content text-center text-neutral-content">
-          <div className="max-w-md">
+          <div className="max-w-md py-10">
             <h1 className="houseName mb-3 text-8xl font-bold">
               House: {householdName}
             </h1>
-            <p className="mb-5">
+            <p className="mb-5 items-center">
               Level up and surpass your peers by completing chores and earning
               XP. Your xp will be used to trade for gold and as we know gold is
               PRICELESS.
             </p>
-            <button className="btn btn-primary">Get Started</button>
           </div>
         </div>
       </div>
@@ -95,7 +99,7 @@ const clan = ({ session }) => {
           </div>
         ))}
       </div>
-    </>
+    </motion.div>
   )
 }
 
