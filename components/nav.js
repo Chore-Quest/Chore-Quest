@@ -54,8 +54,8 @@ export default function Nav() {
       </div>
       <div className="navbar-end">
         <div className="flex-none gap-2">
-          {storeProfile.id ? (
-            <div className="dropdown-end dropdown">
+          {storeProfile && storeProfile.id ? (
+            <div className="dropdown dropdown-end">
               <label tabIndex="0" className="avatar btn btn-ghost btn-circle">
                 <div className="w-10 rounded-full">
                   <img src={storeProfile.avatar_url} />
