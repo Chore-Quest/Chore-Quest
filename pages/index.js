@@ -10,7 +10,7 @@ import { motion } from 'framer-motion'
 export default function Home() {
   // **** Need to add due date to database ****
   const [session, setSession] = useState(null)
-  const [showModal, setShowModal] = useState(false)
+  const [showModal, setShowModal] = useState(true)
   const close = () => setShowModal(false)
   const open = () => setShowModal(true)
 
@@ -27,14 +27,14 @@ export default function Home() {
       {!session ? (
         <div>
           {' '}
-          <motion.button
+          {/* <motion.button
             className="frosted"
             onClick={showModal ? close : open}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
           >
             Get Started!
-          </motion.button>
+          </motion.button> */}
           <Modal showModal={showModal} setShowModal={setShowModal} />
         </div>
       ) : (

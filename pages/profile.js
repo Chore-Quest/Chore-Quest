@@ -15,7 +15,6 @@ export default function Profile({ session }) {
 
   let { singleProfile } = useSelector((store) => store)
   let [profile, loading] = [singleProfile.profile, singleProfile.loading]
-
   const dispatch = useDispatch()
   const router = useRouter()
 
@@ -78,7 +77,6 @@ export default function Profile({ session }) {
           </div>
         </div>
       </div>
-      <AllClanChores />
     </div>
   )
 }

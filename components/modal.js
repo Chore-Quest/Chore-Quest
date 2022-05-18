@@ -51,19 +51,19 @@ const Modal = ({ showModal, setShowModal }) => {
                 className="frosted formFont"
                 onClick={handleSignIn}
               >
-                <button>Sign In</button>
+                <p>Sign In</p>
               </motion.button>
               <motion.button
                 className="frosted formFont"
                 onClick={handleSignUp}
               >
-                <button>Sign Up</button>
+                <p>Sign Up</p>
               </motion.button>
               <motion.button
                 className="frosted formFont"
                 onClick={handleMagicLink}
               >
-                <button>Sign in/up with magic link</button>
+                <p>Sign in/up with magic link</p>
               </motion.button>
             </div>
             {showLogin && <SignIn />}
