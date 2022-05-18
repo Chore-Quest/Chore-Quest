@@ -43,7 +43,7 @@ const Modal = ({ showModal, setShowModal }) => {
           variants={backdrop}
           initial="hidden"
           animate="visible"
-          onClick={() => setShowModal(false)}
+          // onClick={() => setShowModal(false)}
         >
           <motion.div onClick={(e) => e.stopPropagation()}>
             <div className="align-center flex justify-center">
