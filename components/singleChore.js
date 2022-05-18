@@ -15,7 +15,6 @@ import {
   fetchResponsiblity,
   deleteResponsibility,
 } from '../store/features/responsibilities'
-import { router } from 'next/router'
 
 export default function SingleChore(props) {
   const { choreId } = props
@@ -60,7 +59,7 @@ export default function SingleChore(props) {
         chore_id: storeChore.id || 0,
         household_id: storeChore.household_id || 0,
         profile_id: 0,
-        assignedProfiles: [],
+        // assignedProfiles: [],
       })
     }
   }, [storeChore])
@@ -70,12 +69,15 @@ export default function SingleChore(props) {
     setChore({ ...chore, profile_id: 0 })
   }
 
-
   function handleUpdateChore() {
-    dispatch(updateSingleChore(chore))
-    router.push('/chores')
+    const updateChore = {
+      name: chore.name,
+      id: choreId,
+      notes: chore.notes,
+      isComplete: chore.isComplete,
+    }
+    dispatch(updateSingleChore(updateChore))
   }
-
 
   function handleDeleteChore() {
     if (assigned) {
@@ -91,7 +93,6 @@ export default function SingleChore(props) {
     }
     dispatch(deleteSingleChore(choreId))
   }
-
 
   //FOR LOOP DELETE CHORE
   // function handleDeleteChore() {
