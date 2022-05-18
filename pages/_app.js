@@ -8,6 +8,8 @@ import { Provider } from 'react-redux'
 import store from '../store/store'
 import Nav from '../components/nav'
 import BottomMenu from '../components/bottomMenu'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function MyApp({ Component, pageProps } = AppProps) {
   const [user, setUser] = useState(null)
@@ -32,13 +34,14 @@ function MyApp({ Component, pageProps } = AppProps) {
         <title>Chore Quest</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <ToastContainer />
       <Nav user={user} />
       <div className="bg-base container w-full">
         <div className="py-8 px-4">
           <Component {...pageProps} />
         </div>
-        <BottomMenu />
       </div>
+      <BottomMenu />
     </Provider>
   )
 }

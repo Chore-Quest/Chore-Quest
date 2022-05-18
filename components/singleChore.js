@@ -15,6 +15,7 @@ import {
   fetchResponsiblity,
   deleteResponsibility,
 } from '../store/features/responsibilities'
+import { router } from 'next/router'
 
 export default function SingleChore(props) {
   const { choreId } = props
@@ -69,6 +70,13 @@ export default function SingleChore(props) {
     setChore({ ...chore, profile_id: 0 })
   }
 
+
+  function handleUpdateChore() {
+    dispatch(updateSingleChore(chore))
+    router.push('/chores')
+  }
+
+
   function handleDeleteChore() {
     if (assigned) {
       assigned.map((profile) => {
@@ -83,6 +91,7 @@ export default function SingleChore(props) {
     }
     dispatch(deleteSingleChore(choreId))
   }
+
 
   //FOR LOOP DELETE CHORE
   // function handleDeleteChore() {
@@ -188,21 +197,10 @@ export default function SingleChore(props) {
           Assign Now
         </button>
         <button
-          onClick={() =>
-            dispatch(
-              updateSingleChore({
-                name: chore.name,
-                id: choreId,
-                notes: chore.notes,
-                isComplete: chore.isComplete,
-              })
-            )
-          }
+          onClick={handleUpdateChore}
           className="mt-4 w-full rounded-lg border-blue-300 bg-blue-500 p-2 pl-5 pr-5 text-lg text-gray-100 focus:border-4"
         >
-          <Link href="/profile">
-            <span>Update Chore</span>
-          </Link>
+          <span>Update Chore</span>
         </button>
         <div>
           <Link href="/chores">

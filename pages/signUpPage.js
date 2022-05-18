@@ -18,12 +18,12 @@ const SignUp = () => {
     if (error) {
       alert(JSON.stringify(error))
     } else {
-      router.push('/profile')
+      router.push('/editprofile')
     }
   }
 
   return (
-    <div className="flex h-screen items-center justify-center bg-gray-800">
+    <div className="flex items-center justify-center">
       <div className="w-full max-w-lg">
         <h1 className="text-center text-3xl font-semibold text-white">
           Create new account
@@ -55,6 +55,7 @@ const SignUp = () => {
           <button
             className="mt-10 rounded-md bg-green-500 py-3 px-6 text-lg font-semibold text-white focus:outline-none focus:ring-2"
             type="submit"
+            onClick={handleSubmit}
           >
             Sign up
           </button>

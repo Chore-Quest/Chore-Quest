@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { supabase } from '../../client'
+import { toast } from 'react-toastify'
 
 const initialState = {
   chore: [],
@@ -22,7 +23,10 @@ export const createResponsibility = createAsyncThunk(
             profile_id,
           },
         ])
-      alert('Responsibility attached!')
+      // alert('Responsibility attached!')
+      toast.success('Responsibility attached!', {
+        position: 'top-center',
+      })
       thunkAPI.dispatch(fetchUnassigned(chore_id))
       thunkAPI.dispatch(fetchResponsiblity(chore_id))
       return newResp
@@ -30,7 +34,10 @@ export const createResponsibility = createAsyncThunk(
       // thunkAPI.dispatch(fetchAllChores())
     } catch (error) {
       console.log(error)
-      alert('Unable to add Responsibility')
+      // alert('Unable to add Responsibility')
+      toast.error('Unable to add Responsibility', {
+        position: 'top-center',
+      })
       return error
     }
   }
