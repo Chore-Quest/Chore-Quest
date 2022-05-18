@@ -24,16 +24,22 @@ export default function Home() {
 
   return (
     <main className="mx-auto h-screen">
-      <motion.button
-        className="frosted"
-        onClick={showModal ? close : open}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-      >
-        Get Started!
-      </motion.button>
-      <Modal showModal={showModal} setShowModal={setShowModal} />
-      {/* {!session ? <Login /> : <Profile session={session} />} */}
+      {!session ? (
+        <div>
+          {' '}
+          <motion.button
+            className="frosted"
+            onClick={showModal ? close : open}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            Get Started!
+          </motion.button>
+          <Modal showModal={showModal} setShowModal={setShowModal} />
+        </div>
+      ) : (
+        <Profile session={session} />
+      )}
     </main>
   )
 }
