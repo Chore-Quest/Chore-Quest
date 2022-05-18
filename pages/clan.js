@@ -45,6 +45,29 @@ const Clan = ({ session }) => {
     }
   }
 
+  const easing = [0.6, -0.05, 0.01, 0.99]
+  const stagger = {
+    animate: {
+      transition: {
+        staggerChildren: 0.3,
+      },
+    },
+  }
+  const fadeInUp = {
+    initial: {
+      y: 50,
+      opacity: 0,
+    },
+    animate: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        ease: easing,
+      },
+    },
+  }
+
   return (
     <motion.div
       exit={{ opacity: 0 }}
@@ -72,9 +95,13 @@ const Clan = ({ session }) => {
         </div>
       </div>
 
-      <div className="mb-4 justify-around gap-4 md:grid md:grid-cols-2">
+      <motion.div
+        variants={stagger}
+        className="mb-4 justify-around gap-4 md:grid md:grid-cols-2"
+      >
         {profiles.map((profile) => (
-          <div
+          <motion.div
+            variants={fadeInUp}
             key={profile.id}
             className="min-w-200 frosted card mb-5 flex-auto basis-full bg-base-100 p-5 shadow-xl"
           >
@@ -88,17 +115,19 @@ const Clan = ({ session }) => {
               </figure>
               <div className="card-body">
                 <h2 className="card-title mx-auto">{profile.username}</h2>
-                <p className="mx-auto">profile tag line?</p>
+                <p className="mx-auto">Peasant!</p>
                 <div className="card-actions justify-center">
                   <Link href={`/profiles/${encodeURIComponent(profile.id)}`}>
-                    <button className="btn btn-primary">Profile page</button>
+                    <button className="focus:shadow-outline rounded bg-gray-500 py-2 px-4 font-bold text-white hover:bg-gray-800 focus:outline-none">
+                      Profile page
+                    </button>
                   </Link>
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </motion.div>
   )
 }

@@ -15,7 +15,7 @@ export function MagicLink({ email, e, setEmail, handleLogin }) {
           e.preventDefault()
           handleLogin(email)
         }}
-        className="mt-4 w-full rounded-lg border-blue-300 bg-blue-500 p-2 pl-5 pr-5 text-lg text-gray-100 focus:border-4"
+        className="mt-4 w-full rounded-lg border-gray-300 bg-gray-500 p-2 pl-5 pr-5 text-lg text-gray-100 focus:border-4"
       >
         <span>Send magic link</span>
       </button>

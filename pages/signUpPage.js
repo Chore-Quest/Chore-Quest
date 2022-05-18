@@ -53,7 +53,7 @@ const SignUp = () => {
           />
 
           <button
-            className="mt-10 rounded-md bg-green-500 py-3 px-6 text-lg font-semibold text-white focus:outline-none focus:ring-2"
+            className="mt-10 rounded-md bg-gray-500 py-3 px-6 text-lg font-semibold text-white focus:outline-none focus:ring-2"
             type="submit"
             onClick={handleSubmit}
           >

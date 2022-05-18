@@ -118,7 +118,7 @@ export default function AddChore() {
 
       <div className="flex items-center justify-between">
         <button
-          className="focus:shadow-outline rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 focus:outline-none"
+          className="focus:shadow-outline rounded bg-gray-500 py-2 px-4 font-bold text-white hover:bg-gray-800 focus:outline-none"
           type="button"
           onClick={handleAddChore} // Call the addChore Function
         >

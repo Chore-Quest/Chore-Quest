@@ -80,7 +80,7 @@ body {
   border: 1px solid rgba(24, 24, 24, 0.18);
 }
 
-.frosted:hover {
+.frosted1:hover {
   background: rgba(103, 101, 101, 0.1);
   box-shadow: 0 8px 32px 0 rgba(61, 65, 112, 0.37);
   backdrop-filter: blur(9.5px);
