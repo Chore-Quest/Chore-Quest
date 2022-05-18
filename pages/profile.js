@@ -32,8 +32,6 @@ export default function Profile({ session }) {
         .select(`*`)
         .eq('id', userID.household_id)
         .single()
-      console.log(userID, 'this is user')
-      console.log(household, 'this is household')
       setHouseholdName(household.name)
       return household
     } catch (error) {
@@ -50,7 +48,7 @@ export default function Profile({ session }) {
         </div>
         <div className="">
           <p>
-            <span className="text-4xl">{householdName}</span>
+            <span className="text-2xl">Clan {householdName}</span>
           </p>
           <h1 className="mx-auto">XP:{profile ? profile.personalXP : null}</h1>
           <div className="">

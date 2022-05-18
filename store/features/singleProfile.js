@@ -8,28 +8,27 @@ const initialState = {
 }
 
 // *** THUNKS *** //
-// fetch single profile
+
 export const fetchSingleProfile = createAsyncThunk(
   'profiles/fetchSingleProfile',
   async (thunkAPI) => {
     const user = supabase.auth.user()
-    try {
-      let { data: profile } = await supabase
-        .from('profiles')
-        .select(
-          `*, chores (
+    if (user) {
+      try {
+        let { data: profile } = await supabase
+          .from('profiles')
+          .select(
+            `*, chores (
           *
         ) `
-        )
-        .eq('id', user.id)
-        .single()
-      // console.log('*******************')
-      // console.log(profile, 'from single profile thunk')
-      // console.log('*******************')
-      return profile
-    } catch (error) {
-      console.log(error)
-      return error
+          )
+          .eq('id', user.id)
+          .single()
+        return profile
+      } catch (error) {
+        console.log(error)
+        return error
+      }
     }
   }
 )
@@ -37,7 +36,6 @@ export const fetchSingleProfile = createAsyncThunk(
 export const fetchDynamicSingleProfile = createAsyncThunk(
   'profiles/fetchDynamicSingleProfile',
   async (userId) => {
-    console.log(userId, 'this is id from thunk')
     try {
       let { data: profile } = await supabase
         .from('profiles')
@@ -48,10 +46,6 @@ export const fetchDynamicSingleProfile = createAsyncThunk(
         )
         .eq('id', userId)
         .single()
-      // console.log(profile, 'this is profile')
-      // console.log('*******************')
-      // console.log(profile, 'from single profile thunk')
-      // console.log('*******************')
       return profile
     } catch (error) {
       console.log(error)
@@ -74,8 +68,6 @@ export const updateSingleProfile = createAsyncThunk(
     }
   }
 )
-
-// update xp of single profile
 
 // *** SLICES *** //
 const profilesSlice = createSlice({

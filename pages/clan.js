@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { fetchAllProfiles } from '../store/features/houseProfiles'
 import { fetchDynamicSingleProfile } from '../store/features/singleProfile'
 
-const clan = ({ session }) => {
+const Clan = ({ session }) => {
   let { singleHouseholdProfiles } = useSelector((store) => store)
 
   let [profiles, loading] = [
@@ -36,8 +36,6 @@ const clan = ({ session }) => {
         .select(`*`)
         .eq('id', userID.household_id)
         .single()
-      console.log(userID, 'this is user')
-      console.log(household, 'this is household')
       setHouseholdName(household.name)
       return household
     } catch (error) {
@@ -46,7 +44,6 @@ const clan = ({ session }) => {
     }
   }
 
-  console.log(profiles, 'this is profiles from clan page')
   return (
     <>
       <div
@@ -59,21 +56,23 @@ const clan = ({ session }) => {
         <div className="hero-content text-center text-neutral-content">
           <div className="max-w-md">
             <h1 className="houseName mb-3 text-8xl font-bold">
-              House: {householdName}
+              {`Clan ${householdName}`}
             </h1>
             <p className="mb-5">
               Level up and surpass your peers by completing chores and earning
               XP. Your xp will be used to trade for gold and as we know gold is
               PRICELESS.
             </p>
-            <button className="btn btn-primary">Get Started</button>
           </div>
         </div>
       </div>
 
       <div className="mb-4 justify-around gap-4 md:grid md:grid-cols-2">
         {profiles.map((profile) => (
-          <div className="min-w-200 frosted card mb-5 flex-auto basis-full bg-base-100 p-5 shadow-xl">
+          <div
+            key={profile.id}
+            className="min-w-200 frosted card mb-5 flex-auto basis-full bg-base-100 p-5 shadow-xl"
+          >
             <div className="mb-5">
               <figure>
                 <img
@@ -99,4 +98,4 @@ const clan = ({ session }) => {
   )
 }
 
-export default clan
+export default Clan
