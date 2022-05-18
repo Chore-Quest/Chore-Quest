@@ -7,7 +7,9 @@ export default function UserItems() {
 
   return (
     <>
-      <Items itemId={id} />
+      {/* returning nothing causes deployment error */}
+      {/* <Items itemId={id} /> */}
+      Item ID: {id}
     </>
   )
 }

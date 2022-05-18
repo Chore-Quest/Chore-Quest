@@ -3,6 +3,6 @@ import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { supabase } from '../client'
 
-export default function items() {
-  console.log('whaddup')
+export default function Items() {
+  console.log("whaddup, I'm the Items component")
 }

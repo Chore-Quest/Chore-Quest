@@ -4,8 +4,6 @@ import { supabase } from '../client'
 import Link from 'next/link'
 import {
   fetchAllChores,
-  addChore,
-  deleteChore,
   getFilteredChores,
 } from '../store/features/householdChores'
 import ChoreFilters from '../components/choreFilters'
