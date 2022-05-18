@@ -1,21 +1,18 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { supabase } from '../client'
+import { useRouter } from 'next/router'
 import {
   fetchSingleChore,
   updateSingleChore,
   deleteSingleChore,
 } from '../store/features/singleChore'
-
-import { fetchAllProfiles } from '../store/features/houseProfiles'
 import {
   createResponsibility,
   fetchUnassigned,
   fetchResponsiblity,
   deleteResponsibility,
 } from '../store/features/responsibilities'
-import { router } from 'next/router'
 
 export default function SingleChore(props) {
   const { choreId } = props
@@ -25,7 +22,7 @@ export default function SingleChore(props) {
   )
   const unAssigned = useSelector((store) => store.responsibility.unassigned)
   const assigned = useSelector((store) => store.responsibility.chore)
-
+  const router = useRouter()
   // console.log(assigned, 'this is assigned')
 
   const [chore, setChore] = useState({
@@ -60,7 +57,7 @@ export default function SingleChore(props) {
         chore_id: storeChore.id || 0,
         household_id: storeChore.household_id || 0,
         profile_id: 0,
-        assignedProfiles: [],
+        // assignedProfiles: [],
       })
     }
   }, [storeChore])
@@ -70,12 +67,17 @@ export default function SingleChore(props) {
     setChore({ ...chore, profile_id: 0 })
   }
 
-
   function handleUpdateChore() {
-    dispatch(updateSingleChore(chore))
-    router.push('/chores')
-  }
+    const updateChore = {
+      name: chore.name,
+      id: choreId,
+      notes: chore.notes,
+      isComplete: chore.isComplete,
+    }
+    dispatch(updateSingleChore(updateChore))
 
+    // router.push('/chores')
+  }
 
   function handleDeleteChore() {
     if (assigned) {
@@ -91,7 +93,6 @@ export default function SingleChore(props) {
     }
     dispatch(deleteSingleChore(choreId))
   }
-
 
   //FOR LOOP DELETE CHORE
   // function handleDeleteChore() {

@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { create } from 'domain'
 import { supabase } from '../../client'
 import { toast } from 'react-toastify'
-import { Router, useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 
 const initialState = {
   chore: {},
@@ -32,7 +32,7 @@ export const fetchSingleChore = createAsyncThunk(
   }
 )
 
-//Updates a single chore in the database using the ID
+// Updates a single chore in the database using the ID
 export const updateSingleChore = createAsyncThunk(
   //action type string
   'singleChore/updateSingleChore',
@@ -43,7 +43,6 @@ export const updateSingleChore = createAsyncThunk(
       toast.success('Chore Updated!', {
         position: 'top-center',
       })
-      Router.push('/chores')
       console.log('Chore from Update chore', chore)
       return chore
     } catch (error) {

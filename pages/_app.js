@@ -10,6 +10,7 @@ import Nav from '../components/nav'
 import BottomMenu from '../components/bottomMenu'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { AnimatePresence } from 'framer-motion'
 
 function MyApp({ Component, pageProps } = AppProps) {
   const [user, setUser] = useState(null)
@@ -36,11 +37,13 @@ function MyApp({ Component, pageProps } = AppProps) {
       </Head>
       <ToastContainer />
       <Nav user={user} />
-      <div className="bg-base container w-full">
-        <div className="py-8 px-4">
-          <Component {...pageProps} />
+      <AnimatePresence exitBeforeEnter>
+        <div className="bg-base container w-full">
+          <div className="py-8 px-4">
+            <Component {...pageProps} />
+          </div>
         </div>
-      </div>
+      </AnimatePresence>
       <BottomMenu />
     </Provider>
   )
