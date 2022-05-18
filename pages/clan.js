@@ -77,7 +77,7 @@ const Clan = ({ session }) => {
       <div
         className="card hero mx-auto mb-5 overflow-hidden rounded-3xl p-0 drop-shadow-2xl"
         style={{
-          backgroundImage: `url(https://cdn1.vectorstock.com/i/1000x1000/17/20/fantasy-game-background-banner-vector-20381720.jpg)`,
+          backgroundImage: `url(https://scontent-ort2-2.xx.fbcdn.net/v/t39.30808-6/244607226_4976383192391443_8852424966271916005_n.png?_nc_cat=108&ccb=1-6&_nc_sid=09cbfe&_nc_ohc=OgqCxFXz9rQAX-k4L_Y&_nc_ht=scontent-ort2-2.xx&oh=00_AT_iqegFFW3LovBxUPocNcsbThneTZwr6dbH7PIawTx-Ow&oe=62897827)`,
         }}
       >
         <div className="hero-overlay bg-opacity-60"></div>
