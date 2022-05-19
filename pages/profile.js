@@ -7,6 +7,7 @@ import AllClanChores from '../components/allChores'
 import { CircularProgressbarWithChildren } from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
 import CountUp from 'react-countup'
+import ProgressProvider from '../components/ProgressProvider'
 
 export default function Profile({ session }) {
   //gets profile from the database
@@ -46,12 +47,16 @@ export default function Profile({ session }) {
     <div className="container min-h-screen">
       <div className="frosted w-296 shadow-3xl pr-15 card mb-5 grid grid-rows-1 items-center justify-center bg-base-100 pt-5 sm:grid-cols-2 sm:p-5">
         <div className="flex justify-around">
-          <CircularProgressbarWithChildren value={66}>
-            <img
-              className="mask mask-circle flex"
-              src={profile ? profile.avatar_url : null}
-            />
-          </CircularProgressbarWithChildren>
+          <ProgressProvider valueStart={0} valueEnd={66}>
+            {(value) => (
+              <CircularProgressbarWithChildren value={value}>
+                <img
+                  className="mask mask-circle flex"
+                  src={profile ? profile.avatar_url : null}
+                />
+              </CircularProgressbarWithChildren>
+            )}
+          </ProgressProvider>
         </div>
 
         <div className="flex justify-center">
@@ -67,7 +72,7 @@ export default function Profile({ session }) {
                 {/* {profile ? profile.personalXP : null} */}
                 <CountUp
                   start={0}
-                  end={profile ? profile.personalXP : null}
+                  end={profile ? profile.personalXP : 0}
                   delay={0}
                 >
                   {({ countUpRef }) => (
