@@ -2,16 +2,18 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { supabase } from '../../client'
 
 const initialState = {
+  householdInfo: {},
   entities: [],
   loading: false,
 }
 
+const user = supabase.auth.user()
+
 // *** THUNKS *** //
 // fetch all profiles from a household
 export const fetchAllProfiles = createAsyncThunk(
-  'profiles/fetchAllProfiles',
-  async (thunkAPI) => {
-    const user = supabase.auth.user()
+  'household/fetchAllProfiles',
+  async () => {
     try {
       let { data: houseHoldId } = await supabase
         .from('profiles')
@@ -31,6 +33,33 @@ export const fetchAllProfiles = createAsyncThunk(
   }
 )
 
+// get info from household_table
+export const fetchHouseholdInfo = createAsyncThunk(
+  'household/householdInfo',
+  async () => {
+    if (user.id) {
+      try {
+        let { data: userProfile } = await supabase
+          .from('profiles')
+          .select(`*`)
+          .eq('id', user.id)
+          .single()
+        let { data: household } = await supabase
+          .from('household_table')
+          .select(`*`)
+          .eq('id', userProfile.household_id)
+          .single()
+        return household
+      } catch (error) {
+        console.log(error)
+        return error
+      }
+    }
+  }
+)
+
+fetchHouseholdInfo()
+
 // *** SLICES *** //
 const profilesSlice = createSlice({
   name: 'profiles',
@@ -41,6 +70,9 @@ const profilesSlice = createSlice({
       .addCase(fetchAllProfiles.fulfilled, (state, action) => {
         state.entities = action.payload
         state.loading = false
+      })
+      .addCase(fetchHouseholdInfo.fulfilled, (state, action) => {
+        state.householdInfo = action.payload
       })
       .addDefaultCase((state, action) => {})
   },

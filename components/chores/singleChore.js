@@ -1,20 +1,19 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { supabase } from '../client'
+import { useRouter } from 'next/router'
 import {
   fetchSingleChore,
   updateSingleChore,
   deleteSingleChore,
-} from '../store/features/singleChore'
-
-import { fetchAllProfiles } from '../store/features/houseProfiles'
+} from '../../store/features/singleChore'
 import {
   createResponsibility,
   fetchUnassigned,
   fetchResponsiblity,
   deleteResponsibility,
-} from '../store/features/responsibilities'
+} from '../../store/features/responsibilities'
+import { assignUsersItem } from '../../store/features/itemInventory'
 
 export default function SingleChore(props) {
   const { choreId } = props
@@ -24,7 +23,7 @@ export default function SingleChore(props) {
   )
   const unAssigned = useSelector((store) => store.responsibility.unassigned)
   const assigned = useSelector((store) => store.responsibility.chore)
-
+  const router = useRouter()
   // console.log(assigned, 'this is assigned')
 
   const [chore, setChore] = useState({
@@ -48,25 +47,42 @@ export default function SingleChore(props) {
 
   useEffect(() => {
     if (storeChore && storeChore.id) {
-      // console.log(storeChore, 'this is storeChore in useEffect')
+      console.log(storeChore, 'this is storeChore in useEffect')
       setChore({
         name: storeChore.name || '',
         notes: storeChore.notes || '',
         isComplete: storeChore.isComplete || false,
         isAssigned: storeChore.isAssigned || false,
+        itemID: storeChore.item || '',
         xp: storeChore.xp || 0,
         profiles: storeChore.profiles || [],
         chore_id: storeChore.id || 0,
         household_id: storeChore.household_id || 0,
         profile_id: 0,
-        assignedProfiles: [],
+        assignedProfiles: [...assigned],
       })
     }
-  }, [storeChore])
+  }, [storeChore, assigned])
 
+  console.log(chore, 'this is local chore')
   function handleAssignTask() {
     dispatch(createResponsibility(chore))
-    setChore({ ...chore, profile_id: 0 })
+    // setChore({ ...chore, profile_id: 0 })
+  }
+
+  function handleUpdateChore() {
+    if (chore.isComplete) {
+      dispatch(assignUsersItem(chore))
+    }
+    const updateChore = {
+      name: chore.name,
+      id: choreId,
+      notes: chore.notes,
+      isComplete: chore.isComplete,
+    }
+    dispatch(updateSingleChore(updateChore))
+
+    // router.push('/chores')
   }
 
   function handleDeleteChore() {
@@ -188,21 +204,10 @@ export default function SingleChore(props) {
           Assign Now
         </button>
         <button
-          onClick={() =>
-            dispatch(
-              updateSingleChore({
-                name: chore.name,
-                id: choreId,
-                notes: chore.notes,
-                isComplete: chore.isComplete,
-              })
-            )
-          }
+          onClick={handleUpdateChore}
           className="mt-4 w-full rounded-lg border-blue-300 bg-blue-500 p-2 pl-5 pr-5 text-lg text-gray-100 focus:border-4"
         >
-          <Link href="/profile">
-            <span>Update Chore</span>
-          </Link>
+          <span>Update Chore</span>
         </button>
         <div>
           <Link href="/chores">

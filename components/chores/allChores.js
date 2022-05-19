@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { supabase } from '../client'
+import { supabase } from '../../client'
 import Link from 'next/link'
 import {
   fetchAllChores,
   getFilteredChores,
   updateFilterType,
   updateFilterCriteria,
-} from '../store/features/householdChores'
+} from '../../store/features/householdChores'
 import ChoreFilters from './choreFilters'
+import { motion } from 'framer-motion'
 
 export default function AllClanChores() {
   //gets the list of chores and loading state from the redux store
@@ -42,25 +43,59 @@ export default function AllClanChores() {
     h-32
     w-32
     animate-spin
-    rounded-full border-t-2 border-b-2 border-blue-500
+    rounded-full border-t-2 border-b-8 border-blue-900
   "
         ></div>
       </div>
     )
+  const easing = [0.6, -0.05, 0.01, 0.99]
+  const stagger = {
+    animate: {
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  }
+  const fadeInUp = {
+    initial: {
+      y: 50,
+      opacity: 0,
+    },
+    animate: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        ease: easing,
+      },
+    },
+  }
 
   return (
-    <>
+    <motion.div
+      exit={{ opacity: 0 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+    >
       <ChoreFilters />
+
       {/* map over chores and place each into a card */}
-      <div className="mb-5 gap-4 md:grid md:grid-cols-3 md:gap-3">
+
+      <motion.div
+        variants={stagger}
+        className="md:grid-row-3 mb-5 gap-4 md:grid md:gap-3"
+      >
         {filteredChores[0] ? (
           filteredChores[0] &&
           filteredChores.map((chore) => (
             <div
               key={chore.id}
-              className="frosted card mb-5 bg-base-100 shadow-xl drop-shadow-2xl"
+              className="frosted card mb-5 flex flex-row bg-base-100 shadow-xl drop-shadow-2xl"
             >
-              <div className="card-body flex justify-center bg-slate-800 align-middle">
+              <motion.div
+                variants={fadeInUp}
+                className="card-body flex flex-row items-center justify-center bg-slate-800 align-middle"
+              >
                 <Link href={`/chores/${encodeURIComponent(chore.id)}`}>
                   <h1 className="card-title cursor-pointer">{chore.name}</h1>
                 </Link>
@@ -69,7 +104,7 @@ export default function AllClanChores() {
                     Notes: {chore.notes}
                   </span>
                 </p>
-                {chore.profiles[0] ? <p>Assigned to:</p> : <p>Unassigned</p>}
+                {chore.profiles[0] ? <p className=""></p> : <p>Unassigned</p>}
 
                 <div className="avatar-group -space-x-1">
                   {chore.profiles.map((profile) => (
@@ -90,17 +125,17 @@ export default function AllClanChores() {
                       <input type="checkbox" />
                       {chore.isComplete ? (
                         <p>
-                          Completed <span className="swap-on"> ✅</span>
+                          <span className="swap-on"> ✅</span>
                         </p>
                       ) : (
                         <p>
-                          Not Completed<span className="swap-off"> ❌</span>
+                          Incomplete<span className="swap-off"> ❌</span>
                         </p>
                       )}
                     </label>
                   </Link>
                 </div>
-              </div>
+              </motion.div>
             </div>
           ))
         ) : (
@@ -113,18 +148,18 @@ export default function AllClanChores() {
             </div>
           </>
         )}
-      </div>
 
-      <div className="flex items-center justify-center">
-        <Link href="/addchore">
-          <button
-            className="focus:shadow-outline rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700 focus:outline-none"
-            type="button"
-          >
-            Add Chore
-          </button>
-        </Link>
-      </div>
-    </>
+        <div className="flex items-center justify-center">
+          <Link href="/addchore">
+            <button
+              className="focus:shadow-outline rounded bg-gray-500 py-2 px-4 font-bold text-white hover:bg-gray-700 focus:outline-none"
+              type="button"
+            >
+              Add Chore
+            </button>
+          </Link>
+        </div>
+      </motion.div>
+    </motion.div>
   )
 }
