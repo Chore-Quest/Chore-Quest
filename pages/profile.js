@@ -3,41 +3,46 @@ import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchSingleProfile } from '../store/features/singleProfile'
-import AllClanChores from '../components/allChores'
+import {
+  fetchAllChores,
+  updateFilterType,
+  updateFilterCriteria,
+  getFilteredChores,
+} from '../store/features/householdChores'
+
+import UserChores from '../components/chores/userChores'
 
 export default function Profile({ session }) {
+  const dispatch = useDispatch()
+
   //gets profile from the database
   let [householdName, setHouseholdName] = useState('')
   useEffect(() => {
     dispatch(fetchSingleProfile())
-    getHouseholdInfo()
+    dispatch(fetchAllChores())
+    return () => {
+      //clear out the store filters when unmounting
+      dispatch(updateFilterType('ALL_CHORES'))
+      dispatch(updateFilterCriteria(true))
+    }
   }, [])
 
   let { singleProfile } = useSelector((store) => store)
   let [profile, loading] = [singleProfile.profile, singleProfile.loading]
-  const dispatch = useDispatch()
-  const router = useRouter()
-  console.log(profile, `profile from profile page`)
-  const getHouseholdInfo = async () => {
-    const user = supabase.auth.user()
-    try {
-      let { data: userID } = await supabase
-        .from('profiles')
-        .select(`*`)
-        .eq('id', user.id)
-        .single()
-      let { data: household } = await supabase
-        .from('household_table')
-        .select(`*`)
-        .eq('id', userID.household_id)
-        .single()
-      setHouseholdName(household.name)
-      return household
-    } catch (error) {
-      console.log(error)
-      return error
+
+  let { allClanChores } = useSelector((store) => store)
+  let userChores
+
+  useEffect(async () => {
+    if (profile.id) {
+      debugger
+      dispatch(updateFilterType('PROFILE_ID'))
+      dispatch(updateFilterCriteria(profile.id))
+      userChores = getFilteredChores(allClanChores)
     }
-  }
+  }, [allClanChores])
+
+  const router = useRouter()
 
   return (
     <div className="container min-h-screen">
@@ -84,6 +89,7 @@ export default function Profile({ session }) {
           </div>
         </div>
       </div>
+      <UserChores userChores={userChores} />
     </div>
   )
 }

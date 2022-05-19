@@ -6,13 +6,13 @@ import {
   fetchSingleChore,
   updateSingleChore,
   deleteSingleChore,
-} from '../store/features/singleChore'
+} from '../../store/features/singleChore'
 import {
   createResponsibility,
   fetchUnassigned,
   fetchResponsiblity,
   deleteResponsibility,
-} from '../store/features/responsibilities'
+} from '../../store/features/responsibilities'
 
 export default function SingleChore(props) {
   const { choreId } = props

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchDynamicSingleProfile } from '../store/features/singleProfile'
-import AllClanChores from '../components/allChores'
+import AllClanChores from '../components/chores/allChores'
 
 export default function Profile(props) {
   const { userId } = props

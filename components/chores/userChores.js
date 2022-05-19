@@ -1,55 +1,9 @@
-import { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { supabase } from '../client'
 import Link from 'next/link'
-import {
-  fetchAllChores,
-  getFilteredChores,
-  updateFilterType,
-  updateFilterCriteria,
-} from '../store/features/householdChores'
-import ChoreFilters from './choreFilters'
 import { motion } from 'framer-motion'
 
-export default function AllClanChores() {
-  //gets the list of chores and loading state from the redux store
-  let { allClanChores } = useSelector((store) => store)
-  let filteredChores = getFilteredChores(allClanChores)
-  let { loading } = allClanChores
+export default function UserChores(props) {
+  const { userChores } = props
 
-  console.log(filteredChores)
-
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(fetchAllChores())
-    //this return statement tells the component what to do when it unmounts
-    return () => {
-      //clear out the store filters when unmounting
-      dispatch(updateFilterType('ALL_CHORES'))
-      dispatch(updateFilterCriteria(true))
-    }
-  }, [])
-
-  useEffect(async () => {
-    filteredChores = getFilteredChores(allClanChores)
-  }, [allClanChores])
-
-  // Display the spinner if loading
-  if (loading)
-    return (
-      <div className="flex items-center justify-center">
-        <div
-          className="
-    mt-36
-    h-32
-    w-32
-    animate-spin
-    rounded-full border-t-2 border-b-8 border-blue-900
-  "
-        ></div>
-      </div>
-    )
   const easing = [0.6, -0.05, 0.01, 0.99]
   const stagger = {
     animate: {
@@ -79,17 +33,12 @@ export default function AllClanChores() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >
-      <ChoreFilters />
-
-      {/* map over chores and place each into a card */}
-
       <motion.div
         variants={stagger}
         className="md:grid-row-3 mb-5 gap-4 md:grid md:gap-3"
       >
-        {filteredChores[0] ? (
-          filteredChores[0] &&
-          filteredChores.map((chore) => (
+        {userChores && userChores[0] ? (
+          userChores.map((chore) => (
             <div
               key={chore.id}
               className="frosted card mb-5 flex flex-row bg-base-100 shadow-xl drop-shadow-2xl"
