@@ -6,7 +6,7 @@ import {
   fetchSingleChore,
   updateSingleChore,
   deleteSingleChore,
-} from '../store/features/singleChore'
+} from '../../store/features/singleChore'
 import {
   createResponsibility,
   fetchUnassigned,
