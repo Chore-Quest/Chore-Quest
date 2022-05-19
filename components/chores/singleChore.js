@@ -12,8 +12,8 @@ import {
   fetchUnassigned,
   fetchResponsiblity,
   deleteResponsibility,
-} from '../store/features/responsibilities'
-import { assignUsersItem } from '../store/features/itemInventory'
+} from '../../store/features/responsibilities'
+import { assignUsersItem } from '../../store/features/itemInventory'
 
 export default function SingleChore(props) {
   const { choreId } = props

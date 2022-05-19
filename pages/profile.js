@@ -15,7 +15,7 @@ export default function Profile({ session }) {
   //updates the store with household info
   useEffect(() => {
     dispatch(fetchHouseholdInfo())
-    // dispatch(fetchSingleProfile())
+    dispatch(fetchSingleProfile())
   }, [])
 
   let { singleProfile } = useSelector((store) => store)
