@@ -1,8 +1,41 @@
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { motion } from 'framer-motion'
+import {
+  fetchAllChores,
+  updateFilterType,
+  updateFilterCriteria,
+  getFilteredChores,
+} from '../../store/features/householdChores'
 
 export default function UserChores(props) {
-  const { userChores } = props
+  const { userId } = props
+
+  let { singleProfile } = useSelector((store) => store)
+  let [profile, loading] = [singleProfile.profile, singleProfile.loading]
+
+  let allClanChores = useSelector((store) => store.allClanChores)
+  let userChores = getFilteredChores(allClanChores)
+
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(fetchAllChores())
+    return () => {
+      //clear out the store filters when unmounting
+      dispatch(updateFilterType('ALL_CHORES'))
+      dispatch(updateFilterCriteria(true))
+    }
+  }, [])
+
+  useEffect(() => {
+    if (userId && allClanChores) {
+      dispatch(updateFilterType('PROFILE_ID'))
+      dispatch(updateFilterCriteria(userId))
+      userChores = getFilteredChores(allClanChores)
+    }
+  }, [allClanChores])
 
   const easing = [0.6, -0.05, 0.01, 0.99]
   const stagger = {
@@ -32,12 +65,16 @@ export default function UserChores(props) {
       exit={{ opacity: 0 }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
+      className="prose"
     >
+      <div>
+        <h3>Chores</h3>
+      </div>
       <motion.div
         variants={stagger}
         className="md:grid-row-3 mb-5 gap-4 md:grid md:gap-3"
       >
-        {userChores && userChores[0] ? (
+        {userChores ? (
           userChores.map((chore) => (
             <div
               key={chore.id}

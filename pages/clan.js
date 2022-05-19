@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchAllProfiles } from '../store/features/houseProfiles'
+import { fetchHouseholdInfo } from '../store/features/houseProfiles'
 import { fetchDynamicSingleProfile } from '../store/features/singleProfile'
 
 const Clan = ({ session }) => {
@@ -15,35 +16,12 @@ const Clan = ({ session }) => {
     singleHouseholdProfiles.entities,
     singleHouseholdProfiles.loading,
   ]
-  let [householdName, setHouseholdName] = useState('')
+  let { householdInfo } = useSelector((store) => store.singleHouseholdProfiles)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(fetchAllProfiles())
-    getHouseholdInfo()
+    dispatch(fetchAllProfiles(), fetchHouseholdInfo())
   }, [])
-
-  // create async function to get info from household_table
-  const getHouseholdInfo = async () => {
-    const user = supabase.auth.user()
-    try {
-      let { data: userID } = await supabase
-        .from('profiles')
-        .select(`*`)
-        .eq('id', user.id)
-        .single()
-      let { data: household } = await supabase
-        .from('household_table')
-        .select(`*`)
-        .eq('id', userID.household_id)
-        .single()
-      setHouseholdName(household.name)
-      return household
-    } catch (error) {
-      console.log(error)
-      return error
-    }
-  }
 
   const easing = [0.6, -0.05, 0.01, 0.99]
   const stagger = {
@@ -84,7 +62,7 @@ const Clan = ({ session }) => {
         <div className="hero-content text-center text-neutral-content">
           <div className="max-w-md py-10">
             <h1 className="houseName mb-3 text-8xl font-bold">
-              {`Clan ${householdName}`}
+              {`Clan ${householdInfo.name}`}
             </h1>
             <p className="mb-5 items-center">
               Level up and surpass your peers by completing chores and earning

@@ -1,46 +1,23 @@
-import { supabase } from '../client'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { fetchHouseholdInfo } from '../store/features/houseProfiles'
 import { fetchSingleProfile } from '../store/features/singleProfile'
-import {
-  fetchAllChores,
-  updateFilterType,
-  updateFilterCriteria,
-  getFilteredChores,
-} from '../store/features/householdChores'
-
 import UserChores from '../components/chores/userChores'
 
 export default function Profile({ session }) {
   const dispatch = useDispatch()
 
-  //gets profile from the database
-  let [householdName, setHouseholdName] = useState('')
+  //updates the store with household info
   useEffect(() => {
-    dispatch(fetchSingleProfile())
-    dispatch(fetchAllChores())
-    return () => {
-      //clear out the store filters when unmounting
-      dispatch(updateFilterType('ALL_CHORES'))
-      dispatch(updateFilterCriteria(true))
-    }
+    dispatch(fetchHouseholdInfo())
+    // dispatch(fetchSingleProfile())
   }, [])
 
   let { singleProfile } = useSelector((store) => store)
   let [profile, loading] = [singleProfile.profile, singleProfile.loading]
 
-  let { allClanChores } = useSelector((store) => store)
-  let userChores
-
-  useEffect(async () => {
-    if (profile.id) {
-      debugger
-      dispatch(updateFilterType('PROFILE_ID'))
-      dispatch(updateFilterCriteria(profile.id))
-      userChores = getFilteredChores(allClanChores)
-    }
-  }, [allClanChores])
+  let { householdInfo } = useSelector((store) => store.singleHouseholdProfiles)
 
   const router = useRouter()
 
@@ -57,16 +34,16 @@ export default function Profile({ session }) {
         <div className="">
           <p>
             <span className="mb-2 flex justify-center text-2xl">
-              Clan {householdName}
+              {/* Clan {householdName} */}
             </span>
           </p>
           <h1 className="mb-2 flex justify-center">
             XP:{profile ? profile.personalXP : null}
           </h1>
           <div>
-            {/* <h2 className="clan houseName gap-5 justify-self-auto align-middle">
-            Clan
-          </h2> */}
+            <h2 className="clan houseName gap-5 justify-self-auto align-middle">
+              Clan {householdInfo.name ? householdInfo.name : null}
+            </h2>
             <h1 className="mb-2 flex justify-center text-2xl">
               {profile ? profile.username : 'Guest'}
             </h1>
@@ -89,7 +66,7 @@ export default function Profile({ session }) {
           </div>
         </div>
       </div>
-      <UserChores userChores={userChores} />
+      {profile ? <UserChores userId={profile.id} /> : null}
     </div>
   )
 }
