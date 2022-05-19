@@ -46,12 +46,12 @@ export default function Profile({ session }) {
   return (
     <div className="container min-h-screen">
       <div className="frosted w-296 shadow-3xl pr-15 card mb-5 grid grid-rows-1 items-center justify-center bg-base-100 pt-5 sm:grid-cols-2 sm:p-5">
-        <div className="flex justify-around">
+        <div className="mb-5 flex justify-around">
           <ProgressProvider valueStart={0} valueEnd={66}>
             {(value) => (
               <CircularProgressbarWithChildren value={value}>
                 <img
-                  className="mask mask-circle flex"
+                  className="h-75 mask mask-circle flex"
                   src={profile ? profile.avatar_url : null}
                 />
               </CircularProgressbarWithChildren>
@@ -59,7 +59,7 @@ export default function Profile({ session }) {
           </ProgressProvider>
         </div>
 
-        <div className="flex justify-center">
+        <div className="mb-5 flex justify-center">
           <div class="stats flex justify-center shadow">
             <div class="stat flex flex-col items-center justify-center">
               <p>
