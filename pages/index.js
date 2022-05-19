@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { supabase } from '../client'
+import { useRouter } from 'next/router'
 import Login from '../components/login'
 import Profile from './profile'
 import Modal from '../components/modal'
@@ -9,43 +10,38 @@ import { motion } from 'framer-motion'
 
 export default function Home() {
   // **** Need to add due date to database ****
-  const [session, setSession] = useState(null)
+  // const [session, setSession] = useState(null)
+  let session = supabase.auth.session()
+  const router = useRouter()
   const [showModal, setShowModal] = useState(true)
   const close = () => setShowModal(false)
   const open = () => setShowModal(true)
 
-  useEffect(() => {
-    setSession(supabase.auth.session())
+  // useEffect(() => {
+  //   // setSession(supabase.auth.session())
+  //   // supabase.auth.onAuthStateChange((_event, session) => {
+  //   //   session ? setSession(session) : null
+  //   })
+  // }, [])
 
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session)
-    })
-  }, [])
-
-  return (
-    <motion.div
-      exit={{ opacity: 0 }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-    >
-      <main className="mx-auto h-screen">
-        {!session ? (
+  if (session) {
+    {
+      router.push('/profile')
+      return null
+    }
+  } else {
+    return (
+      <motion.div
+        exit={{ opacity: 0 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+      >
+        <main className="mx-auto h-screen">
           <div>
-            {' '}
-            {/* <motion.button
-            className="frosted"
-            onClick={showModal ? close : open}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            Get Started!
-          </motion.button> */}
             <Modal showModal={showModal} setShowModal={setShowModal} />
           </div>
-        ) : (
-          <Profile session={session} />
-        )}
-      </main>
-    </motion.div>
-  )
+        </main>
+      </motion.div>
+    )
+  }
 }

@@ -3,17 +3,17 @@ import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchDynamicSingleProfile } from '../store/features/singleProfile'
-import AllClanChores from '../components/allChores'
+import UserChores from '../components/chores/userChores'
 
 export default function Profile(props) {
   const { userId } = props
 
   //gets profile from the database
-  let [householdName, setHouseholdName] = useState('')
+  // let [householdName, setHouseholdName] = useState('')
 
   useEffect(() => {
     dispatch(fetchDynamicSingleProfile(userId))
-    getHouseholdInfo()
+    // getHouseholdInfo()
   }, [userId])
 
   let profile = useSelector((store) => store.singleProfile.dynamicProfile)
@@ -21,26 +21,26 @@ export default function Profile(props) {
   const dispatch = useDispatch()
   const router = useRouter()
 
-  const getHouseholdInfo = async () => {
-    const user = supabase.auth.user()
-    try {
-      let { data: userID } = await supabase
-        .from('profiles')
-        .select(`*`)
-        .eq('id', userId)
-        .single()
-      let { data: household } = await supabase
-        .from('household_table')
-        .select(`*`)
-        .eq('id', userID.household_id)
-        .single()
-      setHouseholdName(household.name)
-      return household
-    } catch (error) {
-      console.log(error)
-      return error
-    }
-  }
+  // const getHouseholdInfo = async () => {
+  //   const user = supabase.auth.user()
+  //   try {
+  //     let { data: userID } = await supabase
+  //       .from('profiles')
+  //       .select(`*`)
+  //       .eq('id', userId)
+  //       .single()
+  //     let { data: household } = await supabase
+  //       .from('household_table')
+  //       .select(`*`)
+  //       .eq('id', userID.household_id)
+  //       .single()
+  //     setHouseholdName(household.name)
+  //     return household
+  //   } catch (error) {
+  //     console.log(error)
+  //     return error
+  //   }
+  // }
 
   return (
     <div className="container min-h-screen">
@@ -70,7 +70,7 @@ export default function Profile(props) {
           </div>
         </div>
       </div>
-      <AllClanChores />
+      <UserChores userId={profile.id} />
     </div>
   )
 }

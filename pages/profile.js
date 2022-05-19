@@ -1,43 +1,25 @@
-import { supabase } from '../client'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { fetchHouseholdInfo } from '../store/features/houseProfiles'
 import { fetchSingleProfile } from '../store/features/singleProfile'
-import AllClanChores from '../components/allChores'
+import UserChores from '../components/chores/userChores'
 
 export default function Profile({ session }) {
-  //gets profile from the database
-  let [householdName, setHouseholdName] = useState('')
+  const dispatch = useDispatch()
+
+  //updates the store with household info
   useEffect(() => {
-    dispatch(fetchSingleProfile())
-    getHouseholdInfo()
+    dispatch(fetchHouseholdInfo())
+    // dispatch(fetchSingleProfile())
   }, [])
 
   let { singleProfile } = useSelector((store) => store)
   let [profile, loading] = [singleProfile.profile, singleProfile.loading]
-  const dispatch = useDispatch()
+
+  let { householdInfo } = useSelector((store) => store.singleHouseholdProfiles)
+
   const router = useRouter()
-  console.log(profile, `profile from profile page`)
-  const getHouseholdInfo = async () => {
-    const user = supabase.auth.user()
-    try {
-      let { data: userID } = await supabase
-        .from('profiles')
-        .select(`*`)
-        .eq('id', user.id)
-        .single()
-      let { data: household } = await supabase
-        .from('household_table')
-        .select(`*`)
-        .eq('id', userID.household_id)
-        .single()
-      setHouseholdName(household.name)
-      return household
-    } catch (error) {
-      console.log(error)
-      return error
-    }
-  }
 
   return (
     <div className="container min-h-screen">
@@ -52,16 +34,16 @@ export default function Profile({ session }) {
         <div className="">
           <p>
             <span className="mb-2 flex justify-center text-2xl">
-              Clan {householdName}
+              {/* Clan {householdName} */}
             </span>
           </p>
           <h1 className="mb-2 flex justify-center">
             XP:{profile ? profile.personalXP : null}
           </h1>
           <div>
-            {/* <h2 className="clan houseName gap-5 justify-self-auto align-middle">
-            Clan
-          </h2> */}
+            <h2 className="clan houseName gap-5 justify-self-auto align-middle">
+              Clan {householdInfo.name ? householdInfo.name : null}
+            </h2>
             <h1 className="mb-2 flex justify-center text-2xl">
               {profile ? profile.username : 'Guest'}
             </h1>
@@ -84,6 +66,7 @@ export default function Profile({ session }) {
           </div>
         </div>
       </div>
+      {profile ? <UserChores userId={profile.id} /> : null}
     </div>
   )
 }

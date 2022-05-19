@@ -24,7 +24,7 @@ function MyApp({ Component, pageProps } = AppProps) {
       authListener?.unsubscribe()
     }
   }, [])
-  async function checkUser() {
+  function checkUser() {
     const user = supabase.auth.user()
     setUser(user)
   }
