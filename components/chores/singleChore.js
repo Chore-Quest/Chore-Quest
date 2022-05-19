@@ -12,7 +12,8 @@ import {
   fetchUnassigned,
   fetchResponsiblity,
   deleteResponsibility,
-} from '../../store/features/responsibilities'
+} from '../store/features/responsibilities'
+import { assignUsersItem } from '../store/features/itemInventory'
 
 export default function SingleChore(props) {
   const { choreId } = props
@@ -46,28 +47,33 @@ export default function SingleChore(props) {
 
   useEffect(() => {
     if (storeChore && storeChore.id) {
-      // console.log(storeChore, 'this is storeChore in useEffect')
+      console.log(storeChore, 'this is storeChore in useEffect')
       setChore({
         name: storeChore.name || '',
         notes: storeChore.notes || '',
         isComplete: storeChore.isComplete || false,
         isAssigned: storeChore.isAssigned || false,
+        itemID: storeChore.item || '',
         xp: storeChore.xp || 0,
         profiles: storeChore.profiles || [],
         chore_id: storeChore.id || 0,
         household_id: storeChore.household_id || 0,
         profile_id: 0,
-        // assignedProfiles: [],
+        assignedProfiles: [...assigned],
       })
     }
-  }, [storeChore])
+  }, [storeChore, assigned])
 
+  console.log(chore, 'this is local chore')
   function handleAssignTask() {
     dispatch(createResponsibility(chore))
-    setChore({ ...chore, profile_id: 0 })
+    // setChore({ ...chore, profile_id: 0 })
   }
 
   function handleUpdateChore() {
+    if (chore.isComplete) {
+      dispatch(assignUsersItem(chore))
+    }
     const updateChore = {
       name: chore.name,
       id: choreId,
