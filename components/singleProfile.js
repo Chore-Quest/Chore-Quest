@@ -17,6 +17,7 @@ export default function Profile(props) {
   }, [userId])
 
   let profile = useSelector((store) => store.singleProfile.dynamicProfile)
+  let { householdInfo } = useSelector((store) => store.singleHouseholdProfiles)
 
   const dispatch = useDispatch()
   const router = useRouter()
@@ -54,7 +55,7 @@ export default function Profile(props) {
         <div className="">
           <p>
             <span className="mb-2 flex justify-center text-2xl">
-              Clan {householdName}
+              Clan {householdInfo.householdName}
             </span>
           </p>
           <h1 className="mb-2 flex justify-center">
@@ -70,7 +71,7 @@ export default function Profile(props) {
           </div>
         </div>
       </div>
-      <UserChores userId={profile.id} />
+      {profile ? <UserChores userId={profile.id} /> : null}
     </div>
   )
 }

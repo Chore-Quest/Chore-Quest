@@ -55,7 +55,7 @@ export default function Nav() {
       <div className="navbar-end">
         <div className="flex-none gap-2">
           {storeProfile && storeProfile.id ? (
-            <div className="dropdown-end dropdown">
+            <div className="dropdown dropdown-end">
               <label tabIndex="0" className="avatar btn btn-ghost btn-circle">
                 <div className="w-10 rounded-full">
                   <img src={storeProfile.avatar_url} />
@@ -74,7 +74,7 @@ export default function Nav() {
                   <Link href="/items">Items</Link>
                 </li>
                 <li>
-                  <Link href="/chores">View Chores</Link>
+                  <Link href="/chores">Clan Chores</Link>
                 </li>
                 <li>
                   <Link href="/clan">Clan</Link>
