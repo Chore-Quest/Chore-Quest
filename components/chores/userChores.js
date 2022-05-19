@@ -1,29 +1,27 @@
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { supabase } from '../client'
-import Link from 'next/link'
+import { motion } from 'framer-motion'
 import {
   fetchAllChores,
-  getFilteredChores,
   updateFilterType,
   updateFilterCriteria,
-} from '../store/features/householdChores'
-import ChoreFilters from './choreFilters'
-import { motion } from 'framer-motion'
+  getFilteredChores,
+} from '../../store/features/householdChores'
 
-export default function AllClanChores() {
-  //gets the list of chores and loading state from the redux store
-  let { allClanChores } = useSelector((store) => store)
-  let filteredChores = getFilteredChores(allClanChores)
-  let { loading } = allClanChores
+export default function UserChores(props) {
+  const { userId } = props
 
-  console.log(filteredChores)
+  let { singleProfile } = useSelector((store) => store)
+  let [profile, loading] = [singleProfile.profile, singleProfile.loading]
+
+  let allClanChores = useSelector((store) => store.allClanChores)
+  let userChores = getFilteredChores(allClanChores)
 
   const dispatch = useDispatch()
-
   useEffect(() => {
     dispatch(fetchAllChores())
-    //this return statement tells the component what to do when it unmounts
     return () => {
       //clear out the store filters when unmounting
       dispatch(updateFilterType('ALL_CHORES'))
@@ -31,25 +29,14 @@ export default function AllClanChores() {
     }
   }, [])
 
-  useEffect(async () => {
-    filteredChores = getFilteredChores(allClanChores)
+  useEffect(() => {
+    if (userId && allClanChores) {
+      dispatch(updateFilterType('PROFILE_ID'))
+      dispatch(updateFilterCriteria(userId))
+      userChores = getFilteredChores(allClanChores)
+    }
   }, [allClanChores])
 
-  // Display the spinner if loading
-  if (loading)
-    return (
-      <div className="flex items-center justify-center">
-        <div
-          className="
-    mt-36
-    h-32
-    w-32
-    animate-spin
-    rounded-full border-t-2 border-b-8 border-blue-900
-  "
-        ></div>
-      </div>
-    )
   const easing = [0.6, -0.05, 0.01, 0.99]
   const stagger = {
     animate: {
@@ -78,18 +65,17 @@ export default function AllClanChores() {
       exit={{ opacity: 0 }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
+      className="prose"
     >
-      <ChoreFilters />
-
-      {/* map over chores and place each into a card */}
-
+      <div>
+        <h3>Chores</h3>
+      </div>
       <motion.div
         variants={stagger}
         className="md:grid-row-3 mb-5 gap-4 md:grid md:gap-3"
       >
-        {filteredChores[0] ? (
-          filteredChores[0] &&
-          filteredChores.map((chore) => (
+        {userChores ? (
+          userChores.map((chore) => (
             <div
               key={chore.id}
               className="frosted card mb-5 flex flex-row bg-base-100 shadow-xl drop-shadow-2xl"

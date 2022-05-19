@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import SingleChore from '../../components/singleChore'
+import SingleChore from '../../components/chores/singleChore'
 import { motion } from 'framer-motion'
 export default function Chore() {
   const router = useRouter()

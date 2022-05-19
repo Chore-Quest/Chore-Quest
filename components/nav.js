@@ -74,7 +74,7 @@ export default function Nav() {
                   <Link href="/items">Items</Link>
                 </li>
                 <li>
-                  <Link href="/chores">View Chores</Link>
+                  <Link href="/chores">Clan Chores</Link>
                 </li>
                 <li>
                   <Link href="/clan">Clan</Link>

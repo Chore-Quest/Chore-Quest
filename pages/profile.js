@@ -1,48 +1,32 @@
-import { supabase } from '../client'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { fetchHouseholdInfo } from '../store/features/houseProfiles'
 import { fetchSingleProfile } from '../store/features/singleProfile'
-import AllClanChores from '../components/allChores'
 import { CircularProgressbarWithChildren } from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
 import CountUp from 'react-countup'
 import ProgressProvider from '../components/ProgressProvider'
+import UserChores from '../components/chores/userChores'
 
 export default function Profile({ session }) {
-  //gets profile from the database
-  let [householdName, setHouseholdName] = useState('')
+  const dispatch = useDispatch()
+
+  //updates the store with household info
   useEffect(() => {
-    dispatch(fetchSingleProfile())
-    getHouseholdInfo()
+    dispatch(fetchHouseholdInfo())
+    // dispatch(fetchSingleProfile())
   }, [])
 
   let { singleProfile } = useSelector((store) => store)
   let [profile, loading] = [singleProfile.profile, singleProfile.loading]
-  const dispatch = useDispatch()
+
+  let { householdInfo } = useSelector((store) => store.singleHouseholdProfiles)
+
   const router = useRouter()
-  console.log(profile, `profile from profile page`)
-  const getHouseholdInfo = async () => {
-    const user = supabase.auth.user()
-    try {
-      let { data: userID } = await supabase
-        .from('profiles')
-        .select(`*`)
-        .eq('id', user.id)
-        .single()
-      let { data: household } = await supabase
-        .from('household_table')
-        .select(`*`)
-        .eq('id', userID.household_id)
-        .single()
-      setHouseholdName(household.name)
-      return household
-    } catch (error) {
-      console.log(error)
-      return error
-    }
-  }
+
   const percentage = 66
+
   return (
     <div className="container min-h-screen">
       <div className="frosted w-296 shadow-3xl pr-15 card mb-5 grid grid-rows-1 items-center justify-center bg-base-100 pt-5 sm:grid-cols-2 sm:p-5">
@@ -64,7 +48,7 @@ export default function Profile({ session }) {
             <div class="stat flex flex-col items-center justify-center">
               <p>
                 <span className="mb-2 flex justify-center text-2xl">
-                  Clan {householdName}
+                  Clan {householdInfo.name ? householdInfo.name : null}
                 </span>
               </p>
               <div class="stat-title">XP</div>
@@ -104,16 +88,9 @@ export default function Profile({ session }) {
               </div>
             </div>
           </div>
-          {/* <h1 className="mb-2 flex justify-center">
-            XP:{profile ? profile.personalXP : null}
-          </h1> */}
-          <div>
-            {/* <h2 className="clan houseName gap-5 justify-self-auto align-middle">
-            Clan
-          </h2> */}
-          </div>
         </div>
       </div>
+      {profile ? <UserChores userId={profile.id} /> : null}
     </div>
   )
 }
