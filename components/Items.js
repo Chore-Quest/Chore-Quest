@@ -16,7 +16,7 @@ export default function Items() {
     <>
       <div>
         {items.entities.map((item) => (
-          <div>
+          <div key={item.id}>
             {item.items.name}
             <img src={item.items.imageURL} />
           </div>
