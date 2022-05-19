@@ -4,10 +4,15 @@ import { useSelector, useDispatch } from 'react-redux'
 import { supabase } from '../client'
 import Login from '../components/login'
 import Profile from './profile'
+import Modal from '../components/modal'
+import { motion } from 'framer-motion'
 
 export default function Home() {
   // **** Need to add due date to database ****
   const [session, setSession] = useState(null)
+  const [showModal, setShowModal] = useState(true)
+  const close = () => setShowModal(false)
+  const open = () => setShowModal(true)
 
   useEffect(() => {
     setSession(supabase.auth.session())
@@ -18,8 +23,29 @@ export default function Home() {
   }, [])
 
   return (
-    <main className="mx-auto">
-      {!session ? <Login /> : <Profile session={session} />}
-    </main>
+    <motion.div
+      exit={{ opacity: 0 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+    >
+      <main className="mx-auto h-screen">
+        {!session ? (
+          <div>
+            {' '}
+            {/* <motion.button
+            className="frosted"
+            onClick={showModal ? close : open}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            Get Started!
+          </motion.button> */}
+            <Modal showModal={showModal} setShowModal={setShowModal} />
+          </div>
+        ) : (
+          <Profile session={session} />
+        )}
+      </main>
+    </motion.div>
   )
 }
