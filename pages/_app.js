@@ -34,6 +34,12 @@ function MyApp({ Component, pageProps } = AppProps) {
       <Head>
         <title>Chore Quest</title>
         <link rel="icon" href="/favicon.ico" />
+        <link
+          rel="preload"
+          href="/fonts/KingsCross/KingsCross-Medium.ttf"
+          as="font"
+          crossOrigin=""
+        />
       </Head>
       <ToastContainer />
       <Nav user={user} />
