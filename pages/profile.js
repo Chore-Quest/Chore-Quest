@@ -25,12 +25,12 @@ export default function Profile({ session }) {
   const percentage = 66
 
   let completed
-  profile.chores?.map((chore) => {
+  profile?.chores?.map((chore) => {
     if (chore.isComplete === true) {
       completed = profile.chores.filter((chore) => chore.isComplete === true)
     }
   })
-  let percent = (completed?.length / profile.chores?.length) * 100
+  let percent = (completed?.length / profile?.chores?.length) * 100
 
   return (
     <div className="container min-h-screen">
