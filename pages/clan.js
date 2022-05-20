@@ -77,34 +77,35 @@ const Clan = ({ session }) => {
         variants={stagger}
         className="mb-4 justify-around gap-4 md:grid md:grid-cols-2"
       >
-        {profiles.map((profile) => (
-          <motion.div
-            variants={fadeInUp}
-            key={profile.id}
-            className="min-w-200 frosted card mb-5 flex-auto basis-full bg-base-100 p-5 shadow-xl"
-          >
-            <div className="mb-5">
-              <figure>
-                <img
-                  src={profile.avatar_url}
-                  alt="Profile image"
-                  className="justifyCenter mask mask-hexagon mx-auto h-64 w-64 content-center"
-                />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title mx-auto">{profile.username}</h2>
-                <p className="mx-auto">Peasant!</p>
-                <div className="card-actions justify-center">
-                  <Link href={`/profiles/${encodeURIComponent(profile.id)}`}>
-                    <button className="focus:shadow-outline rounded bg-gray-500 py-2 px-4 font-bold text-white hover:bg-gray-800 focus:outline-none">
-                      Profile page
-                    </button>
-                  </Link>
+        {profiles.length &&
+          profiles.map((profile) => (
+            <motion.div
+              variants={fadeInUp}
+              key={profile.id}
+              className="min-w-200 frosted card mb-5 flex-auto basis-full bg-base-100 p-5 shadow-xl"
+            >
+              <div className="mb-5">
+                <figure>
+                  <img
+                    src={profile.avatar_url}
+                    alt="Profile image"
+                    className="justifyCenter mask mask-hexagon mx-auto h-64 w-64 content-center"
+                  />
+                </figure>
+                <div className="card-body">
+                  <h2 className="card-title mx-auto">{profile.username}</h2>
+                  <p className="mx-auto">Peasant!</p>
+                  <div className="card-actions justify-center">
+                    <Link href={`/profiles/${encodeURIComponent(profile.id)}`}>
+                      <button className="focus:shadow-outline rounded bg-gray-500 py-2 px-4 font-bold text-white hover:bg-gray-800 focus:outline-none">
+                        Profile page
+                      </button>
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-          </motion.div>
-        ))}
+            </motion.div>
+          ))}
       </motion.div>
     </motion.div>
   )
