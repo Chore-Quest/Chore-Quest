@@ -1,6 +1,15 @@
 import { supabase } from '../client'
 import { useState, useEffect } from 'react'
 
+const userProfile = {
+  name: 'Justin',
+  profileImg:
+    'https://cdn3.vectorstock.com/i/1000x1000/30/97/flat-business-man-user-profile-avatar-icon-vector-4333097.jpg',
+  householdName: 'BridgeCrest',
+  xp: 500000000,
+  tasks: ['this task', 'that task', 'and another'],
+}
+
 export default function UserProfileCard() {
   return (
     <>

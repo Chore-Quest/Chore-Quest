@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchAllProfiles } from '../../store/features/houseProfiles'
+import { fetchAllProfiles } from '../store/features/houseProfiles'
 import {
   updateFilterType,
   updateFilterCriteria,
-} from '../../store/features/householdChores'
+} from '../store/features/householdChores'
 
 export default function ChoreFilters() {
   const ALL_CHORES = 'ALL_CHORES'

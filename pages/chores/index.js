@@ -1,4 +1,4 @@
-import AllClanChores from '../../components/chores/allChores'
+import AllClanChores from '../../components/allChores'
 
 export default function ChoresIndex() {
   return (
