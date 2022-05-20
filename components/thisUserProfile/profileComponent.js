@@ -7,6 +7,14 @@ import { fetchSingleProfile } from '../../store/features/singleProfile'
 
 export default function ProfilePage() {
   const dispatch = useDispatch()
+
+  let { singleProfile, singleHouseholdProfiles } = useSelector((store) => store)
+  let [profile, profileLoading] = [singleProfile.profile, singleProfile.loading]
+  let [householdInfo, householdLoading] = [
+    singleHouseholdProfiles.householdInfo,
+    singleHouseholdProfiles.loading,
+  ]
+
   useEffect(() => {
     dispatch(fetchSingleProfile())
     return () => {
@@ -22,13 +30,6 @@ export default function ProfilePage() {
       dispatch(fetchHouseholdInfo())
     }
   }, [profile])
-
-  let { singleProfile, singleHouseholdProfiles } = useSelector((store) => store)
-  let [profile, profileLoading] = [singleProfile.profile, singleProfile.loading]
-  let [householdInfo, householdLoading] = [
-    singleHouseholdProfiles.householdInfo,
-    singleHouseholdProfiles.loading,
-  ]
 
   // Display the spinner if loading
   if (profileLoading || householdLoading)
