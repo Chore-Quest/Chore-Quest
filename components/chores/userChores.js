@@ -41,7 +41,7 @@ export default function UserChores(props) {
   const stagger = {
     animate: {
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: 0.4,
       },
     },
   }
@@ -72,7 +72,7 @@ export default function UserChores(props) {
       </div>
       <motion.div
         variants={stagger}
-        className="md:grid-row-3 mb-5 gap-4 md:grid md:gap-3"
+        className="md:grid-row-2 gap-4 md:grid md:gap-3"
       >
         {userChores ? (
           userChores.map((chore) => (
@@ -85,19 +85,21 @@ export default function UserChores(props) {
                 className="card-body flex flex-row items-center justify-center bg-slate-800 align-middle"
               >
                 <Link href={`/chores/${encodeURIComponent(chore.id)}`}>
-                  <h1 className="card-title cursor-pointer">{chore.name}</h1>
+                  <h1 className="card-title flex cursor-pointer items-center justify-center">
+                    {chore.name}
+                  </h1>
                 </Link>
                 <p>
-                  <span className="badge badge-sm badge-ghost">
+                  <span className="badge badge-sm badge-ghost flex items-center justify-center">
                     Notes: {chore.notes}
                   </span>
                 </p>
                 {chore.profiles[0] ? <p className=""></p> : <p>Unassigned</p>}
 
-                <div className="avatar-group -space-x-1">
+                <div className="mask avatar-group mask-circle w-16 -space-x-5">
                   {chore.profiles.map((profile) => (
-                    <div className="avatar" key={profile.id}>
-                      <div className="w-12 rounded">
+                    <div className="" key={profile.id}>
+                      <div className="rounded">
                         <img
                           src={profile.avatar_url}
                           alt={`${profile.username} avatar`}
@@ -117,7 +119,7 @@ export default function UserChores(props) {
                         </p>
                       ) : (
                         <p>
-                          Incomplete<span className="swap-off"> ❌</span>
+                          <span className="swap-off"> ❌</span>
                         </p>
                       )}
                     </label>
