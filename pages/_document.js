@@ -10,7 +10,7 @@ class MyDocument extends Document {
           <meta name="theme-color" content="#1f242d" />
           <meta
             name="apple-mobile-web-app-status-bar-style"
-            content="black-translucent"
+            content="black"
           ></meta>
         </Head>
         <body>

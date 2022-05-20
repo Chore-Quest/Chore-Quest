@@ -7,7 +7,6 @@ import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchAllProfiles } from '../../store/features/houseProfiles'
 import { fetchHouseholdInfo } from '../../store/features/houseProfiles'
-import { fetchDynamicSingleProfile } from '../../store/features/singleProfile'
 
 const ClanComponent = () => {
   const dispatch = useDispatch()
@@ -88,7 +87,9 @@ const ClanComponent = () => {
           <div className="hero-content text-center text-neutral-content">
             <div className="max-w-md py-10">
               <h1 className="houseName mb-3 text-8xl font-bold">
-                {`Clan ${householdInfo.name}`}
+                {householdInfo && householdInfo.name
+                  ? `Clan ${householdInfo.name}`
+                  : null}
               </h1>
               <p className="mb-5 items-center">
                 Level up and surpass your peers by completing chores and earning
@@ -103,7 +104,8 @@ const ClanComponent = () => {
           variants={stagger}
           className="mb-4 justify-around gap-4 md:grid md:grid-cols-2"
         >
-          {profiles.length &&
+          {profiles &&
+            profiles.length &&
             profiles.map((profile) => (
               <motion.div
                 variants={fadeInUp}

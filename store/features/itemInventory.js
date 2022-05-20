@@ -52,7 +52,6 @@ export const assignUsersItem = createAsyncThunk(
   'item/assignUsersItem',
   //callback function
   async ({ itemID, assignedProfiles }) => {
-    // const user = supabase.auth.user()
     try {
       //get the householdID
       let { data: item } = await supabase
@@ -60,17 +59,21 @@ export const assignUsersItem = createAsyncThunk(
         .select('*')
         .eq('id', itemID)
         .single()
-      // assignedProfiles.map(async (profile) => {
-      // })
+      console.log(item, 'this is item')
       assignedProfiles.map(async (profile) => {
         const { data: something } = await supabase
           .from('user_items')
           .insert([
             { item_id: item.id, profile_id: profile.profile_id, xp: item.xp },
           ])
+        console.log(profile.profiles.personalXP, 'this is personalXP')
+        let newXP = profile.profiles.personalXP + item.xp
+        console.log(item.xp, 'this is item.xp')
+        console.log(newXP, 'this is newXP')
+        console.log(profile.profile_id, 'this is profile_id')
         const { data } = await supabase
           .from('profiles')
-          .update({ personalXP: profile.profiles.personalXP + item.xp })
+          .update({ personalXP: newXP })
           .eq('id', profile.profile_id)
       })
       // return item
