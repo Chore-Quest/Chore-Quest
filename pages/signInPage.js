@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { supabase } from '../client'
+import { motion } from 'framer-motion'
 
 const SignIn = () => {
   const router = useRouter()
@@ -35,7 +36,7 @@ const SignIn = () => {
               Email
             </label>
             <input
-              className="rounded-md py-2 px-4 focus:outline-none focus:ring-2"
+              className="rounded-md py-1 px-4 focus:outline-none focus:ring-2"
               type="email"
               id="email"
               value={email}
@@ -53,12 +54,17 @@ const SignIn = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
 
-            <button
-              className="mt-10 rounded-md bg-gray-500 py-3 px-6 text-lg font-semibold text-white focus:outline-none focus:ring-2"
+            <motion.button
+              whileHover={{
+                scale: 1.1,
+                transition: { duration: 0.2 },
+              }}
+              whileTap={{ scale: 0.9 }}
+              className="mt-10 rounded-md bg-gray-500 py-3 px-6 text-lg font-semibold text-white hover:bg-gray-900 focus:outline-none focus:ring-2"
               type="submit"
             >
               Sign in with Email
-            </button>
+            </motion.button>
           </form>
         </div>
       </div>

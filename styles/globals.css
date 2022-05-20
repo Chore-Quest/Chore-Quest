@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@1,100&display=swap');
+@font-face {
+  font-family: 'KingsCross';
+  src: url('/fonts/KingsCross/KingsCross.ttf');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
 
 html {
   background-color: black;
@@ -149,18 +156,19 @@ body {
 }
 
 .formFont {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'KingsCross', sans-serif;
   font-size: 25px;
   letter-spacing: 2px;
   word-spacing: 2px;
   color: #a4a3a3;
-  font-weight: 700;
+  font-weight: 500;
   font-style: normal;
   font-variant: normal;
   text-transform: none;
-  padding: 1rem;
-  margin-right: 2rem;
-  margin-bottom: 2rem;
+  padding: 0.5rem;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 0.5rem;
 }
 .formFont:hover {
   color: #fff;
