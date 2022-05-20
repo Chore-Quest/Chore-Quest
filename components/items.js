@@ -1,27 +1,8 @@
-import { supabase } from '../client'
+import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchUserItems } from '../store/features/itemInventory'
+import { supabase } from '../client'
 
 export default function Items() {
-  const dispatch = useDispatch()
-  const { userItems: items } = useSelector((store) => store)
-  useEffect(() => {
-    dispatch(fetchUserItems())
-  }, [])
-
-  console.log(items, 'item')
-
-  return (
-    <>
-      <div>
-        {items.entities.map((item) => (
-          <div key={item.id}>
-            {item.items.name}
-            <img src={item.items.imageURL} />
-          </div>
-        ))}
-      </div>
-    </>
-  )
+  console.log("whaddup, I'm the Items component")
 }

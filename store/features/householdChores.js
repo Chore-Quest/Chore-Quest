@@ -5,7 +5,6 @@ import {
   createSelector,
 } from '@reduxjs/toolkit'
 import { supabase } from '../../client'
-import { toast } from 'react-toastify'
 
 const ALL_CHORES = 'ALL_CHORES'
 const IS_COMPLETE = 'IS_COMPLETE'
@@ -78,18 +77,12 @@ export const createChore = createAsyncThunk(
           },
         ])
       }
-      // alert('A Chore has been added!')
-      toast.success('A Chore has been added!', {
-        position: 'top-center',
-      })
+      alert('A Chore has been added!')
       //dispatch fetchALlChores to update the store from db
       thunkAPI.dispatch(fetchAllChores())
     } catch (error) {
       console.log(error)
-      // alert('Unable to add Chore')
-      toast.error('Unable to add Chore', {
-        position: 'top-center',
-      })
+      alert('Unable to add Chore')
       return error
     }
   }
