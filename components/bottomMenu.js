@@ -39,7 +39,7 @@ export default function BottomMenu() {
         </a>
       </li>
       <li>
-        <a>
+        <a href="/leaderboard">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-8 w-8"
