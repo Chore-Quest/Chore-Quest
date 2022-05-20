@@ -13,15 +13,16 @@ export default function Items() {
   console.log(items, 'item')
 
   return (
-    <>
-      <div>
+    <div className="h-screen">
+      <h1 className="mb-2 flex justify-center">Inventory</h1>
+      <div className="grid grid-flow-col grid-cols-8 gap-2 border p-2">
         {items.entities.map((item) => (
-          <div key={item.id}>
-            {item.items.name}
-            <img src={item.items.imageURL} />
+          <div key={item.id} className="border border-white p-5">
+            <h2>{item.items.name}</h2>
+            <img src={item.items.imageURL} className=" object-scale-down" />
           </div>
         ))}
       </div>
-    </>
+    </div>
   )
 }

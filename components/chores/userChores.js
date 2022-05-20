@@ -68,7 +68,9 @@ export default function UserChores(props) {
       className=""
     >
       <div>
-        <h3>Chores</h3>
+        <h3 className="mb-3 flex items-center justify-center  text-center text-4xl font-extrabold uppercase mix-blend-lighten">
+          Chores
+        </h3>
       </div>
       <motion.div
         variants={stagger}
