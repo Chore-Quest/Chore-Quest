@@ -20,18 +20,23 @@ export default function Profile({ session }) {
 
   let { singleProfile } = useSelector((store) => store)
   let [profile, loading] = [singleProfile.profile, singleProfile.loading]
-
   let { householdInfo } = useSelector((store) => store.singleHouseholdProfiles)
-
   const router = useRouter()
-
   const percentage = 66
+
+  let completed
+  profile?.chores?.map((chore) => {
+    if (chore.isComplete === true) {
+      completed = profile.chores.filter((chore) => chore.isComplete === true)
+    }
+  })
+  let percent = (completed?.length / profile?.chores?.length) * 100
 
   return (
     <div className="container min-h-screen">
       <div className="frosted w-296 shadow-3xl pr-15 card mb-5 grid grid-rows-1 items-center justify-center bg-base-100 pt-5 sm:grid-cols-2 sm:p-5">
         <div className="mb-5 flex justify-around">
-          <ProgressProvider valueStart={0} valueEnd={66}>
+          <ProgressProvider valueStart={0} valueEnd={percent}>
             {(value) => (
               <CircularProgressbarWithChildren value={value}>
                 <img
@@ -46,9 +51,9 @@ export default function Profile({ session }) {
         <div className="mb-5 flex justify-center">
           <div class="stats flex justify-center shadow">
             <div class="stat flex flex-col items-center justify-center">
-              <p>
-                <span className="mb-2 flex justify-center text-2xl">
-                  Clan {householdInfo.name ? householdInfo.name : null}
+              <p className="">
+                <span className="mb-2 flex justify-center text-6xl ">
+                  Clan {householdInfo?.name ? householdInfo.name : null}
                 </span>
               </p>
               <div class="stat-title">XP</div>
@@ -61,7 +66,10 @@ export default function Profile({ session }) {
                 >
                   {({ countUpRef }) => (
                     <div>
-                      <span ref={countUpRef} />
+                      <span
+                        ref={countUpRef}
+                        className=" bg-gradient-to-r from-amber-200 to-amber-700 bg-clip-text text-7xl font-extrabold text-transparent drop-shadow-2xl"
+                      />
                     </div>
                   )}
                 </CountUp>
