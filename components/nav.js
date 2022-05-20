@@ -47,10 +47,15 @@ export default function Nav() {
       </div>
       <div className="navbar-center">
         <div className="flex-1">
-          <Link href="/" className="btn btn-ghost text-xl normal-case">
-            <h1 className=" cursor-pointer bg-gradient-to-r from-gray-200  to-gray-600 bg-clip-text text-4xl font-extrabold text-transparent drop-shadow-2xl">
-              Chore Quest
-            </h1>
+          <Link
+            href="/"
+            className="btn btn-ghost flex cursor-pointer text-xl normal-case"
+          >
+            <img
+              src="title-text-icon.png"
+              alt="Chore Quest"
+              className="w-36 cursor-pointer md:w-48"
+            />
           </Link>
         </div>
       </div>

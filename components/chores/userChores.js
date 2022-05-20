@@ -65,7 +65,6 @@ export default function UserChores(props) {
       exit={{ opacity: 0 }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className=""
     >
       <div>
         <h3 className="mb-3 flex items-center justify-center  text-center text-4xl font-extrabold uppercase mix-blend-lighten">
