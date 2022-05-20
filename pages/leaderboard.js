@@ -23,7 +23,6 @@ const Leaderboard = () => {
     else if (idx === 2) return 'border-2 border-yellow-900'
     else return ''
   }
-  console.log(houseHold, 'this is houseHold')
   return (
     <div className="w-full overflow-x-auto">
       <table className="table w-full">

@@ -28,11 +28,8 @@ export default function Profile(props) {
       completed = profile.chores.filter((chore) => chore.isComplete === true)
     }
   })
-  console.log(completed)
-  console.log(profile?.chores)
-  console.log(profile)
-  let percent = (completed?.length / profile?.chores?.length) * 100
 
+  let percent = (completed?.length / profile?.chores?.length) * 100
 
   return (
     <div className="container min-h-screen">

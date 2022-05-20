@@ -60,12 +60,9 @@ export const assignUsersItem = createAsyncThunk(
         .select('*')
         .eq('id', itemID)
         .single()
-      console.log(assignedProfiles, 'this is assigned profiles')
-      console.log(item, 'this is item from thunk')
       // assignedProfiles.map(async (profile) => {
       // })
       assignedProfiles.map(async (profile) => {
-        console.log(profile.profiles.personalXP, item.xp, 'adding xp here')
         const { data: something } = await supabase
           .from('user_items')
           .insert([
