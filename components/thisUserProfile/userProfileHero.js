@@ -42,9 +42,9 @@ export default function UserProfileHero({ profile, householdInfo }) {
           <div className="stat flex flex-col items-center justify-center">
             <p className="">
               <span className="mb-2 flex justify-center text-6xl ">
-                Clan{' '}
+                {' '}
                 {householdInfo && householdInfo.name
-                  ? householdInfo.name
+                  ? `Clan ${householdInfo.name}`
                   : null}
               </span>
             </p>

@@ -11,7 +11,12 @@ import { fetchDynamicSingleProfile } from '../../store/features/singleProfile'
 
 const ClanComponent = () => {
   const dispatch = useDispatch()
-
+  let { singleHouseholdProfiles } = useSelector((store) => store)
+  let [profiles, profilesLoading, householdInfo] = [
+    singleHouseholdProfiles.entities,
+    singleHouseholdProfiles.loading,
+    singleHouseholdProfiles.householdInfo,
+  ]
   useEffect(() => {
     dispatch(fetchAllProfiles())
     return () => {
@@ -20,19 +25,13 @@ const ClanComponent = () => {
   }, [])
 
   useEffect(() => {
-    dispatch(fetchHouseholdInfo())
+    if (profiles) {
+      dispatch(fetchHouseholdInfo())
+    }
     return () => {
       dispatch(fetchHouseholdInfo())
     }
   }, [profiles])
-
-  let { singleHouseholdProfiles } = useSelector((store) => store)
-
-  let [profiles, profilesLoading, householdInfo] = [
-    singleHouseholdProfiles.entities,
-    singleHouseholdProfiles.loading,
-    singleHouseholdProfiles.householdInfo,
-  ]
 
   const easing = [0.6, -0.05, 0.01, 0.99]
   const stagger = {
