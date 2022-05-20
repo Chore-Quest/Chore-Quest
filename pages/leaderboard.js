@@ -30,7 +30,10 @@ const Leaderboard = () => {
           </tr>
         </thead>
         {houseHold.map((profile, idx) => (
-          <tbody key={profile.id}>
+          <tbody
+            className={`${idx === 0 ? 'border-2 border-yellow-500' : ''}`}
+            key={profile.id}
+          >
             <tr>
               <td>
                 <div className="flex items-center space-x-3">
