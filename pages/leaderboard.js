@@ -17,6 +17,12 @@ const Leaderboard = () => {
     (store) => store.singleHouseholdProfiles.entities
   )
 
+  const handleRankBorder = (idx) => {
+    if (idx === 0) return 'border-4 border-yellow-500'
+    else if (idx === 1) return 'border-2 border-stone-400'
+    else if (idx === 2) return 'border-2 border-yellow-900'
+    else return ''
+  }
   console.log(houseHold, 'this is houseHold')
   return (
     <div className="w-full overflow-x-auto">
@@ -30,7 +36,11 @@ const Leaderboard = () => {
           </tr>
         </thead>
         {houseHold.map((profile, idx) => (
-          <tbody key={profile.id}>
+          <tbody
+            // className={`${idx === 0 ? 'border-2 border-yellow-500' : ''}`}
+            className={handleRankBorder(idx)}
+            key={profile.id}
+          >
             <tr>
               <td>
                 <div className="flex items-center space-x-3">
