@@ -46,24 +46,39 @@ const Modal = ({ showModal, setShowModal }) => {
           // onClick={() => setShowModal(false)}
         >
           <motion.div onClick={(e) => e.stopPropagation()}>
-            <div className="align-center flex justify-center">
+            <div className="flex flex-col items-center justify-center">
               <motion.button
-                className="frosted formFont"
+                whileHover={{
+                  scale: 1.1,
+                  transition: { duration: 0.2 },
+                }}
+                whileTap={{ scale: 0.9 }}
+                className="frosted formFont hover:bg-black active:bg-black"
                 onClick={handleSignIn}
               >
                 <p>Sign In</p>
               </motion.button>
               <motion.button
-                className="frosted formFont"
+                whileHover={{
+                  scale: 1.1,
+                  transition: { duration: 0.2 },
+                }}
+                whileTap={{ scale: 0.9 }}
+                className="frosted formFont hover:bg-black"
                 onClick={handleSignUp}
               >
                 <p>Sign Up</p>
               </motion.button>
               <motion.button
-                className="frosted formFont"
+                whileHover={{
+                  scale: 1.1,
+                  transition: { duration: 0.2 },
+                }}
+                whileTap={{ scale: 0.9 }}
+                className="frosted formFont hover:bg-black"
                 onClick={handleMagicLink}
               >
-                <p>Sign in/up with magic link</p>
+                <p>Magic Link</p>
               </motion.button>
             </div>
             {showLogin && <SignIn />}
