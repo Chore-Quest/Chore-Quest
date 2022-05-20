@@ -125,7 +125,7 @@ export default function SingleChore(props) {
             assigned.map((profile) => (
               <div
                 key={profile.profiles.id}
-                className="justifyCenter mask mask-hexagon mx-auto box-content h-64 w-64"
+                className="justifyCenter mask mask-circle mx-auto box-content"
               >
                 <img
                   key={profile.profiles.id}

@@ -121,7 +121,7 @@ export default function AllClanChores() {
                 </div>
                 <div className="card-actions justify-end">
                   <Link href={`/chores/${encodeURIComponent(chore.id)}`}>
-                    <label className="swap swap-flip text-xl">
+                    <label className="swap swap-flip text-4xl">
                       <input type="checkbox" />
                       {chore.isComplete ? (
                         <p>
@@ -129,7 +129,7 @@ export default function AllClanChores() {
                         </p>
                       ) : (
                         <p>
-                          Incomplete<span className="swap-off"> ❌</span>
+                          <span className="swap-off"> ❌</span>
                         </p>
                       )}
                     </label>

@@ -111,7 +111,7 @@ export default function UserChores(props) {
                 </div>
                 <div className="card-actions justify-end">
                   <Link href={`/chores/${encodeURIComponent(chore.id)}`}>
-                    <label className="swap swap-flip text-xl">
+                    <label className="swap swap-flip text-4xl">
                       <input type="checkbox" />
                       {chore.isComplete ? (
                         <p>
