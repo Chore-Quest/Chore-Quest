@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { supabase } from '../client'
+import { motion } from 'framer-motion'
 
 const SignUp = () => {
   const router = useRouter()
@@ -29,7 +30,7 @@ const SignUp = () => {
           Create new account
         </h1>
 
-        <form className="mt-2 flex flex-col p-6" onSubmit={handleSubmit}>
+        <form className="mt-1 flex flex-col p-6" onSubmit={handleSubmit}>
           <label htmlFor="email" className="text-gray-200">
             Email
           </label>
@@ -52,13 +53,18 @@ const SignUp = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <button
-            className="mt-10 rounded-md bg-gray-500 py-3 px-6 text-lg font-semibold text-white focus:outline-none focus:ring-2"
+          <motion.button
+            whileHover={{
+              scale: 1.1,
+              transition: { duration: 0.2 },
+            }}
+            whileTap={{ scale: 0.9 }}
+            className="mt-10 rounded-md bg-gray-500 py-3 px-6 text-lg font-semibold text-white hover:bg-gray-900 focus:outline-none focus:ring-2"
             type="submit"
             onClick={handleSubmit}
           >
             Sign up
-          </button>
+          </motion.button>
         </form>
       </div>
     </div>

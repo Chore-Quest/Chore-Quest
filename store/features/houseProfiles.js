@@ -20,7 +20,6 @@ export const fetchAllProfiles = createAsyncThunk(
           .select('household_id')
           .eq('id', user.id)
           .single()
-
         let { data: profiles } = await supabase
           .from('profiles')
           .select('*')
@@ -59,8 +58,6 @@ export const fetchHouseholdInfo = createAsyncThunk(
     }
   }
 )
-
-fetchHouseholdInfo()
 
 // *** SLICES *** //
 const profilesSlice = createSlice({
