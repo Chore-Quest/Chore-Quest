@@ -41,7 +41,7 @@ export default function UserChores(props) {
   const stagger = {
     animate: {
       transition: {
-        staggerChildren: 0.4,
+        staggerChildren: 0.8,
       },
     },
   }
@@ -77,14 +77,16 @@ export default function UserChores(props) {
       >
         {userChores ? (
           userChores.map((chore) => (
-            <div
+            <motion.div
+              whileHover={{
+                scale: 1.1,
+                transition: { duration: 0.2 },
+              }}
+              variants={fadeInUp}
               key={chore.id}
               className="frosted card mb-5 flex flex-row bg-base-100 shadow-xl drop-shadow-2xl"
             >
-              <motion.div
-                variants={fadeInUp}
-                className="card-body flex flex-row items-center justify-center bg-slate-800 align-middle"
-              >
+              <motion.div className="card-body flex flex-row items-center justify-center bg-slate-800 align-middle">
                 <Link href={`/chores/${encodeURIComponent(chore.id)}`}>
                   <h1 className="card-title flex cursor-pointer items-center justify-center">
                     {chore.name}
@@ -127,7 +129,7 @@ export default function UserChores(props) {
                   </Link>
                 </div>
               </motion.div>
-            </div>
+            </motion.div>
           ))
         ) : (
           <>
