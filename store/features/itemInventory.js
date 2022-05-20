@@ -6,20 +6,6 @@ const initialState = {
   loading: false,
 }
 
-// export const getItems = createAsyncThunk(
-//   'item/fetchAllItems',
-//   async (thunkAPI) => {
-//     const user = supabase.auth.user()
-//     let { data } = await supabase.from('items').select(`
-// name,
-// user_items (
-//   item_id,
-//   quantity
-// )
-// `)
-//   }
-// )
-
 // *** THUNKS *** //
 // fetch all items for a user
 
@@ -51,8 +37,7 @@ export const assignUsersItem = createAsyncThunk(
   //action type string
   'item/assignUsersItem',
   //callback function
-  async ({ itemID, assignedProfiles }) => {
-    // const user = supabase.auth.user()
+  async ({ itemID, assignedProfiles }, thunkAPI) => {
     try {
       //get the householdID
       let { data: item } = await supabase
@@ -60,8 +45,6 @@ export const assignUsersItem = createAsyncThunk(
         .select('*')
         .eq('id', itemID)
         .single()
-      // assignedProfiles.map(async (profile) => {
-      // })
       assignedProfiles.map(async (profile) => {
         const { data: something } = await supabase
           .from('user_items')
@@ -73,7 +56,7 @@ export const assignUsersItem = createAsyncThunk(
           .update({ personalXP: profile.profiles.personalXP + item.xp })
           .eq('id', profile.profile_id)
       })
-      // return item
+      thunkAPI.dispatch(fetchUserItems)
     } catch (error) {
       console.log(error)
       return error

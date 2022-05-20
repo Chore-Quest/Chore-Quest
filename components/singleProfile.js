@@ -11,13 +11,26 @@ import { CircularProgressbarWithChildren } from 'react-circular-progressbar'
 
 export default function Profile(props) {
   const { userId } = props
-
-  useEffect(() => {
-    dispatch(fetchDynamicSingleProfile(userId))
-  }, [userId])
-
   let profile = useSelector((store) => store.singleProfile.dynamicProfile)
   let { householdInfo } = useSelector((store) => store.singleHouseholdProfiles)
+
+  useEffect(() => {
+    if (userId) {
+      dispatch(fetchDynamicSingleProfile(userId))
+    }
+    return () => {
+      dispatch(fetchDynamicSingleProfile(userId))
+    }
+  }, [])
+
+  useEffect(() => {
+    if (userId) {
+      dispatch(fetchDynamicSingleProfile(userId))
+    }
+    // return () => {
+    //   dispatch(fetchDynamicSingleProfile(userId))
+    // }
+  }, [userId])
 
   const dispatch = useDispatch()
   const router = useRouter()
