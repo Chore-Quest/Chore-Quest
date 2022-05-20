@@ -11,8 +11,6 @@ export default function Items() {
     dispatch(fetchUserItems())
   }, [])
 
-  console.log(items, 'item')
-
   return (
     <div className="h-auto">
       <h1 className="mb-2 flex justify-center">Inventory</h1>

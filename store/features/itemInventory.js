@@ -84,29 +84,6 @@ export const assignUsersItem = createAsyncThunk(
   }
 )
 
-// export const fetchUserItems = createAsyncThunk(
-//   'item/fetchUserItems',
-//   async (thunkAPI) => {
-//     const user = supabase.auth.user()
-//     try {
-//       let { data } = await supabase.from('items').select(
-//         `
-//         name,
-//         user_items (
-//           item_id,
-//           quantity
-//         )
-//         `
-//       )
-//       return data
-//       // .eq('profile_id', 'da83ba31-45d1-4e0a-afa1-6c0921503f24')
-//     } catch (error) {
-//       console.log(error)
-//       return error
-//     }
-//   }
-// )
-
 // *** SLICES *** //
 const itemsSlice = createSlice({
   name: 'items',

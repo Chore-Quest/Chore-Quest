@@ -55,7 +55,7 @@ const Clan = ({ session }) => {
       <div
         className="card hero mx-auto mb-5 overflow-hidden rounded-3xl p-0 drop-shadow-2xl"
         style={{
-          backgroundImage: `url(https://scontent-ort2-2.xx.fbcdn.net/v/t39.30808-6/244607226_4976383192391443_8852424966271916005_n.png?_nc_cat=108&ccb=1-6&_nc_sid=09cbfe&_nc_ohc=OgqCxFXz9rQAX-k4L_Y&_nc_ht=scontent-ort2-2.xx&oh=00_AT_iqegFFW3LovBxUPocNcsbThneTZwr6dbH7PIawTx-Ow&oe=62897827)`,
+          backgroundImage: `url(https://www.paintingstar.com/static/gallery/2014/09/20/541d175275c61.jpg?Travellers+In+A+Cart%2Ca+Farmer+With+His+Pigs%2Cand+Other+Country+Folk+On+A+Road+By+A+Castle+Town+Artwork+by+Th%C3%A9obald+Michau)`,
         }}
       >
         <div className="hero-overlay bg-opacity-60"></div>
