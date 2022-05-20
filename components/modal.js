@@ -1,5 +1,6 @@
 import react from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { motion, AnimatePresence } from 'framer-motion'
 import Login from './login'
 import SignIn from '../pages/signInPage'
@@ -33,6 +34,12 @@ const Modal = ({ showModal, setShowModal }) => {
     setShowLogIn(false)
     setShowSignUp(false)
     setShowMagicLink(true)
+  }
+
+  const router = useRouter()
+
+  const handleCredits = () => {
+    router.push('/credits')
   }
 
   return (
@@ -79,6 +86,17 @@ const Modal = ({ showModal, setShowModal }) => {
                 onClick={handleMagicLink}
               >
                 <p>Magic Link</p>
+              </motion.button>
+              <motion.button
+                whileHover={{
+                  scale: 1.1,
+                  transition: { duration: 0.2 },
+                }}
+                whileTap={{ scale: 0.9 }}
+                className="frosted formFont hover:bg-black"
+                onClick={handleCredits}
+              >
+                <p>Credits</p>
               </motion.button>
             </div>
             {showLogin && <SignIn />}

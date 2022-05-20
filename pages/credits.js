@@ -4,7 +4,7 @@ import { supabase } from '../client'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 
-export default function AboutPage() {
+export default function CreditsPage() {
   const router = useRouter()
 
   const easing = [0.6, -0.05, 0.01, 0.99]
