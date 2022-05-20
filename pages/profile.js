@@ -22,7 +22,6 @@ export default function Profile({ session }) {
   let [profile, loading] = [singleProfile.profile, singleProfile.loading]
   let { householdInfo } = useSelector((store) => store.singleHouseholdProfiles)
   const router = useRouter()
-  const percentage = 66
 
   let completed
   profile?.chores?.map((chore) => {
