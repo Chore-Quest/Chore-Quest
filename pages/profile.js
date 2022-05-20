@@ -12,25 +12,37 @@ import UserChores from '../components/chores/userChores'
 export default function Profile({ session }) {
   const dispatch = useDispatch()
 
+  let { singleProfile } = useSelector((store) => store)
+  let [profile, loading] = [singleProfile.profile, singleProfile.loading]
+  let { singleHouseholdProfiles } = useSelector((store) => store)
+  const router = useRouter()
+  let percent = 0
+
   //updates the store with household info
+
   useEffect(() => {
     dispatch(fetchHouseholdInfo())
     dispatch(fetchSingleProfile())
   }, [])
-
-  let { singleProfile } = useSelector((store) => store)
-  let [profile, loading] = [singleProfile.profile, singleProfile.loading]
-  let { householdInfo } = useSelector((store) => store.singleHouseholdProfiles)
-  const router = useRouter()
-  const percentage = 66
+  let householdInfo
+  useEffect(() => {
+    singleHouseholdProfiles
+      ? (householdInfo = singleHouseholdProfiles.householdInfo)
+      : null
+    console.log(householdInfo, 'this is householdinfo')
+  }, [singleHouseholdProfiles])
 
   let completed
-  profile?.chores?.map((chore) => {
-    if (chore.isComplete === true) {
-      completed = profile.chores.filter((chore) => chore.isComplete === true)
-    }
-  })
-  let percent = (completed?.length / profile?.chores?.length) * 100
+  profile &&
+    profile.chores &&
+    profile.chores.map((chore) => {
+      if (chore.isComplete === true) {
+        completed = profile.chores.filter((chore) => chore.isComplete === true)
+      }
+    })
+  if (completed && profile && profile.chores) {
+    percent = (completed.length / profile.chores.length) * 100
+  }
 
   return (
     <div className="container min-h-screen">
@@ -49,15 +61,18 @@ export default function Profile({ session }) {
         </div>
 
         <div className="mb-5 flex justify-center">
-          <div class="stats flex justify-center shadow">
-            <div class="stat flex flex-col items-center justify-center">
+          <div className="stats flex justify-center shadow">
+            <div className="stat flex flex-col items-center justify-center">
               <p className="">
                 <span className="mb-2 flex justify-center text-6xl ">
-                  Clan {householdInfo?.name ? householdInfo.name : null}
+                  Clan{' '}
+                  {householdInfo && householdInfo.name
+                    ? householdInfo.name
+                    : null}
                 </span>
               </p>
-              <div class="stat-title">XP</div>
-              <div class="stat-value">
+              <div className="stat-title">XP</div>
+              <div className="stat-value">
                 {/* {profile ? profile.personalXP : null} */}
                 <CountUp
                   start={0}
@@ -74,7 +89,7 @@ export default function Profile({ session }) {
                   )}
                 </CountUp>
               </div>
-              {/* <div class="stat-desc">21% more than last month</div> */}
+              {/* <div className="stat-desc">21% more than last month</div> */}
               <h1 className="mb-2 flex justify-center text-4xl">
                 {profile ? profile.username : 'Guest'}
               </h1>
