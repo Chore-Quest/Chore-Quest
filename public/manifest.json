@@ -6,7 +6,7 @@
   "start_url": "/",
   "name": "Chore Quest",
   "short_name": "Chore Quest",
-  "description": "Chore Quest lets families to gamify chore assignments.",
+  "description": "Chore Quest lets families gamify chore assignments.",
   "icons": [
     {
       "src": "/icon-192x192.png",
