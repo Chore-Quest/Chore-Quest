@@ -68,7 +68,7 @@ export default function Profile({ session }) {
                     <div>
                       <span
                         ref={countUpRef}
-                        className=" bg-gradient-to-r from-amber-200 to-amber-700 bg-clip-text text-7xl font-extrabold text-transparent"
+                        className=" bg-gradient-to-r from-amber-200 to-amber-700 bg-clip-text text-7xl font-extrabold text-transparent drop-shadow-2xl"
                       />
                     </div>
                   )}
