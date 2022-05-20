@@ -1,5 +1,20 @@
 import React from 'react'
-export function MagicLink({ email, e, setEmail, handleLogin }) {
+import { useState } from 'react'
+import { supabase } from '../client'
+
+export function MagicLink() {
+  const [email, setEmail] = useState('')
+
+  const handleLogin = async (email) => {
+    try {
+      const { error } = await supabase.auth.signIn({ email })
+      if (error) throw error
+      alert('Check your email for the login link!')
+    } catch (error) {
+      alert(error.error_description || error.message)
+    }
+  }
+
   return (
     <div className="mx-auto grid place-content-center">
       <p className="mb-4">Sign in via magic link with your email below</p>
