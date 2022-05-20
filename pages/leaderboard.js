@@ -1,16 +1,13 @@
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import {
-  fetchHouseholdInfo,
-  fetchAllProfiles,
-} from '../store/features/houseProfiles'
+import { fetchAllProfilesXP } from '../store/features/houseProfiles'
 import { useDispatch } from 'react-redux'
 
 const Leaderboard = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(fetchAllProfiles())
+    dispatch(fetchAllProfilesXP())
   }, [])
 
   const houseHold = useSelector(
