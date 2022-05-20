@@ -8,12 +8,8 @@ import UserChores from '../components/chores/userChores'
 export default function Profile(props) {
   const { userId } = props
 
-  //gets profile from the database
-  // let [householdName, setHouseholdName] = useState('')
-
   useEffect(() => {
     dispatch(fetchDynamicSingleProfile(userId))
-    // getHouseholdInfo()
   }, [userId])
 
   let profile = useSelector((store) => store.singleProfile.dynamicProfile)
@@ -21,27 +17,6 @@ export default function Profile(props) {
 
   const dispatch = useDispatch()
   const router = useRouter()
-
-  // const getHouseholdInfo = async () => {
-  //   const user = supabase.auth.user()
-  //   try {
-  //     let { data: userID } = await supabase
-  //       .from('profiles')
-  //       .select(`*`)
-  //       .eq('id', userId)
-  //       .single()
-  //     let { data: household } = await supabase
-  //       .from('household_table')
-  //       .select(`*`)
-  //       .eq('id', userID.household_id)
-  //       .single()
-  //     setHouseholdName(household.name)
-  //     return household
-  //   } catch (error) {
-  //     console.log(error)
-  //     return error
-  //   }
-  // }
 
   return (
     <div className="container min-h-screen">
