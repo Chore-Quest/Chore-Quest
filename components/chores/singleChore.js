@@ -24,7 +24,6 @@ export default function SingleChore(props) {
   const unAssigned = useSelector((store) => store.responsibility.unassigned)
   const assigned = useSelector((store) => store.responsibility.chore)
   const router = useRouter()
-  // console.log(assigned, 'this is assigned')
 
   const [chore, setChore] = useState({
     name: '',
@@ -47,7 +46,6 @@ export default function SingleChore(props) {
 
   useEffect(() => {
     if (storeChore && storeChore.id) {
-      console.log(storeChore, 'this is storeChore in useEffect')
       setChore({
         name: storeChore.name || '',
         notes: storeChore.notes || '',
@@ -64,7 +62,6 @@ export default function SingleChore(props) {
     }
   }, [storeChore, assigned])
 
-  console.log(chore, 'this is local chore')
   function handleAssignTask() {
     dispatch(createResponsibility(chore))
     // setChore({ ...chore, profile_id: 0 })
@@ -88,7 +85,6 @@ export default function SingleChore(props) {
   function handleDeleteChore() {
     if (assigned) {
       assigned.map((profile) => {
-        console.log(chore.chore_id, 'this is delete chore id')
         dispatch(
           deleteResponsibility({
             profileId: profile.profile_id,
@@ -116,7 +112,6 @@ export default function SingleChore(props) {
   //   dispatch(deleteSingleChore(choreId))
   // }
 
-  console.log(assigned, 'this is assigned')
   return (
     <>
       <div className="frosted w-196 card mx-auto bg-base-100 p-10 shadow-xl">
@@ -164,11 +159,9 @@ export default function SingleChore(props) {
         {assigned.length > 0 ? (
           assigned.map((profile) => (
             <div key={profile.id}>
-              {/* {console.log(chore, 'this is chore')} */}
               <label>Currently Assigned to: {profile.profiles.username}</label>
               <button
                 onClick={() => {
-                  console.log(profile.profile_id, 'profileid wth')
                   dispatch(
                     deleteResponsibility({
                       profileId: profile.profile_id,

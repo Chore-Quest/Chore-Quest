@@ -109,7 +109,6 @@ export const fetchResponsiblity = createAsyncThunk(
         .from('responsibility')
         .select(`*, profiles(*)`)
         .eq('chore_id', choreId)
-      // console.log(chore, ' responsibilities chore')
       return chore
     } catch (error) {
       console.log(error)
@@ -146,26 +145,6 @@ export const deleteResponsibility = createAsyncThunk(
     }
   }
 )
-
-// export const fetchSingleChore = createAsyncThunk(
-//   //action type string
-//   'singleChore/fetchSingleChore',
-//   async (choreId, thunkAPI) => {
-//     console.log(choreId, 'this is choreId thunk')
-//     try {
-//       let { data: chore } = await supabase
-//         .from('chores')
-//         .select(`*, profiles(*)`)
-//         .eq('id', choreId)
-//         .single()
-//       console.log(chore, 'this is chore in thunk')
-//       return chore
-//     } catch (error) {
-//       console.log(error)
-//       return error
-//     }
-//   }
-// )
 
 // ***Slice Creator*** //
 const responsibilitySlice = createSlice({
