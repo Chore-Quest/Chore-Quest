@@ -38,13 +38,7 @@ export default function AddChore() {
   })
   const { name, notes } = chore
 
-  console.log(chore, 'this is chore')
   function handleAddChore() {
-    // setChore({ ...chore, household_id: household_id })
-    // if (chore.assignedTo !== '') {
-    //   console.log('DISPATCH SOMETHING')
-    // }
-
     dispatch(createChore({ ...chore, household_id }))
     // Reset the chore details & clears the form data
     setChore({

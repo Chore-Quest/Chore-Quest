@@ -16,14 +16,12 @@ export const fetchSingleChore = createAsyncThunk(
   //action type string
   'singleChore/fetchSingleChore',
   async (choreId, thunkAPI) => {
-    // console.log(choreId, 'this is choreId thunk')
     try {
       let { data: chore } = await supabase
         .from('chores')
         .select(`*, profiles(*)`)
         .eq('id', choreId)
         .single()
-      // console.log(chore, 'this is chore in thunk')
       return chore
     } catch (error) {
       console.log(error)
@@ -37,13 +35,11 @@ export const updateSingleChore = createAsyncThunk(
   //action type string
   'singleChore/updateSingleChore',
   async (chore, thunkAPI) => {
-    // console.log(chore, 'this is chore in thunk')
     try {
       await supabase.from('chores').update(chore).eq('id', chore.id)
       toast.success('Chore Updated!', {
         position: 'top-center',
       })
-      console.log('Chore from Update chore', chore)
       return chore
     } catch (error) {
       toast.error('Error Updating Chore', {

@@ -1,12 +1,12 @@
 {
-  "theme_color": "#4d2907",
-  "background_color": "#121212",
+  "theme_color": "#1f242d",
+  "background_color": "#1f242d",
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
   "name": "Chore Quest",
   "short_name": "Chore Quest",
-  "description": "Chore Quest lets families to gamify chore assignments.",
+  "description": "Chore Quest lets families gamify chore assignments.",
   "icons": [
     {
       "src": "/icon-192x192.png",

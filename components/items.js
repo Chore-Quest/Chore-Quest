@@ -11,8 +11,6 @@ export default function Items() {
     dispatch(fetchUserItems())
   }, [])
 
-  console.log(items, 'item')
-
   return (
     <>
       {items ? (
