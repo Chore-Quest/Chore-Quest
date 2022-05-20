@@ -3,6 +3,14 @@
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@1,100&display=swap');
 
+html {
+  background-color: black;
+}
+
+#app {
+  min-height: 100vh;
+}
+
 body {
   background-color: rgb(72, 72, 72);
   min-height: 100vh;
