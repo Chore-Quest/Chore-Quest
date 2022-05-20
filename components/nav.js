@@ -47,15 +47,22 @@ export default function Nav() {
       </div>
       <div className="navbar-center">
         <div className="flex-1">
-          <Link href="/" className="btn btn-ghost text-xl normal-case">
-            Chore Quest
+          <Link
+            href="/"
+            className="btn btn-ghost flex cursor-pointer text-xl normal-case"
+          >
+            <img
+              src="title-text-icon.png"
+              alt="Chore Quest"
+              className="w-36 cursor-pointer md:w-48"
+            />
           </Link>
         </div>
       </div>
       <div className="navbar-end">
         <div className="flex-none gap-2">
           {storeProfile && storeProfile.id ? (
-            <div className="dropdown dropdown-end">
+            <div className="dropdown-end dropdown">
               <label tabIndex="0" className="avatar btn btn-ghost btn-circle">
                 <div className="w-10 rounded-full">
                   <img src={storeProfile.avatar_url} />
