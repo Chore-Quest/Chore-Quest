@@ -16,7 +16,6 @@ export default function Profile(props) {
 
   useEffect(() => {
     if (userId) {
-      console.log('')
       dispatch(fetchDynamicSingleProfile(userId))
     }
     return () => {
