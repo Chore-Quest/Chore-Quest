@@ -96,9 +96,16 @@ const Clan = ({ session }) => {
                 <p className="mx-auto">Peasant!</p>
                 <div className="card-actions justify-center">
                   <Link href={`/profiles/${encodeURIComponent(profile.id)}`}>
-                    <button className="focus:shadow-outline rounded bg-gray-500 py-2 px-4 font-bold text-white hover:bg-gray-800 focus:outline-none">
+                    <motion.button
+                      whileHover={{
+                        scale: 1.1,
+                        transition: { duration: 0.2 },
+                      }}
+                      whileTap={{ scale: 0.9 }}
+                      className="focus:shadow-outline rounded bg-gray-500 py-2 px-4 font-bold text-white hover:bg-gray-800 focus:outline-none"
+                    >
                       Profile page
-                    </button>
+                    </motion.button>
                   </Link>
                 </div>
               </div>

@@ -88,7 +88,11 @@ export default function AllClanChores() {
         {filteredChores[0] ? (
           filteredChores[0] &&
           filteredChores.map((chore) => (
-            <div
+            <motion.div
+              whileHover={{
+                scale: 1.1,
+                transition: { duration: 0.2 },
+              }}
               key={chore.id}
               className="frosted card mb-5 flex flex-row bg-base-100 shadow-xl drop-shadow-2xl"
             >
@@ -136,7 +140,7 @@ export default function AllClanChores() {
                   </Link>
                 </div>
               </motion.div>
-            </div>
+            </motion.div>
           ))
         ) : (
           <>

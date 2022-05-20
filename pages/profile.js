@@ -8,6 +8,7 @@ import 'react-circular-progressbar/dist/styles.css'
 import CountUp from 'react-countup'
 import ProgressProvider from '../components/ProgressProvider'
 import UserChores from '../components/chores/userChores'
+import { motion } from 'framer-motion'
 
 export default function Profile({ session }) {
   const dispatch = useDispatch()
@@ -78,20 +79,30 @@ export default function Profile({ session }) {
                 {profile ? profile.username : 'Guest'}
               </h1>
               <div className="mb-4 flex flex-row justify-center gap-4">
-                <button
-                  className="frosted rounded-lg border-gray-300 bg-gray-500 p-2 pl-5  text-lg text-gray-100 focus:border-4"
+                <motion.button
+                  whileHover={{
+                    scale: 1.1,
+                    transition: { duration: 0.2 },
+                  }}
+                  whileTap={{ scale: 0.9 }}
+                  className="frosted rounded-lg border-gray-300 bg-gray-500 p-2 pl-5 text-lg  text-gray-100 hover:bg-black focus:border-4"
                   onClick={() => router.push('/editprofile')}
                 >
                   Edit Profile
-                </button>
+                </motion.button>
 
-                <button
+                <motion.button
+                  whileHover={{
+                    scale: 1.1,
+                    transition: { duration: 0.2 },
+                  }}
+                  whileTap={{ scale: 0.9 }}
                   className="frosted focus:shadow-outline rounded  py-2 px-4 font-bold text-white hover:bg-black focus:outline-none"
                   type="button"
                   onClick={() => router.push('/addchore')}
                 >
                   Add Chore
-                </button>
+                </motion.button>
               </div>
             </div>
           </div>
