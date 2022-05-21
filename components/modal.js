@@ -54,9 +54,10 @@ const Modal = ({ showModal, setShowModal }) => {
         >
           <div className="container flex flex-col content-center items-center px-12 pb-8">
             <img className="w-42" src="title-text-icon.png" alt="Chore Quest" />
-            <p className="px-8 pt-2 text-center">
+            <p className="px-6 pt-2 text-center">
               Chore Quest is a platform for families to gamify chore
-              assignments.
+              assignments. Take a test drive by entering email
+              'test@chore.quest' and password 'ChoreQuest1'.
             </p>
           </div>
           <motion.div

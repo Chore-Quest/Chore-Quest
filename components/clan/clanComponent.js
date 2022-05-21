@@ -121,8 +121,10 @@ const ClanComponent = () => {
                     />
                   </figure>
                   <div className="card-body">
-                    <h2 className="card-title mx-auto">{profile.username}</h2>
-                    <p className="mx-auto">Peasant!</p>
+                    <h2 className="card-title mx-auto text-2xl">
+                      {profile.username}
+                    </h2>
+                    <p className="mx-auto">{`${profile.personalXP} xp`}</p>
                     <div className="card-actions justify-center">
                       <Link
                         href={`/profiles/${encodeURIComponent(profile.id)}`}

@@ -113,12 +113,20 @@ export default function AllClanChores() {
                 <div className="avatar-group -space-x-1">
                   {chore.profiles.map((profile) => (
                     <div className="avatar" key={profile.id}>
-                      <div className="w-12 rounded">
-                        <img
-                          src={profile.avatar_url}
-                          alt={`${profile.username} avatar`}
-                          title={profile.username}
-                        />
+                      <div
+                        className="tooltip w-12 rounded"
+                        data-tip={profile.name}
+                      >
+                        <Link
+                          href={`/profiles/${encodeURIComponent(profile.id)}`}
+                        >
+                          <img
+                            src={profile.avatar_url}
+                            alt={`${profile.username} avatar`}
+                            title={profile.username}
+                            className="cursor-pointer"
+                          />
+                        </Link>
                       </div>
                     </div>
                   ))}
