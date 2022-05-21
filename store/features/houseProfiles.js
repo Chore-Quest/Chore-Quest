@@ -7,29 +7,32 @@ const initialState = {
   loading: false,
 }
 
-const user = supabase.auth.user()
+
 
 // *** THUNKS *** //
 // fetch all profiles from a household
 export const fetchAllProfiles = createAsyncThunk(
   'household/fetchAllProfiles',
   async () => {
-    try {
-      let { data: houseHoldId } = await supabase
-        .from('profiles')
-        .select('household_id')
-        .eq('id', user.id)
-        .single()
+    const user = supabase.auth.user()
+    if (user && user.id) {
+      try {
+        let { data: houseHoldId } = await supabase
+          .from('profiles')
+          .select('household_id')
+          .eq('id', user.id)
+          .single()
 
-      let { data: profiles } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('household_id', houseHoldId.household_id)
+        let { data: profiles } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('household_id', houseHoldId.household_id)
 
-      return profiles
-    } catch (error) {
-      console.log(error)
-      return error
+        return profiles
+      } catch (error) {
+        console.log(error)
+        return error
+      }
     }
   }
 )
@@ -37,7 +40,8 @@ export const fetchAllProfiles = createAsyncThunk(
 export const fetchAllProfilesXP = createAsyncThunk(
   'household/fetchAllProfiles',
   async () => {
-    if (user.id) {
+    const user = supabase.auth.user()
+    if (user && user.id) {
       try {
         let { data: houseHoldId } = await supabase
           .from('profiles')
@@ -63,7 +67,8 @@ export const fetchAllProfilesXP = createAsyncThunk(
 export const fetchHouseholdInfo = createAsyncThunk(
   'household/householdInfo',
   async () => {
-    if (user.id) {
+    const user = supabase.auth.user()
+    if (user && user.id) {
       try {
         let { data: userProfile } = await supabase
           .from('profiles')
