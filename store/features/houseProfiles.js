@@ -7,13 +7,14 @@ const initialState = {
   loading: false,
 }
 
-const user = supabase.auth.user()
+
 
 // *** THUNKS *** //
 // fetch all profiles from a household
 export const fetchAllProfiles = createAsyncThunk(
   'household/fetchAllProfiles',
   async () => {
+    const user = supabase.auth.user()
     if (user && user.id) {
       try {
         let { data: houseHoldId } = await supabase
@@ -39,6 +40,7 @@ export const fetchAllProfiles = createAsyncThunk(
 export const fetchAllProfilesXP = createAsyncThunk(
   'household/fetchAllProfiles',
   async () => {
+    const user = supabase.auth.user()
     if (user && user.id) {
       try {
         let { data: houseHoldId } = await supabase
@@ -65,6 +67,7 @@ export const fetchAllProfilesXP = createAsyncThunk(
 export const fetchHouseholdInfo = createAsyncThunk(
   'household/householdInfo',
   async () => {
+    const user = supabase.auth.user()
     if (user && user.id) {
       try {
         let { data: userProfile } = await supabase
