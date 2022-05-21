@@ -17,13 +17,6 @@ export default function Home() {
   const close = () => setShowModal(false)
   const open = () => setShowModal(true)
 
-  // useEffect(() => {
-  //   // setSession(supabase.auth.session())
-  //   // supabase.auth.onAuthStateChange((_event, session) => {
-  //   //   session ? setSession(session) : null
-  //   })
-  // }, [])
-
   if (session) {
     {
       router.push('/profile')
