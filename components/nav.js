@@ -1,9 +1,9 @@
 import React from 'react'
 import Link from 'next/link'
-import { supabase } from '../client'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { supabase } from '../client'
 import { fetchSingleProfile } from '../store/features/singleProfile'
 
 export default function Nav() {
@@ -57,7 +57,7 @@ export default function Nav() {
               className="btn btn-ghost flex cursor-pointer text-xl normal-case"
             >
               <img
-                src="title-text-icon.png"
+                src="/title-text-icon.png"
                 alt="Chore Quest"
                 className="w-36 cursor-pointer md:w-48"
               />
@@ -75,9 +75,10 @@ export default function Nav() {
               <ul
                 tabIndex="0"
                 className="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-300 p-2 shadow-md"
+                onClick={(e) => e.currentTarget.blur()}
               >
                 <li>
-                  <Link href="/profile" className="justify-between">
+                  <Link href="../../profile" className="justify-between">
                     Profile
                   </Link>
                 </li>

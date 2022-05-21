@@ -1,6 +1,5 @@
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { motion } from 'framer-motion'
 import {
@@ -103,11 +102,16 @@ export default function UserChores(props) {
                   {chore.profiles.map((profile) => (
                     <div className="" key={profile.id}>
                       <div className="rounded">
-                        <img
-                          src={profile.avatar_url}
-                          alt={`${profile.username} avatar`}
-                          title={profile.username}
-                        />
+                        <Link
+                          href={`/profiles/${encodeURIComponent(profile.id)}`}
+                        >
+                          <img
+                            src={profile.avatar_url}
+                            alt={`${profile.username} avatar`}
+                            title={profile.username}
+                            className="cursor-pointer"
+                          />
+                        </Link>
                       </div>
                     </div>
                   ))}
