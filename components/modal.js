@@ -46,21 +46,31 @@ const Modal = ({ showModal, setShowModal }) => {
     <AnimatePresence exitBeforeEnter>
       {showModal && (
         <motion.div
-          className="backdrop mx-auto"
+          className="backdrop mx-auto flex min-h-screen flex-col"
           variants={backdrop}
           initial="hidden"
           animate="visible"
           // onClick={() => setShowModal(false)}
         >
-          <motion.div onClick={(e) => e.stopPropagation()}>
-            <div className="flex flex-col items-center justify-center">
+          <div className="container flex flex-col content-center items-center px-12 pb-8">
+            <img className="w-42" src="title-text-icon.png" alt="Chore Quest" />
+            <p className="px-8 pt-2 text-center">
+              Chore Quest is a platform for families to gamify chore
+              assignments.
+            </p>
+          </div>
+          <motion.div
+            onClick={(e) => e.stopPropagation()}
+            className="container mx-auto px-8"
+          >
+            <div className="flex flex-row flex-wrap items-center justify-center">
               <motion.button
                 whileHover={{
                   scale: 1.1,
                   transition: { duration: 0.2 },
                 }}
                 whileTap={{ scale: 0.9 }}
-                className="frosted formFont hover:bg-black active:bg-black"
+                className="frosted formFont btn hover:bg-black active:bg-black"
                 onClick={handleSignIn}
               >
                 <p>Sign In</p>
@@ -71,7 +81,7 @@ const Modal = ({ showModal, setShowModal }) => {
                   transition: { duration: 0.2 },
                 }}
                 whileTap={{ scale: 0.9 }}
-                className="frosted formFont hover:bg-black"
+                className="frosted formFont btn hover:bg-black"
                 onClick={handleSignUp}
               >
                 <p>Sign Up</p>
@@ -82,27 +92,27 @@ const Modal = ({ showModal, setShowModal }) => {
                   transition: { duration: 0.2 },
                 }}
                 whileTap={{ scale: 0.9 }}
-                className="frosted formFont hover:bg-black"
+                className="frosted formFont btn hover:bg-black"
                 onClick={handleMagicLink}
               >
                 <p>Magic Link</p>
-              </motion.button>
-              <motion.button
-                whileHover={{
-                  scale: 1.1,
-                  transition: { duration: 0.2 },
-                }}
-                whileTap={{ scale: 0.9 }}
-                className="frosted formFont hover:bg-black"
-                onClick={handleCredits}
-              >
-                <p>Credits</p>
               </motion.button>
             </div>
             {showLogin && <SignIn />}
             {showSignUp && <SignUp />}
             {showMagicLink && <MagicLink />}
           </motion.div>
+          <motion.button
+            whileHover={{
+              scale: 1.1,
+              transition: { duration: 0.2 },
+            }}
+            whileTap={{ scale: 0.9 }}
+            className="frosted formFont btn mt-4 hover:bg-black"
+            onClick={handleCredits}
+          >
+            <p>Credits</p>
+          </motion.button>
         </motion.div>
       )}
     </AnimatePresence>
