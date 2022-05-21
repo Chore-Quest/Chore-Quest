@@ -2,7 +2,6 @@ import '../styles/globals.css'
 import AppProps from 'next/app'
 import Head from 'next/head'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { supabase } from '../client'
 import { Provider } from 'react-redux'
@@ -29,13 +28,6 @@ function MyApp({ Component, pageProps } = AppProps) {
     const user = supabase.auth.user()
     setUser(user)
   }
-  const router = useRouter()
-  useEffect(() => {
-    if (!user && router.pathname !== '/' && router.pathname !== '/credits') {
-      router.push('/')
-    }
-  }, [user])
-
   return (
     <Provider store={store}>
       <Head>
