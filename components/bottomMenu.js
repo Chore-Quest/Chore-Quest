@@ -6,7 +6,7 @@ import { supabase } from '../client'
 
 export function HomeOnlyMenu() {
   return (
-    <ul className="menu menu-horizontal sticky bottom-0 w-full justify-around rounded-t-lg bg-base-300 px-6">
+    <ul className="menu menu-horizontal sticky bottom-0 w-full justify-around rounded-t-lg bg-base-300 px-6 pb-4">
       <li>
         <a href="/">
           <svg
@@ -31,7 +31,7 @@ export function HomeOnlyMenu() {
 
 export function UserBotMenu() {
   return (
-    <ul className="menu menu-horizontal sticky bottom-0 w-full justify-around rounded-t-lg bg-base-300 px-6">
+    <ul className="menu menu-horizontal sticky bottom-0 w-full justify-around rounded-t-lg bg-base-300 px-6 pb-4">
       <li>
         <a href="/">
           <svg
