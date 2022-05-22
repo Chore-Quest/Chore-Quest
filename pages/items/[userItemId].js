@@ -5,5 +5,8 @@ export default function UserItems() {
   const router = useRouter()
   const { userItemId } = router.query
 
-  return <SingleUserItem userItemId={userItemId} />
+  if (userItemId) {
+    return <SingleUserItem userItemId={userItemId} />
+  }
+  return null
 }
