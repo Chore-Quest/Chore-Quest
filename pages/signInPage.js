@@ -25,10 +25,10 @@ const SignIn = () => {
 
   return (
     <div className="flex items-center justify-center">
-      <div className="w-full max-w-lg">
-        <h1 className="text-center text-3xl font-semibold text-white">
+      <div className="w-full max-w-md">
+        <h2 className="text-center text-xl text-white">
           Sign in to your account
-        </h1>
+        </h2>
 
         <div className="flex flex-col p-6">
           <form className="flex flex-col" onSubmit={handleSignIn}>

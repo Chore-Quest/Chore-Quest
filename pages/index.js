@@ -29,11 +29,7 @@ export default function Home() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
       >
-        <main className="mx-auto h-screen">
-          <div>
-            <Modal showModal={showModal} setShowModal={setShowModal} />
-          </div>
-        </main>
+        <Modal showModal={showModal} setShowModal={setShowModal} />
       </motion.div>
     )
   }

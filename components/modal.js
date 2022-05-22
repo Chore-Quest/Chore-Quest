@@ -52,9 +52,9 @@ const Modal = ({ showModal, setShowModal }) => {
           animate="visible"
           // onClick={() => setShowModal(false)}
         >
-          <div className="container flex flex-col content-center items-center px-12 pb-8">
-            <img className="w-42" src="title-text-icon.png" alt="Chore Quest" />
-            <p className="px-6 pt-2 text-center">
+          <div className="flex max-w-lg flex-col content-center items-center px-12 pb-8">
+            <img src="title-text-icon.png" alt="Chore Quest" />
+            <p className="max-w-prose px-6 pt-2 text-center text-sm">
               Chore Quest is a platform for families to gamify chore
               assignments. Take a test drive by entering email
               'test@chore.quest' and password 'ChoreQuest1'.
@@ -62,31 +62,35 @@ const Modal = ({ showModal, setShowModal }) => {
           </div>
           <motion.div
             onClick={(e) => e.stopPropagation()}
-            className="container mx-auto px-8"
+            className="container mx-auto max-w-md"
           >
             <div className="flex flex-row flex-wrap items-center justify-center">
-              <motion.button
-                whileHover={{
-                  scale: 1.1,
-                  transition: { duration: 0.2 },
-                }}
-                whileTap={{ scale: 0.9 }}
-                className="frosted formFont btn hover:bg-black active:bg-black"
-                onClick={handleSignIn}
-              >
-                <p>Sign In</p>
-              </motion.button>
-              <motion.button
-                whileHover={{
-                  scale: 1.1,
-                  transition: { duration: 0.2 },
-                }}
-                whileTap={{ scale: 0.9 }}
-                className="frosted formFont btn hover:bg-black"
-                onClick={handleSignUp}
-              >
-                <p>Sign Up</p>
-              </motion.button>
+              <div class="btn-group">
+                <motion.button
+                  whileHover={{
+                    scale: 1.1,
+                    transition: { duration: 0.1 },
+                  }}
+                  whileTap={{ scale: 0.9 }}
+                  className="frosted formFont btn hover:bg-black active:bg-black"
+                  onClick={handleSignIn}
+                >
+                  <p>Sign In</p>
+                </motion.button>
+                <motion.button
+                  whileHover={{
+                    scale: 1.1,
+                    transition: { duration: 0.1 },
+                  }}
+                  whileTap={{ scale: 0.9 }}
+                  className="frosted formFont btn hover:bg-black"
+                  onClick={handleSignUp}
+                >
+                  <p>Sign Up</p>
+                </motion.button>
+              </div>
+            </div>
+            <div className="flex flex-row flex-wrap items-center justify-center">
               <motion.button
                 whileHover={{
                   scale: 1.1,
@@ -103,6 +107,7 @@ const Modal = ({ showModal, setShowModal }) => {
             {showSignUp && <SignUp />}
             {showMagicLink && <MagicLink />}
           </motion.div>
+
           <motion.button
             whileHover={{
               scale: 1.1,
