@@ -60,35 +60,37 @@ export default function SingleUserItem({ userItemId }) {
       ) : (
         <h1>Item not found</h1>
       )}
-      <>
-        <input type="checkbox" id="paypal-modal" className="modal-toggle" />
-        <div className={showModal ? 'modal modal-open' : 'modal'}>
-          <div className="modal-box relative">
-            <label
-              htmlFor="paypal-modal"
-              className="btn btn-circle btn-sm absolute right-2 top-2"
-              onClick={(e) => {
-                e.preventDefault()
-                setShowModal(false)
-              }}
-            >
-              ✕
-            </label>
-            <div class="card bg-base-100 shadow-xl lg:card-side">
-              <figure>
-                <img src={item.items.imageURL} alt={item.items.name} />{' '}
-              </figure>
-              <div class="card-body">
-                <h2 class="card-title text-center">
-                  Trade-in {item.items.name} for ${item.xp / 1000}
-                </h2>
-                <p></p>
-                <ButtonWrapper />
+      {item && item.id ? (
+        <>
+          <input type="checkbox" id="paypal-modal" className="modal-toggle" />
+          <div className={showModal ? 'modal modal-open' : 'modal'}>
+            <div className="modal-box relative">
+              <label
+                htmlFor="paypal-modal"
+                className="btn btn-circle btn-sm absolute right-2 top-2"
+                onClick={(e) => {
+                  e.preventDefault()
+                  setShowModal(false)
+                }}
+              >
+                ✕
+              </label>
+              <div class="card bg-base-100 shadow-xl lg:card-side">
+                <figure>
+                  <img src={item.items.imageURL} alt={item.items.name} />{' '}
+                </figure>
+                <div class="card-body">
+                  <h2 class="card-title text-center">
+                    Trade-in {item.items.name} for ${item.xp / 1000}
+                  </h2>
+                  <p></p>
+                  <ButtonWrapper />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </>
+        </>
+      ) : null}
     </>
   )
 }
