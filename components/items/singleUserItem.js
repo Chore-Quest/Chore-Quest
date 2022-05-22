@@ -76,10 +76,13 @@ export default function SingleUserItem({ userItemId }) {
             </label>
             <div class="card bg-base-100 shadow-xl lg:card-side">
               <figure>
-                {' '}
                 <img src={item.items.imageURL} alt={item.items.name} />{' '}
               </figure>
               <div class="card-body">
+                <h2 class="card-title text-center">
+                  Trade-in {item.items.name} for ${item.xp / 1000}
+                </h2>
+                <p></p>
                 <ButtonWrapper />
               </div>
             </div>
