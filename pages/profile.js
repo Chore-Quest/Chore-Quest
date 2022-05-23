@@ -51,15 +51,15 @@ export default function Profile({ session }) {
     //         </div>
 
     //         <div className="mb-5 flex justify-center">
-    //           <div class="stats flex justify-center shadow">
-    //             <div class="stat flex flex-col items-center justify-center">
+    //           <div className="stats flex justify-center shadow">
+    //             <div className="stat flex flex-col items-center justify-center">
     //               <p className="">
     //                 <span className="mb-2 flex justify-center text-6xl ">
     //                   Clan {householdInfo?.name ? householdInfo.name : null}
     //                 </span>
     //               </p>
-    //               <div class="stat-title">XP</div>
-    //               <div class="stat-value">
+    //               <div className="stat-title">XP</div>
+    //               <div className="stat-value">
     //                 {/* {profile ? profile.personalXP : null} */}
     //                 <CountUp
     //                   start={0}
@@ -76,7 +76,7 @@ export default function Profile({ session }) {
     //                   )}
     //                 </CountUp>
     //               </div>
-    //               {/* <div class="stat-desc">21% more than last month</div> */}
+    //               {/* <div className="stat-desc">21% more than last month</div> */}
     //               <h1 className="mb-2 flex justify-center text-4xl">
     //                 {profile ? profile.username : 'Guest'}
     //               </h1>

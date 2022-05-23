@@ -67,7 +67,7 @@ export default function SingleUserItem({ userItemId }) {
             <div className="modal-box relative">
               <label
                 htmlFor="paypal-modal"
-                className="btn btn-circle btn-sm absolute right-2 top-2"
+                class="btn btn-circle btn-md absolute right-2 top-2 z-40 text-2xl"
                 onClick={(e) => {
                   e.preventDefault()
                   setShowModal(false)
@@ -75,16 +75,25 @@ export default function SingleUserItem({ userItemId }) {
               >
                 ✕
               </label>
-              <div class="card bg-base-100 shadow-xl lg:card-side">
+              <div className="card bg-base-100 shadow-xl lg:card-side">
                 <figure>
                   <img src={item.items.imageURL} alt={item.items.name} />{' '}
                 </figure>
-                <div class="card-body">
-                  <h2 class="card-title text-center">
+                <div className="card-body">
+                  <h2 className="card-title text-center">
                     Trade-in {item.items.name} for ${item.xp / 1000}
                   </h2>
                   <p></p>
                   <ButtonWrapper />
+                  <button
+                    className="btn btn-outline btn-accent btn-sm"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      setShowModal(false)
+                    }}
+                  >
+                    Cancel
+                  </button>
                 </div>
               </div>
             </div>

@@ -65,7 +65,7 @@ const Modal = ({ showModal, setShowModal }) => {
             className="container mx-auto max-w-md"
           >
             <div className="flex flex-row flex-wrap items-center justify-center">
-              <div class="btn-group">
+              <div className="btn-group">
                 <motion.button
                   whileHover={{
                     scale: 1.1,
