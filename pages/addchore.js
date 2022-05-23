@@ -44,9 +44,6 @@ export default function AddChore() {
     setChore({
       name: '',
       notes: '',
-      // household_id: singleProfile.household_id,
-      // item: '',
-      // isComplete: '',
     })
   }
   return (

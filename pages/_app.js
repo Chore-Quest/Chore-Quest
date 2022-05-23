@@ -37,10 +37,11 @@ function MyApp({ Component, pageProps } = AppProps) {
       <ToastContainer />
       <Nav user={user} />
       <AnimatePresence exitBeforeEnter>
-        <div id="app" className="bg-base container min-h-screen w-full">
-          <div className="py-8 px-4">
-            <Component {...pageProps} />
-          </div>
+        <div
+          id="app"
+          className="bg-base container min-h-screen w-full py-8 px-8"
+        >
+          <Component {...pageProps} />
         </div>
       </AnimatePresence>
       <BottomMenu />

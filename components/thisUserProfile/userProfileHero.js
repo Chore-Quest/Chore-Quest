@@ -62,7 +62,6 @@ export default function UserProfileHero({ profile, householdInfo }) {
             </div>
             <p>
               <span className="mb-2 flex justify-center text-2xl ">
-                {' '}
                 {householdInfo && householdInfo.name
                   ? `Clan ${householdInfo.name}`
                   : null}
