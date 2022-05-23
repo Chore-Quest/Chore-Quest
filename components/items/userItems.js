@@ -28,7 +28,7 @@ export default function UserItems() {
                     <div className="-top-20 rounded-full bg-gradient-to-tr from-stone-900 to-red-900 md:absolute md:-right-28 md:-top-10 md:z-10 md:h-96 md:w-96"></div>
                     <img
                       src={item.items.imageURL}
-                      className="fixed z-40 object-scale-down md:rotate-12"
+                      className="absolute z-40 object-scale-down md:rotate-12"
                     />
                     <div className="absolute flex shrink items-center justify-center border-yellow-300 pt-3 md:bottom-0 md:p-5">
                       <a href={`items/${encodeURIComponent(item.id)}`}>
