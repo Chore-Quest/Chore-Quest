@@ -1,9 +1,37 @@
 import React from 'react'
+import { useEffect } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { supabase } from '../client'
 
-export default function BottomMenu() {
+export function HomeOnlyMenu() {
   return (
-    <ul className="menu menu-horizontal sticky bottom-0 w-full justify-between rounded-t-lg bg-base-300 px-6">
+    <ul className="menu menu-horizontal sticky bottom-0 w-full justify-around rounded-t-lg bg-base-300 px-6 pb-4">
+      <li>
+        <a href="/">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-8 w-8"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+            />
+          </svg>
+        </a>
+      </li>
+    </ul>
+  )
+}
+
+export function UserBotMenu() {
+  return (
+    <ul className="menu menu-horizontal sticky bottom-0 w-full justify-around rounded-t-lg bg-base-300 px-6 pb-4">
       <li>
         <a href="/">
           <svg
@@ -58,4 +86,17 @@ export default function BottomMenu() {
       </li>
     </ul>
   )
+}
+
+export default function BottomMenu() {
+  const user = supabase.auth.user()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!user && router.pathname !== '/' && router.pathname !== '/credits') {
+      router.push('/')
+    }
+  }, [user])
+
+  return <>{user ? <UserBotMenu /> : <HomeOnlyMenu />}</>
 }

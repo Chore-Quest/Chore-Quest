@@ -17,13 +17,6 @@ export default function Home() {
   const close = () => setShowModal(false)
   const open = () => setShowModal(true)
 
-  // useEffect(() => {
-  //   // setSession(supabase.auth.session())
-  //   // supabase.auth.onAuthStateChange((_event, session) => {
-  //   //   session ? setSession(session) : null
-  //   })
-  // }, [])
-
   if (session) {
     {
       router.push('/profile')
@@ -36,11 +29,7 @@ export default function Home() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
       >
-        <main className="mx-auto h-screen">
-          <div>
-            <Modal showModal={showModal} setShowModal={setShowModal} />
-          </div>
-        </main>
+        <Modal showModal={showModal} setShowModal={setShowModal} />
       </motion.div>
     )
   }

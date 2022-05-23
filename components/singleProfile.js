@@ -64,14 +64,10 @@ export default function Profile(props) {
         <div className="mb-5 flex justify-center">
           <div className="stats flex justify-center shadow">
             <div className="stat flex flex-col items-center justify-center">
-              <p className="">
-                <span className="mb-2 flex justify-center text-6xl ">
-                  Clan {householdInfo?.name ? householdInfo.name : null}
-                </span>
-              </p>
-              <div className="stat-title">XP</div>
+              <h1 className="mb-2 flex justify-center text-xl">
+                {profile ? profile.username : 'Guest'}
+              </h1>
               <div className="stat-value">
-                {/* {profile ? profile.personalXP : null} */}
                 <CountUp start={0} end={profile?.personalXP} delay={0}>
                   {({ countUpRef }) => (
                     <div>
@@ -79,14 +75,16 @@ export default function Profile(props) {
                         ref={countUpRef}
                         className=" bg-gradient-to-r from-amber-200 to-amber-700 bg-clip-text text-7xl font-extrabold text-transparent drop-shadow-2xl"
                       />
+                      XP
                     </div>
                   )}
                 </CountUp>
               </div>
-              {/* <div class="stat-desc">21% more than last month</div> */}
-              <h1 className="mb-2 flex justify-center text-4xl">
-                {profile ? profile.username : 'Guest'}
-              </h1>
+              <p className="">
+                <span className="mb-2 flex justify-center text-lg ">
+                  Clan {householdInfo?.name ? householdInfo.name : null}
+                </span>
+              </p>
             </div>
           </div>
         </div>

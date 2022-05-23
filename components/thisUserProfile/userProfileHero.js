@@ -40,17 +40,10 @@ export default function UserProfileHero({ profile, householdInfo }) {
       <div className="mb-5 flex justify-center">
         <div className="stats flex justify-center shadow">
           <div className="stat flex flex-col items-center justify-center">
-            <p className="">
-              <span className="mb-2 flex justify-center text-6xl ">
-                {' '}
-                {householdInfo && householdInfo.name
-                  ? `Clan ${householdInfo.name}`
-                  : null}
-              </span>
-            </p>
-            <div className="stat-title">XP</div>
+            <h1 className="mb-2 flex justify-center text-6xl">
+              {profile ? profile.username : 'Guest'}
+            </h1>
             <div className="stat-value">
-              {/* {profile ? profile.personalXP : null} */}
               <CountUp
                 start={0}
                 end={profile ? profile.personalXP : 0}
@@ -62,14 +55,18 @@ export default function UserProfileHero({ profile, householdInfo }) {
                       ref={countUpRef}
                       className=" bg-gradient-to-r from-amber-200 to-amber-700 bg-clip-text text-7xl font-extrabold text-transparent drop-shadow-2xl"
                     />
+                    XP
                   </div>
                 )}
               </CountUp>
             </div>
-            {/* <div className="stat-desc">21% more than last month</div> */}
-            <h1 className="mb-2 flex justify-center text-4xl">
-              {profile ? profile.username : 'Guest'}
-            </h1>
+            <p>
+              <span className="mb-2 flex justify-center text-2xl ">
+                {householdInfo && householdInfo.name
+                  ? `Clan ${householdInfo.name}`
+                  : null}
+              </span>
+            </p>
             <div className="mb-4 flex flex-row justify-center gap-4">
               <button
                 className="frosted rounded-lg border-gray-300 bg-gray-500 p-2 pl-5  text-lg text-gray-100 focus:border-4"

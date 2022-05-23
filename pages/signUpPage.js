@@ -25,10 +25,8 @@ const SignUp = () => {
 
   return (
     <div className="flex items-center justify-center">
-      <div className="w-full max-w-lg">
-        <h1 className="text-center text-3xl font-semibold text-white">
-          Create new account
-        </h1>
+      <div className="w-full max-w-md">
+        <h2 className="text-center text-xl text-white">Create new account</h2>
 
         <form className="mt-1 flex flex-col p-6" onSubmit={handleSubmit}>
           <label htmlFor="email" className="text-gray-200">

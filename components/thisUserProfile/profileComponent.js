@@ -49,9 +49,9 @@ export default function ProfilePage() {
   //after loading, display content components
   if (!profileLoading && !householdLoading)
     return (
-      <div className="container min-h-screen">
+      <>
         <UserProfileHero householdInfo={householdInfo} profile={profile} />
         {profile && profile.id ? <UserChores userId={profile.id} /> : null}
-      </div>
+      </>
     )
 }
