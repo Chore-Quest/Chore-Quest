@@ -1,6 +1,6 @@
-# Next.js + Tailwind CSS Example
+# Chore Quest
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+Chore Quest is a platform for families to gamify chore assignments. The goal is to create an incentivised and engaging application for users to complete their chores! Household owners can assign chores and household members can complete chores to earn XP and rewards. 
 
 ## Deploy your own
 
