@@ -49,7 +49,7 @@ export default function CreditsPage() {
       linkedIn: 'https://www.linkedin.com/in/christopherly25/',
       gitHub: 'https://github.com/LyChristopherC',
       imageURL:
-        'https://media-exp1.licdn.com/dms/image/D4E35AQHyzKgBjeusxg/profile-framedphoto-shrink_800_800/0/1650995970304?e=1653681600&v=beta&t=ui5i-aLgf__Se3LgqmJEWU_12K3KraZKG2ZCM-qOQms',
+        'https://media-exp1.licdn.com/dms/image/C4E03AQGFogwiId38Kg/profile-displayphoto-shrink_800_800/0/1650984944053?e=1658966400&v=beta&t=YHy0HjMeWsgf1b52S_iz51oJ1WcXmiza66v-UzNeaXE',
     },
     {
       name: 'Demetrius Robinson',
